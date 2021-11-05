@@ -17,7 +17,7 @@ class _ContacthistoryState extends State<Contacthistory> {
             automaticallyImplyLeading: true,
             title: const Text('Contact History'),
             actions: [
-              IconButton(
+               IconButton(
                 onPressed: () {},
                 icon: Icon(
                   Icons.notifications,

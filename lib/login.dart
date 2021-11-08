@@ -3,6 +3,8 @@ import 'package:pert/constants/colors.dart';
 import 'package:pert/screens/home.dart';
 import 'package:pert/screens/signup.dart';
 
+import 'constants/constants.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -53,12 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 15.0,
                 ),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()));
-                  },
+                  onTap: () => authController.auth.signInWithEmailAndPassword(email: name.text, password: password.text),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(13.0),
                     child: Container(

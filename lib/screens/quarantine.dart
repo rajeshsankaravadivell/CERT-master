@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pert/constants/colors.dart';
+import 'package:pert/models/usermodel.dart';
 
 class QuarantinePage extends StatefulWidget {
-  const QuarantinePage({Key? key}) : super(key: key);
+  QuarantinePage({Key? key, this.quarantine}) : super(key: key);
+
+  final Quarantine? quarantine;
 
   @override
   _QuarantinePageState createState() => _QuarantinePageState();
@@ -80,7 +83,7 @@ class _QuarantinePageState extends State<QuarantinePage> {
                                           color: Colors.grey[600]),
                                       children: [
                                         TextSpan(
-                                          text: 'Sample Adddress',
+                                          text: widget.quarantine!.location.place,
                                           style: TextStyle(
                                               fontWeight: FontWeight.normal,
                                               color: Colors.grey[500]),
@@ -90,13 +93,13 @@ class _QuarantinePageState extends State<QuarantinePage> {
                               ),
                               RichText(
                                 text: TextSpan(
-                                    text: 'Block : ',
+                                    text: "Block :",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.grey[600]),
                                     children: [
                                       TextSpan(
-                                        text: '5A',
+                                        text: widget.quarantine!.location.block,
                                         style: TextStyle(
                                             fontWeight: FontWeight.normal,
                                             color: Colors.grey[500]),

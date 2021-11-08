@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:pert/constants/colors.dart';
+import 'package:pert/models/profileModel.dart';
+import 'package:pert/models/usermodel.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key, this.profile, this.user}) : super(key: key);
+  final Profile? profile;
+  final UserModel? user;
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfilePageState extends State<ProfilePage> {
   bool isEdit = false;
   @override
   Widget build(BuildContext context) {
@@ -221,19 +225,16 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 ResultWidget(
                                   heading: 'Name',
-                                  text: 'Test User',
+                                  text: '${widget.profile!.name}',
                                 ),
                                 Divider(),
-                                ResultWidget(heading: 'ID', text: '5001'),
-                                Divider(),
-                                ResultWidget(
-                                  heading: 'Group ID',
-                                  text: '5051',
-                                ),
+                                ResultWidget(heading: 'ID', text: '${widget.profile!.id}'),
+
+
                                 Divider(),
                                 ResultWidget(
                                   heading: 'IC No',
-                                  text: 'Afrger43',
+                                  text: '${widget.profile!.icNumber}',
                                 ),
                                 Divider(),
                                 ResultWidget(
@@ -248,27 +249,27 @@ class _ProfileState extends State<Profile> {
                                 Divider(),
                                 ResultWidget(
                                   heading: 'Phone No',
-                                  text: '+65 0546 5785',
+                                  text: '${widget.profile!.phoneNumber}',
                                 ),
                                 Divider(),
                                 ResultWidget(
-                                  heading: 'Address Lane 1',
-                                  text: 'Address 1 Malaysia',
+                                  heading: 'Permanent Address',
+                                  text: '${widget.profile!.permanentAddress}',
                                 ),
                                 Divider(),
                                 ResultWidget(
-                                  heading: 'Address Lane 2',
-                                  text: 'Address 2 Malaysia',
+                                  heading: 'Temporary Address ',
+                                  text: '${widget.profile!.currentAddress}',
                                 ),
                                 Divider(),
                                 ResultWidget(
                                   heading: 'State',
-                                  text: 'Kualumpur Federal Teritory',
+                                  text: '${widget.profile!.state}',
                                 ),
                                 Divider(),
                                 ResultWidget(
                                   heading: 'Postal/Zip Code',
-                                  text: '56758',
+                                  text: '${widget.profile!.pincode}',
                                 ),
                                 Divider(),
                               ],

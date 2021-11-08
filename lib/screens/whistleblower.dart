@@ -5,14 +5,14 @@ import 'package:pert/widgets/customtextbox.dart';
 import 'package:flutter/material.dart';
 
 
-class AnnouncmentWidget extends StatefulWidget {
-  AnnouncmentWidget({Key? key}) : super(key: key);
+class WhistleBlower extends StatefulWidget {
+  WhistleBlower({Key? key}) : super(key: key);
 
   @override
-  _AnnouncmentWidgetState createState() => _AnnouncmentWidgetState();
+  _WhistleBlowerState createState() => _WhistleBlowerState();
 }
 
-class _AnnouncmentWidgetState extends State<AnnouncmentWidget> {
+class _WhistleBlowerState extends State<WhistleBlower> {
   TextEditingController? textController1;
   TextEditingController? textController2;
   TextEditingController? textController3;

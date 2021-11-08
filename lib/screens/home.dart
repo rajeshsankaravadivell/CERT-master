@@ -4,6 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pert/constants/colors.dart';
+import 'package:pert/constants/constants.dart';
+import 'package:pert/screens/announcementpage.dart';
 import 'package:pert/screens/anouncement.dart';
 import 'package:pert/screens/contacthistory.dart';
 import 'package:pert/screens/covidstatus.dart';
@@ -31,7 +33,37 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.exit_to_app,color: Color(0xFFEF4C43),),
+        leading: IconButton(
+          onPressed: () {
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text(
+                  'SingOut!!!!',
+                  style: TextStyle(color: Colors.black),
+                ),
+                content: const Text('Are you sure want to Logout'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      authController.auth.logout();
+                      Navigator.pop(context, 'OK');
+                    },
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+            );
+          },
+          icon: Icon(
+            Icons.logout,
+            color: Color(0xFFED392D),
+          ),
+        ),
         actions: const [
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -139,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const QuarantinePage(),
+                        builder: (context) =>  QuarantinePage(quarantine: userController.user.quarantine,),
                       ),
                     ),
                     child: Tile(
@@ -148,9 +180,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   InkWell(
-                    onTap: (){
-                      Get.to(()=>AnnouncmentWidget());
-    },
+                    onTap: ()=> Get.to(()=>WhistleBlower()),
 
                     child: Tile(
                       title: 'Whistle Blower',
@@ -158,12 +188,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   InkWell(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AnnouncementPage(),
-                      ),
-                    ),
+                    onTap: () => Get.to(()=>AnnouncementWidget()),
                     child: Tile(
                       title: 'Announcement',
                       image: 'assets/studenthomepage/announcement.png',
@@ -173,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Profile(),
+                        builder: (context) =>  ProfilePage(profile: userController.user.bioData,),
                       ),
                     ),
                     child: Tile(

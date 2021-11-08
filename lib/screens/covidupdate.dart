@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pert/constants/constants.dart';
 
 
 
@@ -12,8 +13,6 @@ class CovidUpdate extends StatefulWidget {
 }
 
 class _CovidUpdateState extends State<CovidUpdate> {
-  SingingCharacter? _character = SingingCharacter.No;
-
 
   @override
   Widget build(BuildContext context) {
@@ -22,29 +21,30 @@ class _CovidUpdateState extends State<CovidUpdate> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Test Result',style: Theme.of(context).textTheme.bodyText1),
+          padding: const EdgeInsets.all(16),
+          child: Text('Test Result', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey.shade700, fontSize: 18.0),),
         ),
         ListTile(
           title: const Text('Yes'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.Yes,
-            groupValue: _character,
-            onChanged: (SingingCharacter? value) {
+          leading: Radio<bool>(
+            value: true
+            ,
+            groupValue:userController.user.covidInfo!.result,
+            onChanged: (bool? value) {
               setState(() {
-                _character = value;
+                userController.user.covidInfo!.result = value!;
               });
             },
           ),
         ),
         ListTile(
           title: const Text('No'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.No,
-            groupValue: _character,
-            onChanged: (SingingCharacter? value) {
+          leading: Radio<bool>(
+            value: false,
+            groupValue: userController.user.covidInfo!.result,
+            onChanged: (bool? value) {
               setState(() {
-                _character = value;
+                userController.user.covidInfo!.result= value!;
               });
             },
           ),

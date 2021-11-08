@@ -9,7 +9,7 @@ class Announcement {
     required this.title,
     required this.description,
     this.content,
-    required this.documentId,
+    // required this.documentId,
     this.createdDate,
   });
 
@@ -17,7 +17,7 @@ class Announcement {
   String title;
   String description;
   String? content;
-  late String documentId;
+  // late String documentId;
   DateTime? createdDate;
 
   static createAnnouncement({
@@ -35,16 +35,23 @@ class Announcement {
         title: json["title"],
         description: json["description"],
         content: json["content"],
-        documentId: json["documentID"],
-        createdDate: DateTime.parse(json["createdDate"]),
+        // documentId: json["documentID"],
+        createdDate: json["createdDate"].toDate(),
       );
+  static Future<QuerySnapshot<Map<String, dynamic>>> getAnnouncement(DocumentSnapshot? AnnouncmentSnapshot) {
+    if (AnnouncmentSnapshot != null) {
+      return announcements.orderBy("createdDate").startAfterDocument(AnnouncmentSnapshot).limit(15).get();
+    } else {
+      return announcements.limit(15).get();
+    }
+  }
 
   Map<String, dynamic> toJson() => {
         "attachementUrl": attachementUrl,
         "title": title,
         "description": description,
         "content": content,
-        "documentID": documentId,
+        // "documentID": documentId,
         "createdDate": createdDate
       };
 }

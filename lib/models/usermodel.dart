@@ -61,9 +61,9 @@ class UserModel {
     }
   }
 
-  updateUser(String? userid) async {
+  updateUser() async {
     try {
-      await users.doc(userid != null ? userid : this.uid).update(this.toJson());
+      await users.doc(uid).update(toJson());
       return {"code": "Success", "message": "User Successfully Updated"};
     } catch (exception) {
       return exception;
@@ -202,6 +202,10 @@ class CovidInfo {
     this.date,
     this.vaccinated = false,
     this.vaccinatedOn,
+    this.question1 = false,
+    this.question2 = false,
+    this.question3 = false,
+    this.question4 = false,
   });
 
   bool result;
@@ -210,14 +214,22 @@ class CovidInfo {
   DateTime? date;
   bool vaccinated;
   DateTime? vaccinatedOn;
+  bool? question1;
+  bool? question2;
+  bool? question3;
+  bool? question4;
 
   factory CovidInfo.fromJson(Map<String, dynamic> json) => CovidInfo(
-        result: json["result"],
+        result: json["result"] ?? false,
         method: json["method"],
         type: json["type"],
-        date: DateTime.parse(json["date"]),
+        date: json["date"] != null ? json["date"].toDate() : null,
         vaccinated: json["vaccinated"],
-        vaccinatedOn: DateTime.parse(json["vaccinatedOn"]),
+        vaccinatedOn: json["vaccinatedOn"] != null ? json["vaccinatedOn"].toDate() : null,
+        question1: json["question1"] ?? false,
+        question2: json["question2"]?? false,
+        question3: json["question3"]?? false,
+        question4: json["question4"]?? false,
       );
 
   Map<String, dynamic> toJson() => {
@@ -227,6 +239,10 @@ class CovidInfo {
         "date": date,
         "vaccinated": vaccinated,
         "vaccinatedOn": vaccinatedOn,
+        "question1": question1,
+        "question2": question2,
+        "question3": question4,
+        "question4": question4,
       };
 }
 

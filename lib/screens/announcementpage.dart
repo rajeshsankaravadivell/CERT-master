@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pert/models/admin.dart';
 import 'package:pert/models/announcements.dart';
-import 'package:pert/models/profileModel.dart';
+import 'package:pert/models/profile_model.dart';
 import 'package:pert/services/db.dart';
 
 class AnnouncementWidget extends StatefulWidget {
@@ -65,7 +65,7 @@ class _AnnouncementWidgetState extends State<AnnouncementWidget> {
           ),
         ),
         title: Text(
-          'Covid Status',
+          'Announcements',
           style: TextStyle(
             color: Colors.white,
             fontSize: 16,

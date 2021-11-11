@@ -1,15 +1,18 @@
 // To parse this JSON data, do
 //
 //     final profile = profileFromJson(jsonString);
-
+import 'dart:io';
 import 'dart:convert';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:pert/constants/constants.dart';
+import 'package:path/path.dart';
 
 FirebaseFunctions functions = FirebaseFunctions.instance;
 FirebaseFirestore firestore = FirebaseFirestore.instance;
+FirebaseStorage storage = FirebaseStorage.instance;
 CollectionReference<Map<String, dynamic>> admins = firestore.collection('Admins');
 CollectionReference<Map<String, dynamic>> certs = firestore.collection('Certs');
 
@@ -18,18 +21,20 @@ Profile profileFromJson(String str) => Profile.fromJson(json.decode(str));
 String profileToJson(Profile data) => json.encode(data.toJson());
 
 class Profile {
-  Profile({
-    required this.id,
-    required this.icNumber,
-    required this.email,
-    required this.name,
-    this.photoUrl,
-    this.phoneNumber,
-    this.state,
-    this.permanentAddress,
-    this.currentAddress,
-    this.pincode,
-  });
+  Profile(
+      {required this.id,
+      required this.icNumber,
+      required this.email,
+      required this.name,
+      this.photoUrl,
+      this.state,
+      this.phoneNumber,
+      this.permanentAddress,
+      this.currentAddress,
+      this.pincode,
+      this.age,
+      this.imageUrl,
+      });
 
   String id;
   String icNumber;
@@ -40,8 +45,26 @@ class Profile {
   String? permanentAddress;
   String? currentAddress;
   int? pincode;
-
+  int? age;
+  String? imageUrl;
   String? phoneNumber;
+
+  static Future<dynamic> uploadPhoto() async {
+    String? url;
+    try {
+      var xfile = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if(xfile!=null){
+        var filePath = xfile.path;
+        var file = File(filePath);
+        await storage.ref("profiles").child(basename(file.path)).putFile(file).then((snapshot) async {
+          url = await snapshot.ref.getDownloadURL();
+        });
+      }
+      return url;
+    }catch(e){
+      return e;
+    }
+  }
 
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
         id: json["id"],
@@ -54,6 +77,8 @@ class Profile {
         pincode: json["pincode"],
         icNumber: json["icNumber"],
         phoneNumber: json["phoneNumber"],
+        age: json["age"] ?? 0,
+    imageUrl: json["imageUrl"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -67,6 +92,8 @@ class Profile {
         "pincode": pincode,
         "icNumber": icNumber,
         "phoneNumber": phoneNumber,
+        "age": age,
+        "imageUrl":imageUrl,
       };
 }
 
@@ -91,12 +118,13 @@ class SuperUser {
         if (userRecord.data["errorInfo"] != null) {
           print("Returning ErrorInfo in UserRecord ");
           return userRecord.data["errorInfo"];
-        } else
+        } else {
           return authController.auth.resetPassword(email: userRecord.data["email"]).then((value) async {
             print("Triggered User Document Creation");
             await admins.doc(userRecord.data["uid"]).set(SuperUser(bioData: profile, uid: userRecord.data["uid"], isAdmin: true).toJson());
             return {"code": "Success", "message": "User Successfully Created"};
           });
+        }
       });
     } catch (exception) {
       return exception;
@@ -111,12 +139,13 @@ class SuperUser {
         if (userRecord.data["errorInfo"] != null) {
           print("Returning ErrorInfo in UserRecord ");
           return userRecord.data["errorInfo"];
-        } else
+        } else {
           return authController.auth.resetPassword(email: userRecord.data["email"]).then((value) async {
             print("Triggered User Document Creation");
             await certs.doc(userRecord.data["uid"]).set(SuperUser(bioData: profile, uid: userRecord.data["uid"], isAdmin: false).toJson());
             return {"code": "Success", "message": "User Successfully Created"};
           });
+        }
       });
     } catch (exception) {
       return exception;
@@ -138,6 +167,9 @@ class SuperUser {
       return admins.orderBy("id").limit(15).get();
     }
   }
+
+
+
 
   factory SuperUser.fromJson(Map<String, dynamic> json) =>
       SuperUser(bioData: Profile.fromJson(json["bioData"]), uid: json["uid"], isAdmin: json["isAdmin"], fcm: json["fcm"]);

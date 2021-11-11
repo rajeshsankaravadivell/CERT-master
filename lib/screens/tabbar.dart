@@ -32,13 +32,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> with TickerProvider
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         // toolbarHeight: 10,
-        title: Text(
-          _title!,
-          style: TextStyle(color: Colors.black),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 60),
+          child: Text(
+            'Covid Status',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
 
         bottom: TabBar(
+
+
 
           controller: _tabController,
           tabs: <Widget>[

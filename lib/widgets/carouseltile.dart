@@ -3,16 +3,14 @@ import 'package:flutter/material.dart';
 
 final List<Widget> imageSliders = imgList
     .map((item) => Padding(
-      padding: const EdgeInsets.all(4
-      ),
+      padding: const EdgeInsets.all(4),
       child: Material(
-
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
   elevation: 5,
   child: Container(
-      margin: EdgeInsets.all(4),
+      margin: const EdgeInsets.all(4),
       child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(18)),
+          borderRadius: const BorderRadius.all(Radius.circular(18)),
           child: Stack(
             children: <Widget>[
               Image.network(item, fit: BoxFit.cover, width: 1000.0),

@@ -1,10 +1,9 @@
-import 'dart:convert';
+
 
 import 'package:flutter/material.dart';
 import 'package:pert/constants/colors.dart';
 import 'package:pert/constants/constants.dart';
-import 'package:pert/models/usermodel.dart';
-import 'package:pert/widgets/customtile.dart';
+
 
 class CovidStatusTab extends StatefulWidget {
   const CovidStatusTab({Key? key}) : super(key: key);
@@ -36,7 +35,7 @@ class _CovidStatusTabState extends State<CovidStatusTab> {
                   fit: BoxFit.cover,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -46,18 +45,19 @@ class _CovidStatusTabState extends State<CovidStatusTab> {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: 'Symptomatic',
-                                  style: TextStyle(fontWeight: FontWeight.normal, color: cardcolor, fontSize: 16.0),
+                                  text: userController.user.covidInfo!.type,
+                                  style: TextStyle(fontWeight: FontWeight.normal, color: cardcolor, fontSize: 15.0),
                                 ),
                               ],
-                              text: 'Type : ',
-                              style: TextStyle(fontWeight: FontWeight.bold, color: cardcolor, fontSize: 18.0),
+                              text: 'Type                          : ',
+                              style: TextStyle(fontWeight: FontWeight.bold, color: cardcolor, fontSize: 15.0),
                             ),
                           ),
                           const Spacer(),
                           Container(
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
+                            height: 30,
+                            width: 100,
+                            child: Center(
                               child: Text(
                                 'Negative',
                                 style: TextStyle(fontWeight: FontWeight.bold, color: cardcolor),
@@ -70,27 +70,37 @@ class _CovidStatusTabState extends State<CovidStatusTab> {
                           )
                         ],
                       ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Swab',
-                              style: TextStyle(fontWeight: FontWeight.normal, color: cardcolor, fontSize: 16.0),
-                            ),
-                          ],
-                          text: 'Test Method : ',
-                          style: TextStyle(fontWeight: FontWeight.bold, color: cardcolor, fontSize: 18.0),
+
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text:userController.user.covidInfo!.method,
+                                style: TextStyle(fontWeight: FontWeight.normal, color: cardcolor, fontSize: 15.0),
+                              ),
+                            ],
+                            text: 'Test Method            : ',
+                            style: TextStyle(fontWeight: FontWeight.bold, color: cardcolor, fontSize: 15.0),
+                          ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      Text(
-                        'Not vaccinated',
-                        style: TextStyle(color: cardcolor, fontSize: 17.0),
+
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text:userController.user.covidInfo!.vaccinated.toString(),
+                                style: TextStyle(fontWeight: FontWeight.normal, color: cardcolor, fontSize: 15.0),
+                              ),
+                            ],
+                            text: 'Vaccination Status : ',
+                            style: TextStyle(fontWeight: FontWeight.bold, color: cardcolor, fontSize: 15.0),
+                          ),
+                        ),
                       ),
                     ],
                   ),

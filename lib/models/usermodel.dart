@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:pert/constants/constants.dart';
-import 'profileModel.dart';
+import 'profile_model.dart';
 
 FirebaseFunctions functions = FirebaseFunctions.instance;
 FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -47,7 +47,7 @@ class UserModel {
         if (userRecord.data["errorInfo"] != null) {
           print("Returning ErrorInfo in UserRecord ");
           return userRecord.data["errorInfo"];
-        } else
+        } else {
           return authController.auth.resetPassword(email: userRecord.data["email"]).then((value) async {
             print("Triggered User Document Creation");
             await users.doc(userRecord.data["uid"]).set(
@@ -55,6 +55,7 @@ class UserModel {
                 );
             return {"code": "Success", "message": "User Successfully Created"};
           });
+        }
       });
     } catch (exception) {
       return exception;
@@ -247,17 +248,43 @@ class CovidInfo {
 }
 
 class ContactHistory {
-  ContactHistory({required this.contact, required this.fcm, required this.totalTimeinContact});
+  ContactHistory(
+      {required this.contact, required this.fcm, required this.totalTimeinContact, this.deviceID, this.groupId, this.gateWay, this.lastContact, this.covidStatus = false});
 
   String contact;
+  bool covidStatus;
+  int? groupId;
+  int? deviceID;
   String fcm;
   int totalTimeinContact;
+  String? gateWay;
+  DateTime? lastContact;
 
   factory ContactHistory.fromJson(Map<String, dynamic> json) => ContactHistory(
-        contact: json["contact"],
-        fcm: json["fcm"],
-        totalTimeinContact: json["totalTimeinContact"],
-      );
+    contact: json["contact"],
+    fcm: json["fcm"],
+    totalTimeinContact: json["totalTimeinContact"],
+    groupId: json["groupId"],
+    deviceID: json["deviceID"],
+    gateWay: json["gateWay"],
+    lastContact: DateTime.now(),
+  );
 
-  Map<String, dynamic> toJson() => {"contact": contact, "fcm": fcm, "totalTimeinContact": totalTimeinContact};
+  Map<String, dynamic> toJson() => {
+    "contact": contact,
+    "fcm": fcm,
+    "totalTimeinContact": totalTimeinContact,
+    "deviceId": deviceID,
+    "groupId": groupId,
+    "gateWay": gateWay,
+    "lastContact": lastContact,
+  };
+
+  static getDummyContacts() {
+    return [
+      ContactHistory(contact: "user1", fcm: "fcm", totalTimeinContact: 50, deviceID: 1001, groupId: 1000),
+      ContactHistory(contact: "user2", fcm: "fcm", totalTimeinContact: 15, deviceID: 2001, groupId: 2000),
+      ContactHistory(contact: "user3", fcm: "fcm", totalTimeinContact: 10, deviceID: 3001, groupId: 3000),
+    ];
+  }
 }

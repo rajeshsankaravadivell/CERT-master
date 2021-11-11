@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pert/constants/colors.dart';
 import 'package:pert/models/usermodel.dart';
 
@@ -19,6 +20,7 @@ class _QuarantinePageState extends State<QuarantinePage> {
         appBar: AppBar(
           automaticallyImplyLeading: true,
           title: const Text('Quarantine History'),
+          centerTitle: true,
           actions: [
             IconButton(
               onPressed: () {},

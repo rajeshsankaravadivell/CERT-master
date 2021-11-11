@@ -1,19 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pert/constants/colors.dart';
 import 'package:pert/constants/constants.dart';
 import 'package:pert/screens/announcementpage.dart';
-import 'package:pert/screens/anouncement.dart';
-import 'package:pert/screens/contacthistory.dart';
-import 'package:pert/screens/covidstatus.dart';
 import 'package:pert/screens/profile.dart';
 import 'package:pert/screens/quarantine.dart';
 import 'package:pert/screens/tabbar.dart';
 import 'package:pert/screens/whistleblower.dart';
 import 'package:pert/widgets/carouseltile.dart';
+import 'contact_list.dart';
 
 
 
@@ -33,6 +29,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
+        backgroundColor: Colors.white,
+
         leading: IconButton(
           onPressed: () {
             showDialog<String>(
@@ -84,65 +83,64 @@ class _HomePageState extends State<HomePage> {
 
       ),
       // backgroundColor: kprimaryColor,
-      body:Padding(
-        padding: const EdgeInsets.all(8),
-        child:Column(
+      body:SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Padding(
+          padding:  EdgeInsets.all(8),
+          child:Column(
 
-          children: [
-            // Container(
-            //   color: bgcolor,
-            //   height: MediaQuery.of(context).size.height * 0.10,
-            //   child: Row(
-            //     children: [
-            //       Image.asset(
-            //         'assets/studentloginpage/iukl_logo.png',
-            //         fit: BoxFit.cover,
-            //       ),
-            //       const Spacer(),
-            //       IconButton(
-            //         onPressed: () {},
-            //         icon: Icon(
-            //           Icons.notifications,
-            //           color: kprimaryColor,
-            //           size: 35,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
-            CarouselSlider(
-
-              options: CarouselOptions(
-                height: 150,
-                autoPlay:true,
-                aspectRatio: 2,
-                enlargeCenterPage: true,
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
-              ),
-              items: imageSliders
-
-              // imgList
-              //     .map((item) => Material(
-              //       elevation: 5,
-              //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-              //       child: Container(
-              //         color: kprimaryColor,
-              //
-              //         height:MediaQuery.of(context).size.height * 0.18 ,
-              //         width: MediaQuery.of(context).size.width*0.956,
-              //
-              //         child: Center(child: Image.network(item, fit: BoxFit.cover, width: 1000)),
-              //
-              //
+            children: [
+              // Container(
+              //   color: bgcolor,
+              //   height: MediaQuery.of(context).size.height * 0.10,
+              //   child: Row(
+              //     children: [
+              //       Image.asset(
+              //         'assets/studentloginpage/iukl_logo.png',
+              //         fit: BoxFit.cover,
               //       ),
-              //     ))
-              //     .toList(),
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              height: 546,
-              child: GridView(
+              //       const Spacer(),
+              //       IconButton(
+              //         onPressed: () {},
+              //         icon: Icon(
+              //           Icons.notifications,
+              //           color: kprimaryColor,
+              //           size: 35,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+
+              CarouselSlider(
+
+                options: CarouselOptions(
+                  height: 150,
+                  autoPlay:true,
+                  aspectRatio: 2,
+                  enlargeCenterPage: true,
+                  enlargeStrategy: CenterPageEnlargeStrategy.height,
+                ),
+                items: imageSliders
+
+                // imgList
+                //     .map((item) => Material(
+                //       elevation: 5,
+                //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                //       child: Container(
+                //         color: kprimaryColor,
+                //
+                //         height:MediaQuery.of(context).size.height * 0.18 ,
+                //         width: MediaQuery.of(context).size.width*0.956,
+                //
+                //         child: Center(child: Image.network(item, fit: BoxFit.cover, width: 1000)),
+                //
+                //
+                //       ),
+                //     ))
+                //     .toList(),
+              ),
+              GridView(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -159,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Contacthistory(),
+                        builder: (context) =>  ContactHistoryDetails(),
                       ),
                     ),
                     child: Tile(
@@ -195,12 +193,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   InkWell(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>  ProfilePage(profile: userController.user.bioData,),
-                      ),
-                    ),
+                    onTap: () => Get.to(()=>ProfilePage()),
                     child: Tile(
                       title: 'Profile',
                       image: 'assets/studenthomepage/profile.png',
@@ -208,8 +201,8 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -246,8 +239,6 @@ class Tile extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(30.0),
               child: Image.asset(
-
-
                 image!,
                 fit: BoxFit.contain,
               ),

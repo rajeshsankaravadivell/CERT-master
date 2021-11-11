@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pert/landing_page.dart';
+import 'package:pert/widgets/carouseltile.dart';
 
 import 'controllers/auth_controller.dart';
 import 'login.dart';
@@ -11,7 +12,6 @@ Future<void> main() async {
   await Firebase.initializeApp();
   Get.put(AuthController());
   runApp(const MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+
         canvasColor: Colors.white,
         // scaffoldBackgroundColor:  Colors.white38,
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
 
         ),
         primarySwatch: Colors.red,
-        appBarTheme: const AppBarTheme(color: Colors.white),
+        appBarTheme: const AppBarTheme(color: Colors.redAccent),
       ),
       home: const LandingPage(),
     );

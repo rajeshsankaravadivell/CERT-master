@@ -1,4 +1,4 @@
-package com.digisailor.pert
+package com.digisailor.safecampus
 
 import io.flutter.embedding.android.FlutterActivity
 

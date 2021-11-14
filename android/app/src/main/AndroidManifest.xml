@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.digisailor.pert">
+    package="com.digisailor.safecampus">
    <application
         android:label="pert"
         android:icon="@mipmap/ic_launcher">

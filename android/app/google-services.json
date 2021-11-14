@@ -103,6 +103,72 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:596278734058:android:e784328a3dfaa10ccc7b93",
+        "android_client_info": {
+          "package_name": "com.digisailor.safeCampusAdmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596278734058-q9kmg1tlfp1583ens647ef6gmnqpinch.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.digisailor.safeCampusAdmin",
+            "certificate_hash": "dde106ca3a295cd19589574799968e27bdd58dc0"
+          }
+        },
+        {
+          "client_id": "596278734058-20t6mcfjv9b702e6f2e1l6rc75u4grjp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpfV7bHwhESMe0mpLSO-_3t_HBWf7dw4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596278734058-20t6mcfjv9b702e6f2e1l6rc75u4grjp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596278734058:android:af9115646d8eb2ebcc7b93",
+        "android_client_info": {
+          "package_name": "com.digisailor.safecampus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596278734058-20t6mcfjv9b702e6f2e1l6rc75u4grjp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpfV7bHwhESMe0mpLSO-_3t_HBWf7dw4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596278734058-20t6mcfjv9b702e6f2e1l6rc75u4grjp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:596278734058:android:b24a516035739f7ecc7b93",
         "android_client_info": {
           "package_name": "com.digisailor.tracer"

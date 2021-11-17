@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:pert/constants/colors.dart';
 import 'package:pert/screens/home.dart';
 import 'package:pert/screens/signup.dart';
 
 import 'constants/constants.dart';
+import 'landing_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -49,13 +52,23 @@ class _LoginPageState extends State<LoginPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                textfield('User Name', name),
+                textfield('Email', name),
                 textfield('Password', password),
                 const SizedBox(
                   height: 15.0,
                 ),
                 InkWell(
-                  onTap: () => authController.auth.signInWithEmailAndPassword(email: name.text, password: password.text),
+                  onTap: () async {
+                    await authController.auth.signInWithEmailAndPassword(email: name.text, password: password.text).then((value){
+                      if(value!=null){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+                      }
+                      Get.to(()=>const LandingPage());
+                    });
+                    // if(result) {
+
+                    // }
+                  },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(13.0),
                     child: Container(
@@ -73,8 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(13.0),
                       ),
                       child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 56.0, vertical: 12.0),
+                        padding: EdgeInsets.symmetric(horizontal: 56.0, vertical: 12.0),
                         child: Text(
                           'Login',
                           style: TextStyle(
@@ -94,33 +106,46 @@ class _LoginPageState extends State<LoginPage> {
                   onTap: () => showDialog(
                       context: context,
                       builder: (context) {
+                        var controller = TextEditingController();
                         return AlertDialog(
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TextFormField(
                                 autofocus: true,
+                                controller: controller,
+                                keyboardType: TextInputType.emailAddress,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 15.0,
                               ),
                               Text(
-                                'Please Enter the four digit code we sent on your mail ID',
+                                'Please Enter your email',
                                 style: TextStyle(
                                   color: kprimaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 25.0,
                               ),
                               InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const HomePage()));
+                                  authController.auth.resetPassword(email: controller.text);
+                                  Navigator.of(context).pop();
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: const Text("Success"),
+                                          content: const Text("An email will be sent if registered"),
+                                          actions: [
+                                            TextButton(onPressed: (){
+                                              Navigator.of(context).pop();
+                                            }, child: const Text("Okay"))
+                                          ],
+                                        );
+                                      });
                                 },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(13.0),
@@ -139,10 +164,9 @@ class _LoginPageState extends State<LoginPage> {
                                       borderRadius: BorderRadius.circular(13.0),
                                     ),
                                     child: const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 56.0, vertical: 12.0),
+                                      padding: EdgeInsets.symmetric(horizontal: 56.0, vertical: 12.0),
                                       child: Text(
-                                        'Sign up',
+                                        'Send',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,

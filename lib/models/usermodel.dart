@@ -39,7 +39,7 @@ class UserModel {
   String? fcm;
   DateTime? createdDate;
 
-  static addUser(Profile profile, bool staff, Device device) {
+  static addUser(Profile profile, bool staff, Device? device) {
     final data = {"email": profile.email, "displayName": profile.name};
     try {
       print("Triggered Add User HTTPs callables");
@@ -62,6 +62,10 @@ class UserModel {
     }
   }
 
+  addCurrentUserDocument() {
+    return users.doc(uid).set(toJson()).then((value) => print("value added"));
+  }
+
   updateUser() async {
     try {
       await users.doc(uid).update(toJson());
@@ -73,11 +77,15 @@ class UserModel {
 
   quarantineUser(Quarantine quarantine) async {
     try {
-      await users.doc(this.uid).update({"quarantine": quarantine.toJson()});
+      await users.doc(uid).update({"quarantine": quarantine.toJson()});
       return {"code": "Success", "message": "Quarantine Status Updated"};
     } catch (exception) {
       return exception;
     }
+  }
+
+  static Stream<DocumentSnapshot<Map<String, dynamic>>> getProfile(String uid) {
+    return users.doc(uid).snapshots();
   }
 
   updateCovidInformation(CovidInfo covidInfo) async {
@@ -107,7 +115,7 @@ class UserModel {
         contactHistory:
             json["contactHistory"] != null ? List<ContactHistory>.from(json["contactHistory"].map((x) => ContactHistory.fromJson(x))) : null,
         fcm: json["fcm"],
-        createdDate: json["createdDate"].toDate(),
+        createdDate: json["createdDate"] != null ? json["createdDate"].toDate() : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -228,9 +236,9 @@ class CovidInfo {
         vaccinated: json["vaccinated"],
         vaccinatedOn: json["vaccinatedOn"] != null ? json["vaccinatedOn"].toDate() : null,
         question1: json["question1"] ?? false,
-        question2: json["question2"]?? false,
-        question3: json["question3"]?? false,
-        question4: json["question4"]?? false,
+        question2: json["question2"] ?? false,
+        question3: json["question3"] ?? false,
+        question4: json["question4"] ?? false,
       );
 
   Map<String, dynamic> toJson() => {
@@ -249,7 +257,14 @@ class CovidInfo {
 
 class ContactHistory {
   ContactHistory(
-      {required this.contact, required this.fcm, required this.totalTimeinContact, this.deviceID, this.groupId, this.gateWay, this.lastContact, this.covidStatus = false});
+      {required this.contact,
+      required this.fcm,
+      required this.totalTimeinContact,
+      this.deviceID,
+      this.groupId,
+      this.gateWay,
+      this.lastContact,
+      this.covidStatus = false});
 
   String contact;
   bool covidStatus;
@@ -261,24 +276,24 @@ class ContactHistory {
   DateTime? lastContact;
 
   factory ContactHistory.fromJson(Map<String, dynamic> json) => ContactHistory(
-    contact: json["contact"],
-    fcm: json["fcm"],
-    totalTimeinContact: json["totalTimeinContact"],
-    groupId: json["groupId"],
-    deviceID: json["deviceID"],
-    gateWay: json["gateWay"],
-    lastContact: DateTime.now(),
-  );
+        contact: json["contact"],
+        fcm: json["fcm"] ?? "",
+        totalTimeinContact: json["totalTimeinContact"],
+        groupId: json["groupId"],
+        deviceID: json["deviceID"],
+        gateWay: json["gateWay"],
+        lastContact: DateTime.now(),
+      );
 
   Map<String, dynamic> toJson() => {
-    "contact": contact,
-    "fcm": fcm,
-    "totalTimeinContact": totalTimeinContact,
-    "deviceId": deviceID,
-    "groupId": groupId,
-    "gateWay": gateWay,
-    "lastContact": lastContact,
-  };
+        "contact": contact,
+        "fcm": fcm,
+        "totalTimeinContact": totalTimeinContact,
+        "deviceId": deviceID,
+        "groupId": groupId,
+        "gateWay": gateWay,
+        "lastContact": lastContact,
+      };
 
   static getDummyContacts() {
     return [

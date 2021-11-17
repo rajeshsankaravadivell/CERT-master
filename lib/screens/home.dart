@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pert/constants/constants.dart';
+import 'package:pert/login.dart';
 import 'package:pert/screens/announcementpage.dart';
 import 'package:pert/screens/profile.dart';
 import 'package:pert/screens/quarantine.dart';
@@ -24,7 +26,54 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<int> list = [1, 2, 3, 4, 5];
+
+
+
+  final FirebaseMessaging _firebaseMessaging= FirebaseMessaging.instance;
+  _getToken(){
+    _firebaseMessaging.getToken().then((deviceToken) {
+      userController.user.fcm=deviceToken;
+      userController.user.updateUser();
+
+      print("Device Token: $deviceToken");
+    });
+  }
+
+
+  void initState() {
+    super.initState();
+    _firebaseMessaging.getInitialMessage().then((message){
+    if(message!=null){
+      final routeFromMessage =message.data["route"];
+      print(routeFromMessage);
+    }
+
+    } );
+    ///forground messages
+    FirebaseMessaging.onMessage.listen((message) {
+      if(message.notification!=null){
+        print(message.notification!.body);
+        print(message.notification!.title);
+      }
+    });
+    ///background msg
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      final routeFromMessage =message.data["route"];
+      print(routeFromMessage);
+
+
+    });
+    _firebaseMessaging.subscribeToTopic('Announcement');
+    
+    
+    
+    _getToken();
+
+
+
+  }
+
+  // List<int> list = [1, 2, 3, 4, 5];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +87,7 @@ class _HomePageState extends State<HomePage> {
               context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text(
-                  'SingOut!!!!',
+                    'Signout',
                   style: TextStyle(color: Colors.black),
                 ),
                 content: const Text('Are you sure want to Logout'),
@@ -51,6 +100,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       authController.auth.logout();
                       Navigator.pop(context, 'OK');
+                      Get.offAll(()=>LoginPage());
                     },
                     child: const Text('OK'),
                   ),

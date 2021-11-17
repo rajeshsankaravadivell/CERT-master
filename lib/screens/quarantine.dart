@@ -21,18 +21,8 @@ class _QuarantinePageState extends State<QuarantinePage> {
           automaticallyImplyLeading: true,
           title: const Text('Quarantine History'),
           centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.notifications,
-                color: bgcolor,
-                size: 35,
-              ),
-            ),
-          ],
         ),
-        body: Padding(
+        body:  Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             child: Column(
@@ -64,7 +54,7 @@ class _QuarantinePageState extends State<QuarantinePage> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: Card(
+                  child: widget.quarantine == null ? const Center(child :Text("No records found. You are not in Quarantine")) :Card(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -145,99 +135,99 @@ class _QuarantinePageState extends State<QuarantinePage> {
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
-                  'Quarantine History',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: Card(
-                    color: kprimaryColor,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 40,
-                                child: RichText(
-                                  maxLines: 5,
-                                  text: const TextSpan(
-                                      text: 'Address : ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                      children: [
-                                        TextSpan(
-                                          text: 'Sample Adddress',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.white),
-                                        )
-                                      ]),
-                                ),
-                              ),
-                              RichText(
-                                text: const TextSpan(
-                                    text: 'Block : ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                    children: [
-                                      TextSpan(
-                                        text: '5A',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            color: Colors.white),
-                                      )
-                                    ]),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Column(
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.calendar_today,
-                                  size: 30,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                '20/10/2021',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                              ),
-                              Text(
-                                '28/10/2021',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                              ),
-                              Text(
-                                'Duration : 5 days',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // Text(
+                //   'Quarantine History',
+                //   style: TextStyle(
+                //     color: Colors.grey[700],
+                //     fontWeight: FontWeight.bold,
+                //     fontSize: 18,
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // SizedBox(
+                //   width: double.infinity,
+                //   child: Card(
+                //     color: kprimaryColor,
+                //     child: Padding(
+                //       padding: const EdgeInsets.all(8.0),
+                //       child: Row(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //         children: [
+                //           Column(
+                //             crossAxisAlignment: CrossAxisAlignment.start,
+                //             children: [
+                //               SizedBox(
+                //                 height: 40,
+                //                 child: RichText(
+                //                   maxLines: 5,
+                //                   text: const TextSpan(
+                //                       text: 'Address : ',
+                //                       style: TextStyle(
+                //                           fontWeight: FontWeight.bold,
+                //                           color: Colors.white),
+                //                       children: [
+                //                         TextSpan(
+                //                           text: 'Sample Adddress',
+                //                           style: TextStyle(
+                //                               fontWeight: FontWeight.normal,
+                //                               color: Colors.white),
+                //                         )
+                //                       ]),
+                //                 ),
+                //               ),
+                //               RichText(
+                //                 text: const TextSpan(
+                //                     text: 'Block : ',
+                //                     style: TextStyle(
+                //                         fontWeight: FontWeight.bold,
+                //                         color: Colors.white),
+                //                     children: [
+                //                       TextSpan(
+                //                         text: '5A',
+                //                         style: TextStyle(
+                //                             fontWeight: FontWeight.normal,
+                //                             color: Colors.white),
+                //                       )
+                //                     ]),
+                //               ),
+                //             ],
+                //           ),
+                //           const Spacer(),
+                //           Column(
+                //             children: const [
+                //               Padding(
+                //                 padding: EdgeInsets.all(8.0),
+                //                 child: Icon(
+                //                   Icons.calendar_today,
+                //                   size: 30,
+                //                   color: Colors.white,
+                //                 ),
+                //               ),
+                //               Text(
+                //                 '20/10/2021',
+                //                 style: TextStyle(
+                //                     color: Colors.white, fontSize: 16),
+                //               ),
+                //               Text(
+                //                 '28/10/2021',
+                //                 style: TextStyle(
+                //                     color: Colors.white, fontSize: 16),
+                //               ),
+                //               Text(
+                //                 'Duration : 5 days',
+                //                 style: TextStyle(
+                //                     color: Colors.white, fontSize: 16),
+                //               ),
+                //             ],
+                //           )
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

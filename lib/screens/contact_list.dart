@@ -39,12 +39,12 @@ class _ContactHistoryDetailsState extends State<ContactHistoryDetails> {
                     height: MediaQuery.of(context).size.height * 0.15,
                     decoration: BoxDecoration(
                       color: const Color(0xFFAF2922),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset(
-                          'assets/images/corona image.png',
-                        ).image,
-                      ),
+                      // image: DecorationImage(
+                      //   fit: BoxFit.cover,
+                      //   image: Image.asset(
+                      //     'assets/images/corona image.png',
+                      //   ).image,
+                      // ),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Padding(
@@ -57,7 +57,7 @@ class _ContactHistoryDetailsState extends State<ContactHistoryDetails> {
                               data: 'Contacted Person Name : ${userController.user.contactHistory![index].contact}',
                             ),
                             TextForDetails(
-                              data: 'Group ID : ${userController.user.contactHistory![index].contact}',
+                              data: 'Group ID : ${userController.user.contactHistory![index].groupId}',
                             ),
                             TextForDetails(
                               data: 'Device ID : ${userController.user.contactHistory![index].deviceID}',

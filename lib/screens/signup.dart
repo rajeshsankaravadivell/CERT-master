@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pert/constants/colors.dart';
+import 'package:pert/constants/constants.dart';
+import 'package:pert/landing_page.dart';
 import 'package:pert/screens/home.dart';
 
 class SignUp extends StatefulWidget {
@@ -10,7 +13,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  TextEditingController confirmpassword = TextEditingController();
+  TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   Padding textfield(hinttext, controller) {
     return Padding(
@@ -57,15 +60,16 @@ class _SignUpState extends State<SignUp> {
         ),
         body: Column(
           children: [
-            textfield('Email Id', password),
-            textfield('Password', confirmpassword),
-            SizedBox(
+            textfield('Email', email),
+            textfield('Password', password),
+            const SizedBox(
               height: 20.0,
             ),
             InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HomePage()));
+              onTap: () async {
+                await authController.auth.signUpWithEmailAndPassword(email: email.text, password: password.text).then((value) {
+                  Get.to(()=>const LandingPage());
+                });
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(13.0),

@@ -27,6 +27,7 @@ class _CovidStatusTabState extends State<CovidStatusTab> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
+
             // height: 100,
             child: Stack(
               children: [
@@ -59,12 +60,13 @@ class _CovidStatusTabState extends State<CovidStatusTab> {
                             width: 100,
                             child: Center(
                               child: Text(
-                                'Negative',
+                                userController.user.covidInfo!.result==false? 'Negative':'Positive',
+
                                 style: TextStyle(fontWeight: FontWeight.bold, color: cardcolor),
                               ),
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.green[800],
+                              color: userController.user.covidInfo!.result==false? Colors.green:Colors.red,
                               borderRadius: BorderRadius.circular(14),
                             ),
                           )
@@ -88,7 +90,7 @@ class _CovidStatusTabState extends State<CovidStatusTab> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(top: 8),
+                        padding: const EdgeInsets.only(top: 16),
                         child: RichText(
                           text: TextSpan(
                             children: [
@@ -108,7 +110,7 @@ class _CovidStatusTabState extends State<CovidStatusTab> {
               ],
             ),
             decoration: BoxDecoration(
-              color: kprimaryColor.withOpacity(0.9),
+              color: Colors.grey,
               borderRadius: BorderRadius.circular(20),
             ),
           ),

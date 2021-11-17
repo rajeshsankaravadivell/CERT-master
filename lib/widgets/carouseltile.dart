@@ -51,12 +51,12 @@ final List<Widget> imageSliders = imgList
 
 
 final List<String> imgList = [
-  'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-  'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-  'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-  'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-  'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-  'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
+  'https://img.freepik.com/free-vector/coronavirus-safety-advice-social-distancing_145666-653.jpg?size=626&ext=jpg',
+  'https://image.freepik.com/free-vector/stay-home-stop-coronavirus-design-with-falling-covid-19-virus-cell-light-background-vector-2019-ncov-corona-virus-outbreak-illustration-stay-safe-wash-hand-distancing_1314-2713.jpg',
+  'https://img.freepik.com/free-vector/prevent-epidemic-rebound-concept-illustration_114360-3008.jpg?size=626&ext=jpg',
+  'http://nshsdenebola.com/wp-content/uploads/2020/05/design-community-concept-illustration_114360-1244.jpg',
+  'https://img.freepik.com/free-vector/avoid-coronavirus-transmission-by-touching-face-using-your-hands_152995-117.jpg?size=626&ext=jpg',
+  'https://images.squarespace-cdn.com/content/v1/5af8964350a54f8953f49f76/1588352346769-Z4N3FAA22UX9Q0462V8K/ke17ZwdGBToddI8pDm48kEqe6umt3wNhpcc8nDuTgdEUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKc52XC1b42ktSkbHvwZ0rp0W2XZrrZ2NpBu95h_1yZFG_XF6_c-av07vbVOl7yUMXu/Covid+safety+protocols+at+BOCO+Dental?format=1500w'
 ];
 
 

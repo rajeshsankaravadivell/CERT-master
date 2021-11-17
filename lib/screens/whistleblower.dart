@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pert/constants/constants.dart';
 import 'package:pert/models/complaint.dart';
@@ -26,9 +27,11 @@ class _WhistleBlowerState extends State<WhistleBlower> {
   @override
   void initState() {
     super.initState();
+
     textController1 = TextEditingController();
     textController2 = TextEditingController();
     textController3 = TextEditingController();
+
   }
 
   Future chooseFile() async {

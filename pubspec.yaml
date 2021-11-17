@@ -43,6 +43,8 @@ dependencies:
   firebase_core: ^1.8.0
   carousel_slider: ^4.0.0
   image_picker: ^0.8.4+4
+  dependencies:
+  firebase_messaging: ^11.1.0
 
 
 dev_dependencies:

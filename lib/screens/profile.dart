@@ -4,15 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:pert/constants/colors.dart';
 import 'package:pert/constants/constants.dart';
 import 'package:pert/models/profile_model.dart';
+import 'package:pert/models/usermodel.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key, required this.profile, required this.userModel}) : super(key: key);
+  final Profile profile;
+  final UserModel userModel;
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+
+  String? _phone;
+  bool _autoValidate = false;
+
+
   final TextEditingController idcontroller = TextEditingController();
   final TextEditingController groupidcontroller = TextEditingController();
   final TextEditingController usernamecontroller = TextEditingController();
@@ -25,17 +34,29 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController statecontroller = TextEditingController();
   final TextEditingController postcodecontroller = TextEditingController();
 
+  String validateMobile(String? value) {
+// Indian Mobile number are of 10 digit only
+    if (value!.length != 10) {
+      return 'Mobile Number must be of 10 digit';
+    } else {
+      return "";
+    }
+  }
+
+
+
+
   @override
-  void initState(){
-      idcontroller.text = userController.user.bioData.id;
-      usernamecontroller.text = userController.user.bioData.name;
-      icnocontroller.text = userController.user.bioData.icNumber;
-      phonenocontroller.text =userController.user.bioData.phoneNumber ?? '';
-      address1controller.text = userController.user.bioData.permanentAddress ?? '';
-      address2controller.text = userController.user.bioData.currentAddress ?? '';
-      agecontroller.text = (userController.user.bioData.age != null) ? userController.user.bioData.age.toString() : '';
-      statecontroller.text = userController.user.bioData.state ?? '';
-      postcodecontroller.text = (userController.user.bioData.pincode != null) ? userController.user.bioData.pincode.toString() : '';
+  void initState() {
+    idcontroller.text = widget.profile.id;
+    usernamecontroller.text = widget.profile.name;
+    icnocontroller.text = widget.profile.icNumber;
+    phonenocontroller.text = widget.profile.phoneNumber ?? '';
+    address1controller.text = widget.profile.permanentAddress ?? '';
+    address2controller.text = widget.profile.currentAddress ?? '';
+    agecontroller.text = (widget.profile.age != null) ? widget.profile.age.toString() : '';
+    statecontroller.text = widget.profile.state ?? '';
+    postcodecontroller.text = (widget.profile.pincode != null) ? widget.profile.pincode.toString() : '';
   }
 
   bool isEdit = false;
@@ -67,16 +88,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         CircleAvatar(
-                          backgroundImage: userController.user.bioData.imageUrl !=null ? NetworkImage(userController.user.bioData.imageUrl!) :
-                          NetworkImage(url),
+                        CircleAvatar(
+                          backgroundImage: widget.profile.imageUrl != null ? NetworkImage(widget.profile.imageUrl!) : NetworkImage(url),
                           radius: 45,
                         ),
                         TextButton(
                           onPressed: () async {
-                            userController.user.bioData.imageUrl = await Profile.uploadPhoto();
-                            setState(() {
-                            });
+                            widget.profile.imageUrl = await Profile.uploadPhoto();
+                            setState(() {});
                           },
                           child: const Text(
                             'Change Profile Picture',
@@ -90,7 +109,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    Profile_field(
+                    Profile_field(autovalidate: _autoValidate,
+                      maxline: 1,
                       controller: idcontroller,
                       textFieldName: '5001',
                       headingName: 'ID',
@@ -99,10 +119,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.red,
                       ),
                       onChanged: (value) {
-                        userController.user.bioData.id = value;
+                        widget.profile.id = value;
                       },
                     ),
-                    Profile_field(
+                    Profile_field(autovalidate: _autoValidate,
+                      maxline: 1,
                       controller: groupidcontroller,
                       textFieldName: '6841',
                       headingName: 'Group ID',
@@ -111,7 +132,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.red,
                       ),
                     ),
-                    Profile_field(
+                    Profile_field(autovalidate: _autoValidate,
+                      maxline: 1,
                       controller: usernamecontroller,
                       textFieldName: 'Test User',
                       headingName: 'User Name',
@@ -120,10 +142,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.red,
                       ),
                       onChanged: (value) {
-                        userController.user.bioData.name = value;
+                        widget.profile.name = value;
                       },
                     ),
-                    Profile_field(
+                    Profile_field(autovalidate: _autoValidate,
+                      maxline: 1,
                       controller: icnocontroller,
                       textFieldName: 'A8gdt7',
                       headingName: 'IC No',
@@ -131,11 +154,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         Icons.people,
                         color: Colors.red,
                       ),
-                      onChanged:  (value) {
-                        userController.user.bioData.icNumber=value;
+                      onChanged: (value) {
+                        widget.profile.icNumber = value;
                       },
                     ),
-                    Profile_field(
+                    Profile_field(autovalidate: _autoValidate,
+                      maxline: 1,
                       controller: departmentcontroller,
                       textFieldName: 'Department',
                       headingName: 'Department',
@@ -144,7 +168,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.red,
                       ),
                     ),
-                    Profile_field(
+                    Profile_field(autovalidate:true,
+                      onsaved: (String?val){
+                        _phone=val;
+                      },
+                      validator: validateMobile,
+                      maxline: 1,
                       controller: phonenocontroller,
                       textFieldName: '+65 0895 4562',
                       headingName: 'Phone No',
@@ -152,11 +181,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         Icons.people,
                         color: Colors.red,
                       ),
-                      onChanged:  (value) {
-                        userController.user.bioData.phoneNumber=value;
+                      onChanged: (value) {
+                        widget.profile.phoneNumber = value;
                       },
                     ),
-                    Profile_field(
+                    Profile_field(autovalidate: _autoValidate,
+                      maxline: 4,
                       controller: address1controller,
                       textFieldName: 'Address 1 malaysia',
                       headingName: 'Address 1',
@@ -165,7 +195,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.red,
                       ),
                     ),
-                    Profile_field(
+                    Profile_field(autovalidate: _autoValidate,
+                      maxline: 4,
                       controller: address2controller,
                       textFieldName: 'Address 2 malaysia',
                       headingName: 'Address 2',
@@ -174,7 +205,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.red,
                       ),
                     ),
-                    Profile_field(
+                    Profile_field(autovalidate: _autoValidate,
+                      maxline: 1,
                       controller: agecontroller,
                       textFieldName: '42',
                       headingName: 'Age',
@@ -182,11 +214,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         Icons.data_usage,
                         color: Colors.red,
                       ),
-                      onChanged: (value){
-                        userController.user.bioData.age = int.parse(value);
+                      onChanged: (value) {
+                        widget.profile.age = int.parse(value);
                       },
                     ),
-                    Profile_field(
+                    Profile_field(autovalidate: _autoValidate,
+                      maxline: 1,
                       controller: statecontroller,
                       textFieldName: 'Kulalumpur Federal Teritory',
                       headingName: 'State',
@@ -194,11 +227,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         Icons.location_on,
                         color: Colors.red,
                       ),
-                      onChanged:  (value) {
-                        userController.user.bioData.state= value;
+                      onChanged: (value) {
+                        widget.profile.state = value;
                       },
                     ),
-                    Profile_field(
+                    Profile_field(autovalidate: _autoValidate,
+                      maxline: 1,
                       controller: postcodecontroller,
                       textFieldName: '45120',
                       headingName: 'Post Code',
@@ -206,8 +240,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         Icons.location_city,
                         color: Colors.red,
                       ),
-                      onChanged:  (value) {
-                        userController.user.bioData.pincode = int.parse(value) ;
+                      onChanged: (value) {
+                        widget.profile.pincode = int.parse(value);
                       },
                     ),
                     SizedBox(
@@ -216,7 +250,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     Center(
                       child: InkWell(
                         onTap: () {
-                          userController.user.updateUser();
+                          setState(() {
+                            _autoValidate=true;
+                          });
+                          widget.userModel.updateUser();
                           setState(() {
                             isEdit = false;
                           });
@@ -251,9 +288,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           height: 10,
                         ),
                         Center(
-                          child:CircleAvatar(
-                            backgroundImage: userController.user.bioData.imageUrl !=null ? NetworkImage(userController.user.bioData.imageUrl!) :
-                            NetworkImage(url),
+                          child: CircleAvatar(
+                            backgroundImage: widget.profile.imageUrl != null ? NetworkImage(widget.profile.imageUrl!) : NetworkImage(url),
                             radius: 45,
                           ),
                         ),
@@ -288,19 +324,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 ResultWidget(
                                   heading: 'Name',
-                                  text: userController.user.bioData.name,
+                                  text: widget.profile.name,
                                 ),
                                 Divider(),
-                                ResultWidget(heading: 'ID', text: userController.user.bioData.id),
+                                ResultWidget(heading: 'ID', text: widget.profile.id),
                                 Divider(),
                                 ResultWidget(
                                   heading: 'IC No',
-                                  text: userController.user.bioData.icNumber,
+                                  text: widget.profile.icNumber,
                                 ),
                                 Divider(),
                                 ResultWidget(
                                   heading: 'Age',
-                                  text: userController.user.bioData.age.toString(),
+                                  text: widget.profile.age.toString(),
                                 ),
                                 Divider(),
                                 ResultWidget(
@@ -310,27 +346,27 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Divider(),
                                 ResultWidget(
                                   heading: 'Phone No',
-                                  text: '${userController.user.bioData.phoneNumber}',
+                                  text: '${widget.profile.phoneNumber}',
                                 ),
                                 Divider(),
                                 ResultWidget(
                                   heading: 'Permanent Address',
-                                  text: '${userController.user.bioData.permanentAddress}',
+                                  text: '${widget.profile.permanentAddress}',
                                 ),
                                 Divider(),
                                 ResultWidget(
                                   heading: 'Temporary Address ',
-                                  text: '${userController.user.bioData.currentAddress}',
+                                  text: '${widget.profile.currentAddress}',
                                 ),
                                 Divider(),
                                 ResultWidget(
                                   heading: 'State',
-                                  text: '${userController.user.bioData.state}',
+                                  text: '${widget.profile.state}',
                                 ),
                                 Divider(),
                                 ResultWidget(
                                   heading: 'Postal/Zip Code',
-                                  text: '${userController.user.bioData.pincode}',
+                                  text: '${widget.profile.pincode}',
                                 ),
                                 Divider(),
                               ],
@@ -353,7 +389,19 @@ class Profile_field extends StatelessWidget {
   final Icon icon;
   final TextEditingController? controller;
   final void Function(String)? onChanged;
-  const Profile_field({Key? key, required this.textFieldName, required this.icon, required this.headingName, this.controller, this.onChanged})
+  final String Function(String?)? validator;
+  final int maxline;
+  final void Function(String?)? onsaved;
+  final bool autovalidate;
+  const Profile_field(
+      {Key? key,
+      required this.textFieldName,
+      required this.icon,
+      required this.headingName,
+      this.controller,
+      this.onChanged,
+      this.validator,
+      required this.maxline, this.onsaved, required this.autovalidate})
       : super(key: key);
 
   @override
@@ -381,12 +429,15 @@ class Profile_field extends StatelessWidget {
             color: Colors.white,
           ),
 
-          height: 36,
+          height: 50,
           // width: 40,
-          child: TextField(
+          child: TextFormField(
+            autovalidate: autovalidate,
+            onSaved: onsaved,
+            validator: validator,
             onChanged: onChanged,
             controller: controller,
-            maxLines: 1,
+            maxLines:maxline,
             style: TextStyle(fontSize: 17),
             textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(

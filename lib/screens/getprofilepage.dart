@@ -13,6 +13,9 @@ class GetProfilepage extends StatefulWidget {
 }
 
 class _GetProfilepageState extends State<GetProfilepage> {
+
+  bool _autovalidate = false;
+
   final TextEditingController idcontroller = TextEditingController();
   // final TextEditingController groupidcontroller = TextEditingController();
   final TextEditingController usernamecontroller = TextEditingController();
@@ -70,7 +73,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
             const SizedBox(
               height: 15.0,
             ),
-            Profile_field(
+            Profile_field(autovalidate: _autovalidate,
+              maxline: 1,
               controller: idcontroller,
               textFieldName: '',
               headingName: 'ID',
@@ -79,7 +83,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(
+            Profile_field(autovalidate: _autovalidate,
+              maxline: 1,
               controller: usernamecontroller,
               textFieldName: '',
               headingName: 'Name',
@@ -88,7 +93,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(
+            Profile_field(autovalidate: _autovalidate,
+              maxline:1 ,
               controller: icnocontroller,
               textFieldName: '',
               headingName: 'IC No',
@@ -97,7 +103,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(
+            Profile_field(autovalidate: _autovalidate,
+              maxline: 1,
               controller: departmentcontroller,
               textFieldName: '',
               headingName: 'Department',
@@ -106,7 +113,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(
+            Profile_field(autovalidate: _autovalidate,
+              maxline: 1,
               controller: phonenocontroller,
               textFieldName: '',
               headingName: 'Phone No',
@@ -115,7 +123,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(
+            Profile_field(autovalidate: _autovalidate,
+              maxline: 4,
               controller: address1controller,
               textFieldName: '',
               headingName: 'Address 1',
@@ -124,7 +133,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(
+            Profile_field(autovalidate: _autovalidate,
+              maxline: 4,
               controller: address2controller,
               textFieldName: '',
               headingName: 'Address 2',
@@ -133,7 +143,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(
+            Profile_field(autovalidate: _autovalidate,
+              maxline: 1,
               controller: agecontroller,
               textFieldName: '',
               headingName: 'Age',
@@ -142,7 +153,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(
+            Profile_field(autovalidate: _autovalidate,
+              maxline: 1,
               controller: statecontroller,
               textFieldName: '',
               headingName: 'State',
@@ -151,7 +163,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(
+            Profile_field(autovalidate: _autovalidate,
+              maxline: 1,
               controller: postcodecontroller,
               textFieldName: '',
               headingName: 'Post Code',

@@ -29,8 +29,16 @@ class LandingPage extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.active && snapshot.hasData) {
                     if (snapshot.data.data() != null) {
                       var user = UserModel.fromJson(snapshot.data.data());
-                      Get.put(UserController(user));
-                      return const HomePage();
+
+                      // userController.user.bioData = user.bioData;
+                      // userController.user.uid = user.uid;
+                      // userController.user.covidInfo = user.covidInfo;
+                      // userController.user.quarantine = user.quarantine;
+                      // userController.user.contactHistory = user.contactHistory;
+                      // userController.user.device = user.device;
+                      // userController.user.createdDate = user.createdDate;
+                      // userController.user.isStaff = user.isStaff;
+                      return  HomePage(user: user);
                     } else {
                       return GetProfilepage();
                     }

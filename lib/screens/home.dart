@@ -4,8 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pert/constants/constants.dart';
+import 'package:pert/controllers/user_controller.dart';
 import 'package:pert/login.dart';
+import 'package:pert/models/usermodel.dart';
 import 'package:pert/screens/announcementpage.dart';
+import 'package:pert/screens/notificationpage.dart';
 import 'package:pert/screens/profile.dart';
 import 'package:pert/screens/quarantine.dart';
 import 'package:pert/screens/tabbar.dart';
@@ -19,29 +22,34 @@ import 'contact_list.dart';
 
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+  const HomePage({Key? key, required this.user}) : super(key: key);
+  final UserModel user;
   @override
   _HomePageState createState() => _HomePageState();
+
 }
 
 class _HomePageState extends State<HomePage> {
-
-
 
   final FirebaseMessaging _firebaseMessaging= FirebaseMessaging.instance;
   _getToken(){
     _firebaseMessaging.getToken().then((deviceToken) {
       userController.user.fcm=deviceToken;
       userController.user.updateUser();
-
       print("Device Token: $deviceToken");
     });
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    super.dispose();
+  }
 
   void initState() {
     super.initState();
+    Get.put(UserController(widget.user));
     _firebaseMessaging.getInitialMessage().then((message){
     if(message!=null){
       final routeFromMessage =message.data["route"];
@@ -63,6 +71,7 @@ class _HomePageState extends State<HomePage> {
 
 
     });
+    _firebaseMessaging.setForegroundNotificationPresentationOptions(alert: true);
     _firebaseMessaging.subscribeToTopic('Announcement');
     
     
@@ -100,7 +109,6 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       authController.auth.logout();
                       Navigator.pop(context, 'OK');
-                      Get.offAll(()=>LoginPage());
                     },
                     child: const Text('OK'),
                   ),
@@ -108,18 +116,18 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.logout,
             color: Color(0xFFED392D),
           ),
         ),
-        actions: const [
+        actions:  [
           Padding(
             padding: EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.notifications,
-              color: Color(0xFFED392D),
-              size: 30,
+            child: IconButton(
+              icon: const Icon(Icons.notifications),
+              color: const Color(0xFFED392D),
+               onPressed: () {  },
             ),
           )
         ],
@@ -166,7 +174,7 @@ class _HomePageState extends State<HomePage> {
 
                 options: CarouselOptions(
                   height: 150,
-                  autoPlay:true,
+                  autoPlay:false,
                   aspectRatio: 2,
                   enlargeCenterPage: true,
                   enlargeStrategy: CenterPageEnlargeStrategy.height,
@@ -207,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>  ContactHistoryDetails(),
+                        builder: (context) =>  ContactHistoryDetails(contactHistory: widget.user.contactHistory),
                       ),
                     ),
                     child: Tile(
@@ -243,7 +251,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   InkWell(
-                    onTap: () => Get.to(()=>ProfilePage()),
+                    onTap: () => Get.to(()=>ProfilePage(profile: widget.user.bioData,
+                      userModel: widget.user,
+
+                    )),
                     child: Tile(
                       title: 'Profile',
                       image: 'assets/studenthomepage/profile.png',

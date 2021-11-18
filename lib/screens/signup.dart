@@ -68,8 +68,11 @@ class _SignUpState extends State<SignUp> {
             InkWell(
               onTap: () async {
                 await authController.auth.signUpWithEmailAndPassword(email: email.text, password: password.text).then((value) {
-                  Get.to(()=>const LandingPage());
+                  if(value!=null){
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+                  }
                 });
+                // Get.to(()=>const LandingPage(),duration: const Duration(seconds: 2));
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(13.0),

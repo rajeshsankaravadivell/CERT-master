@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   void initState() {
     super.initState();
 
-    controller = AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    controller = AnimationController(duration: const Duration(seconds: 1), vsync: this);
     animation = new CurvedAnimation(parent: controller, curve: Curves.linear);
     controller.forward();
     controller.addListener(() {
@@ -39,8 +39,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   _tolandingpage() async {
-    await Future.delayed(const Duration(milliseconds: 3000), () {});
-    Get.to(() => LandingPage(),
+    await Future.delayed(const Duration(milliseconds: 2000), () {});
+    Get.offAll( ()=> LandingPage()
 
     );
   }

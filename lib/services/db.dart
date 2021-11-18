@@ -18,18 +18,11 @@ Stream<DocumentSnapshot<Map<String, dynamic>>> getProfile(String uid) {
   return users.doc(uid).snapshots();
 }
 
-addCertUser(Admin cert) {
-  certs.doc(cert.uid).set(cert.toJson()).then((value) => print("User Added"));
-}
+// addCertUser(Admin cert) {
+//   certs.doc(cert.uid).set(cert.toJson()).then((value) => print("User Added"));
+// }
 
-addStudentUser(Student user) async {
-  try {
-    await users.doc(user.uid).set(user.toJson()).then((value) => print("User Added"));
-  } catch (exception) {
-    return "failed";
-  }
-  return 0;
-}
+
 
 Future<QuerySnapshot<Map<String, dynamic>>> getCertUsers(DocumentSnapshot? certUserSnapshot) {
   if (certUserSnapshot != null) {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pert/constants/constants.dart';
-import 'package:pert/models/userModel.dart';
+import 'package:pert/models/usermodel.dart';
 
 class ContactHistoryDetails extends StatefulWidget {
-  ContactHistoryDetails({Key? key, this.title}) : super(key: key);
-
+  const ContactHistoryDetails({Key? key, this.title, required this.contactHistory}) : super(key: key);
+  final List<ContactHistory>? contactHistory;
   final String? title;
 
   @override
@@ -27,10 +27,10 @@ class _ContactHistoryDetailsState extends State<ContactHistoryDetails> {
       ),
       body: Column(
         children: <Widget>[
-          Expanded(
+          widget.contactHistory==null ? const Expanded(child: Center(child: Text("No Contact History Found"),),) : Expanded(
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: userController.user.contactHistory != null ? userController.user.contactHistory!.length : 0,
+              itemCount: widget.contactHistory != null ? widget.contactHistory!.length : 0,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
@@ -54,18 +54,18 @@ class _ContactHistoryDetailsState extends State<ContactHistoryDetails> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextForDetails(
-                              data: 'Contacted Person Name : ${userController.user.contactHistory![index].contact}',
+                              data: 'Contacted Person Name : ${widget.contactHistory![index].contact}',
                             ),
                             TextForDetails(
-                              data: 'Group ID : ${userController.user.contactHistory![index].groupId}',
+                              data: 'Group ID : ${widget.contactHistory![index].groupId}',
                             ),
                             TextForDetails(
-                              data: 'Device ID : ${userController.user.contactHistory![index].deviceID}',
+                              data: 'Device ID : ${widget.contactHistory![index].deviceID}',
                             ),
                             TextForDetails(
                               data: 'Date & Time : ${DateTime.now()}',
                             ),
-                            TextForDetails(data: 'Gateway: ${userController.user.contactHistory![index].gateWay}'),
+                            TextForDetails(data: 'Gateway: ${widget.contactHistory![index].gateWay}'),
                           ],
                         )),
                   ),

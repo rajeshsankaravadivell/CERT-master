@@ -24,7 +24,7 @@ class AuthenticationService extends ChangeNotifier {
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
   User? get currentUser => _firebaseAuth.currentUser;
   get claims => this.currentUser!.getIdTokenResult(true).then((value) => value.claims);
-  Future<String> signUpWithEmailAndPassword({required String email, required String password}) async {
+  Future<String?> signUpWithEmailAndPassword({required String email, required String password}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -39,7 +39,7 @@ class AuthenticationService extends ChangeNotifier {
     } catch (e) {
       print(e);
     }
-    return "error Unknown";
+
   }
 
   Future<String?> signInWithEmailAndPassword({required String email, required String password}) async {

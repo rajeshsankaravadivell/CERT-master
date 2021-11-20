@@ -21,39 +21,37 @@ Profile profileFromJson(String str) => Profile.fromJson(json.decode(str));
 String profileToJson(Profile data) => json.encode(data.toJson());
 
 class Profile {
-  Profile(
-      {required this.id,
-      required this.icNumber,
-      required this.email,
-      required this.name,
-      this.photoUrl,
-      this.state,
-      this.phoneNumber,
-      this.permanentAddress,
-      this.currentAddress,
-      this.pincode,
-      this.age,
-      this.imageUrl,
-      });
+  Profile({
+    required this.id,
+    required this.icNumber,
+    required this.email,
+    required this.name,
+    required this.phoneNumber,
+    required this.houseAddress,
+    this.residenceAddress,
+    this.imageUrl,
+    required this.department,
+    required this.passportNumber,
+    this.isLocal = true,
+  });
 
   String id;
   String icNumber;
+  String passportNumber;
   String email;
   String name;
-  String? photoUrl;
-  String? state;
-  String? permanentAddress;
-  String? currentAddress;
-  int? pincode;
-  int? age;
+  String department;
+  String? houseAddress;
+  String? residenceAddress;
   String? imageUrl;
   String? phoneNumber;
+  bool isLocal;
 
   static Future<dynamic> uploadPhoto() async {
     String? url;
     try {
       var xfile = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if(xfile!=null){
+      if (xfile != null) {
         var filePath = xfile.path;
         var file = File(filePath);
         await storage.ref("profiles").child(basename(file.path)).putFile(file).then((snapshot) async {
@@ -61,7 +59,7 @@ class Profile {
         });
       }
       return url;
-    }catch(e){
+    } catch (e) {
       return e;
     }
   }
@@ -70,30 +68,28 @@ class Profile {
         id: json["id"],
         email: json["email"],
         name: json["name"],
-        state: json["state"],
-        photoUrl: json["photoUrl"],
-        permanentAddress: json["permanentAddress"],
-        currentAddress: json["currentAddress"],
-        pincode: json["pincode"],
+        houseAddress: json["permanentAddress"],
+        residenceAddress: json["currentAddress"],
         icNumber: json["icNumber"],
         phoneNumber: json["phoneNumber"],
-        age: json["age"] ?? 0,
-    imageUrl: json["imageUrl"],
+        imageUrl: json["imageUrl"],
+        passportNumber: json["passportNumber"],
+        department: json["department"],
+        isLocal: json["isLocal"] ?? true,
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "email": email,
         "name": name,
-        "state": state,
-        "photoUrl": photoUrl,
-        "permanentAddress": permanentAddress,
-        "currentAddress": currentAddress,
-        "pincode": pincode,
+        "permanentAddress": houseAddress,
+        "currentAddress": residenceAddress,
         "icNumber": icNumber,
         "phoneNumber": phoneNumber,
-        "age": age,
-        "imageUrl":imageUrl,
+        "imageUrl": imageUrl,
+        "department" : department,
+        "passportNumber" :passportNumber,
+        "local" : isLocal,
       };
 }
 
@@ -167,9 +163,6 @@ class SuperUser {
       return admins.orderBy("id").limit(15).get();
     }
   }
-
-
-
 
   factory SuperUser.fromJson(Map<String, dynamic> json) =>
       SuperUser(bioData: Profile.fromJson(json["bioData"]), uid: json["uid"], isAdmin: json["isAdmin"], fcm: json["fcm"]);

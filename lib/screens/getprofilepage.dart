@@ -13,7 +13,6 @@ class GetProfilepage extends StatefulWidget {
 }
 
 class _GetProfilepageState extends State<GetProfilepage> {
-
   bool _autovalidate = false;
 
   final TextEditingController idcontroller = TextEditingController();
@@ -25,7 +24,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
   final TextEditingController address1controller = TextEditingController();
   final TextEditingController address2controller = TextEditingController();
   final TextEditingController agecontroller = TextEditingController();
-  final TextEditingController statecontroller = TextEditingController();
+  final TextEditingController passportcontroller = TextEditingController();
   final TextEditingController postcodecontroller = TextEditingController();
   String? imageUrl;
   String url = 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
@@ -38,7 +37,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
     address1controller.text = '';
     address2controller.text = '';
     agecontroller.text = '';
-    statecontroller.text = '';
+    passportcontroller.text = '';
     postcodecontroller.text = '';
   }
 
@@ -53,7 +52,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CircleAvatar(
-                  backgroundImage: imageUrl !=null ? NetworkImage(imageUrl!) : NetworkImage(url) ,
+                  backgroundImage: imageUrl != null ? NetworkImage(imageUrl!) : NetworkImage(url),
                   radius: 45,
                 ),
                 TextButton(
@@ -73,7 +72,9 @@ class _GetProfilepageState extends State<GetProfilepage> {
             const SizedBox(
               height: 15.0,
             ),
-            Profile_field(autovalidate: _autovalidate,
+            Profile_field(
+
+              autovalidate: _autovalidate,
               maxline: 1,
               controller: idcontroller,
               textFieldName: '',
@@ -83,7 +84,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(autovalidate: _autovalidate,
+            Profile_field(
+              autovalidate: _autovalidate,
               maxline: 1,
               controller: usernamecontroller,
               textFieldName: '',
@@ -93,8 +95,9 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(autovalidate: _autovalidate,
-              maxline:1 ,
+            Profile_field(
+              autovalidate: _autovalidate,
+              maxline: 1,
               controller: icnocontroller,
               textFieldName: '',
               headingName: 'IC No',
@@ -103,7 +106,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(autovalidate: _autovalidate,
+            Profile_field(
+              autovalidate: _autovalidate,
               maxline: 1,
               controller: departmentcontroller,
               textFieldName: '',
@@ -113,7 +117,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(autovalidate: _autovalidate,
+            Profile_field(
+              autovalidate: _autovalidate,
               maxline: 1,
               controller: phonenocontroller,
               textFieldName: '',
@@ -123,7 +128,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(autovalidate: _autovalidate,
+            Profile_field(
+              autovalidate: _autovalidate,
               maxline: 4,
               controller: address1controller,
               textFieldName: '',
@@ -133,7 +139,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(autovalidate: _autovalidate,
+            Profile_field(
+              autovalidate: _autovalidate,
               maxline: 4,
               controller: address2controller,
               textFieldName: '',
@@ -143,7 +150,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(autovalidate: _autovalidate,
+            Profile_field(
+              autovalidate: _autovalidate,
               maxline: 1,
               controller: agecontroller,
               textFieldName: '',
@@ -153,17 +161,19 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            Profile_field(autovalidate: _autovalidate,
+            Profile_field(
+              autovalidate: _autovalidate,
               maxline: 1,
-              controller: statecontroller,
+              controller: passportcontroller,
               textFieldName: '',
-              headingName: 'State',
+              headingName: 'Passport Number ',
               icon: const Icon(
                 Icons.location_on,
                 color: Colors.red,
               ),
             ),
-            Profile_field(autovalidate: _autovalidate,
+            Profile_field(
+              autovalidate: _autovalidate,
               maxline: 1,
               controller: postcodecontroller,
               textFieldName: '',
@@ -184,16 +194,15 @@ class _GetProfilepageState extends State<GetProfilepage> {
                     icNumber: icnocontroller.text,
                     name: usernamecontroller.text,
                     id: idcontroller.text,
-                    age: int.parse(agecontroller.text),
-                    state: statecontroller.text,
                     phoneNumber: phonenocontroller.text,
-                    permanentAddress: address1controller.text,
-                    currentAddress: address2controller.text,
+                    houseAddress: address1controller.text,
+                    residenceAddress: address2controller.text,
                     imageUrl: imageUrl,
+                    department: departmentcontroller.text,
+                    passportNumber: passportcontroller.text,
                   );
                   print("hello");
                   UserModel(bioData: profile, uid: authController.auth.currentUser!.uid).addCurrentUserDocument();
-
                 },
                 child: const Card(
                   color: Colors.red,

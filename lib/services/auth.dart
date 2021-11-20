@@ -30,14 +30,19 @@ class AuthenticationService extends ChangeNotifier {
         email: email,
         password: password,
       );
-    } on FirebaseAuthException catch (e) {
+      return "uid $uid";
+    }
+    on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        return('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        return('The account already exists for that email.');
+      } else {
+        return e.message;
       }
-    } catch (e) {
-      print(e);
+    }
+    catch (e) {
+     // return e.toString();
     }
 
   }
@@ -45,7 +50,9 @@ class AuthenticationService extends ChangeNotifier {
   Future<String?> signInWithEmailAndPassword({required String email, required String password}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-      print(userCredential.user!.uid);
+      if(userCredential.user != null){
+        return "uid $uid";
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -53,6 +60,8 @@ class AuthenticationService extends ChangeNotifier {
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
         return  e.message.toString();
+      } else if (e.code == 'unknown'){
+        return e.message.toString();
       }
     }
   }

@@ -69,7 +69,14 @@ class _SignUpState extends State<SignUp> {
               onTap: () async {
                 await authController.auth.signUpWithEmailAndPassword(email: email.text, password: password.text).then((value) {
                   if(value!=null){
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+                    if(value.startsWith("uid")){
+                      Get.to(()=>const LandingPage(),duration: const Duration(seconds: 2));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+                    }
+                  } else {
+                    Get.to(()=>const LandingPage());
+
                   }
                 });
                 // Get.to(()=>const LandingPage(),duration: const Duration(seconds: 2));

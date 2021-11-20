@@ -61,9 +61,15 @@ class _LoginPageState extends State<LoginPage> {
                   onTap: () async {
                     await authController.auth.signInWithEmailAndPassword(email: name.text, password: password.text).then((value){
                       if(value!=null){
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+                        if(value.startsWith("uid")){
+                          Get.to(()=>const LandingPage());
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Unknown Error Occurred, Please try again")));
+                        Get.to(()=>const LandingPage());
                       }
-                      Get.to(()=>const LandingPage());
                     });
                     // if(result) {
 

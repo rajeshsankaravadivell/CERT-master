@@ -8,16 +8,16 @@ import 'covidstatus.dart';
 
 enum SingingCharacter { CovidUpdate, Healthassessment, CovidStatus }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+class covidstatus extends StatefulWidget {
+  const covidstatus({Key? key}) : super(key: key);
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<covidstatus> createState() => _covidstatusState();
 }
 
 /// This is the private State class that goes with MyStatefulWidget.
 /// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
-class _MyStatefulWidgetState extends State<MyStatefulWidget> with TickerProviderStateMixin {
+class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin {
   late TabController _tabController;
   SingingCharacter? _character = SingingCharacter.CovidStatus;
   String? _title = '';

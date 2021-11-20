@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:pert/constants/constants.dart';
+import 'package:pert/models/assesment.dart';
 import 'profile_model.dart';
 
 FirebaseFunctions functions = FirebaseFunctions.instance;
@@ -27,15 +28,17 @@ class UserModel {
     this.contactHistory,
     this.fcm,
     this.createdDate,
+    this.assessments,
   });
 
   Profile bioData;
   String uid;
   bool isStaff;
   Device? device;
-  Quarantine? quarantine;
+  List<Quarantine>? quarantine;
   CovidInfo? covidInfo;
   List<ContactHistory>? contactHistory;
+  List<Assessment>? assessments;
   String? fcm;
   DateTime? createdDate;
 
@@ -84,18 +87,16 @@ class UserModel {
     }
   }
 
+  addAssessment(Assessment item){
+    assessments ??= [];
+    assessments!.add(item);
+    updateUser();
+  }
+
   static Stream<DocumentSnapshot<Map<String, dynamic>>> getProfile(String uid) {
     return users.doc(uid).snapshots();
   }
 
-  updateCovidInformation(CovidInfo covidInfo) async {
-    try {
-      await users.doc(this.uid).update({"quarantine": quarantine!.toJson()});
-      return {"code": "Success", "message": "Covid Information Updated"};
-    } catch (exception) {
-      return exception;
-    }
-  }
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getUsers(DocumentSnapshot? certUserSnapshot) {
     if (certUserSnapshot != null) {
@@ -110,7 +111,7 @@ class UserModel {
         uid: json["uid"],
         isStaff: json["isStaff"],
         device: json["device"] != null ? Device.fromJson(json["device"]) : null,
-        quarantine: json["quarantine"] != null ? Quarantine.fromJson(json["quarantine"]) : null,
+        // quarantine: json["quarantine"] != null ? Quarantine.fromJson(json["quarantine"]) : null,
         covidInfo: json["covidInfo"] != null ? CovidInfo.fromJson(json["covidInfo"]) : null,
         contactHistory:
             json["contactHistory"] != null ? List<ContactHistory>.from(json["contactHistory"].map((x) => ContactHistory.fromJson(x))) : null,
@@ -123,7 +124,7 @@ class UserModel {
         "uid": uid,
         "isStaff": isStaff,
         "device": device != null ? device!.toJson() : null,
-        "quarantine": quarantine != null ? quarantine!.toJson() : null,
+        // "quarantine": quarantine != null ? quarantine!.toJson() : null,
         "covidInfo": covidInfo != null ? covidInfo!.toJson() : null,
         "contactHistory": contactHistory != null ? List<dynamic>.from(contactHistory!.map((x) => x.toJson())) : null,
         "fcm": fcm,

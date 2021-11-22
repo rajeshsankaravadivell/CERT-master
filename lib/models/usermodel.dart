@@ -87,16 +87,25 @@ class UserModel {
     }
   }
 
-  addAssessment(Assessment item){
+  addAssessment(Assessment item) {
     assessments ??= [];
     assessments!.add(item);
     updateUser();
   }
 
+  List<String> get searchString => makeSearchString(this.bioData.name);
+  makeSearchString(String text) {
+    List<String> returns = [];
+    var length = text.length;
+    for (int i = 0; i < length; i++) {
+      returns.add(text.substring(0, i));
+    }
+    return returns;
+  }
+
   static Stream<DocumentSnapshot<Map<String, dynamic>>> getProfile(String uid) {
     return users.doc(uid).snapshots();
   }
-
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getUsers(DocumentSnapshot? certUserSnapshot) {
     if (certUserSnapshot != null) {
@@ -128,7 +137,8 @@ class UserModel {
         "covidInfo": covidInfo != null ? covidInfo!.toJson() : null,
         "contactHistory": contactHistory != null ? List<dynamic>.from(contactHistory!.map((x) => x.toJson())) : null,
         "fcm": fcm,
-        "createdDate": createdDate
+        "createdDate": createdDate,
+        "search": searchString,
       };
 }
 

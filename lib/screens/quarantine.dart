@@ -4,7 +4,8 @@ import 'package:pert/constants/colors.dart';
 import 'package:pert/models/usermodel.dart';
 
 class QuarantinePage extends StatefulWidget {
-  QuarantinePage({Key? key, this.quarantine}) : super(key: key);
+  QuarantinePage({Key? key, this.quarantine, required this.user}) : super(key: key);
+  final UserModel user;
 
   final Quarantine? quarantine;
 

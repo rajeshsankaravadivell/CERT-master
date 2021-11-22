@@ -32,7 +32,7 @@ class Profile {
     this.imageUrl,
     required this.department,
     required this.passportNumber,
-    this.isLocal = true,
+    this.isLocal = true, this.countryCode,
   });
 
   String id;
@@ -44,6 +44,7 @@ class Profile {
   String? houseAddress;
   String? residenceAddress;
   String? imageUrl;
+  String? countryCode;
   String? phoneNumber;
   bool isLocal;
 
@@ -76,6 +77,9 @@ class Profile {
         passportNumber: json["passportNumber"],
         department: json["department"],
         isLocal: json["isLocal"] ?? true,
+      countryCode: json["countryCode"] ?? '',
+
+
       );
 
   Map<String, dynamic> toJson() => {
@@ -90,6 +94,7 @@ class Profile {
         "department" : department,
         "passportNumber" :passportNumber,
         "local" : isLocal,
+        "countryCode" : countryCode,
       };
 }
 

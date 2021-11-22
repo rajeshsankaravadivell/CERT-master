@@ -38,6 +38,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: ThemeData(
 
+
         canvasColor: Colors.white,
         // scaffoldBackgroundColor:  Colors.white38,
         elevatedButtonTheme: ElevatedButtonThemeData(

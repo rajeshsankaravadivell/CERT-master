@@ -46,6 +46,7 @@ dependencies:
   dependencies:
   firebase_messaging: ^11.1.0
   url_launcher: ^6.0.13
+  country_picker: ^2.0.8
 
 
 dev_dependencies:
@@ -64,6 +65,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

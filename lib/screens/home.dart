@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pert/constants/constants.dart';
 import 'package:pert/controllers/user_controller.dart';
-import 'package:pert/login.dart';
+
 import 'package:pert/models/usermodel.dart';
 import 'package:pert/screens/announcementpage.dart';
-import 'package:pert/screens/notificationpage.dart';
 import 'package:pert/screens/profile.dart';
+
+import 'package:pert/screens/profileupdate.dart';
 import 'package:pert/screens/quarantine.dart';
 import 'package:pert/screens/tabbar.dart';
 import 'package:pert/screens/whistleblower.dart';
@@ -210,7 +211,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(()=>QuarantinePage(user: widget.user,));
+                    },
                     // onTap: () => Navigator.push(
                     //   context,
                     //   MaterialPageRoute(

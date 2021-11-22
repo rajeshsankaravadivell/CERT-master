@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:pert/constants/constants.dart';
 import 'package:pert/models/profile_model.dart';
 import 'package:pert/models/usermodel.dart';
-import 'package:pert/screens/profile.dart';
+import 'package:pert/screens/profileupdate.dart';
 
 class GetProfilepage extends StatefulWidget {
   const GetProfilepage({Key? key}) : super(key: key);
@@ -74,7 +74,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
             ),
             Profile_field(
 
-              autovalidate: _autovalidate,
+
               maxline: 1,
               controller: idcontroller,
               textFieldName: '',
@@ -85,7 +85,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
               ),
             ),
             Profile_field(
-              autovalidate: _autovalidate,
+
               maxline: 1,
               controller: usernamecontroller,
               textFieldName: '',
@@ -96,7 +96,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
               ),
             ),
             Profile_field(
-              autovalidate: _autovalidate,
+
               maxline: 1,
               controller: icnocontroller,
               textFieldName: '',
@@ -107,7 +107,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
               ),
             ),
             Profile_field(
-              autovalidate: _autovalidate,
+
               maxline: 1,
               controller: departmentcontroller,
               textFieldName: '',
@@ -118,7 +118,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
               ),
             ),
             Profile_field(
-              autovalidate: _autovalidate,
+
               maxline: 1,
               controller: phonenocontroller,
               textFieldName: '',
@@ -129,7 +129,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
               ),
             ),
             Profile_field(
-              autovalidate: _autovalidate,
+
               maxline: 4,
               controller: address1controller,
               textFieldName: '',
@@ -140,7 +140,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
               ),
             ),
             Profile_field(
-              autovalidate: _autovalidate,
+
               maxline: 4,
               controller: address2controller,
               textFieldName: '',
@@ -151,7 +151,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
               ),
             ),
             Profile_field(
-              autovalidate: _autovalidate,
+
               maxline: 1,
               controller: agecontroller,
               textFieldName: '',
@@ -162,7 +162,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
               ),
             ),
             Profile_field(
-              autovalidate: _autovalidate,
+
               maxline: 1,
               controller: passportcontroller,
               textFieldName: '',
@@ -173,7 +173,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
               ),
             ),
             Profile_field(
-              autovalidate: _autovalidate,
+
               maxline: 1,
               controller: postcodecontroller,
               textFieldName: '',

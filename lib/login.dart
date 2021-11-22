@@ -26,13 +26,15 @@ class _LoginPageState extends State<LoginPage> {
         body: Stack(
           children: [
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.10,
-              left: 0,
+              top: MediaQuery.of(context).size.height * 0.01,
+              right: 0,
               child: Image.asset(
-                'assets/studentloginpage/iukl_logo.png',
-                height: MediaQuery.of(context).size.height * 0.15,
+                'assets/loginpage/Group768.png',
+                // height: MediaQuery.of(context).size.height * 0.15,
+                fit: BoxFit.cover,
               ),
             ),
+
             Positioned(
               bottom: 0,
               left: 10,
@@ -50,8 +52,20 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Column(
+
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
+                Positioned(
+                  top: MediaQuery.of(context).size.height * 0.1,
+                  left: 0,
+                  right: 10,
+                  child: Image.asset(
+                    'assets/studentloginpage/iukl_logo.png',
+                    height: MediaQuery.of(context).size.height * 0.15,
+                  ),
+                ),
+
                 textfield('Email', name),
                 textfield('Password', password),
                 const SizedBox(
@@ -223,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Padding textfield(hinttext, controller) {
+  Padding textfield(hinttext, controller,) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(

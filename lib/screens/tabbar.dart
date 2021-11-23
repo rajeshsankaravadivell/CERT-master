@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pert/models/usermodel.dart';
 import 'package:pert/screens/covidupdate.dart';
 import 'package:pert/screens/test.dart';
 import 'package:pert/widgets/covidstatus_tab.dart';
@@ -9,7 +10,8 @@ import 'covidstatus.dart';
 enum SingingCharacter { CovidUpdate, Healthassessment, CovidStatus }
 
 class covidstatus extends StatefulWidget {
-  const covidstatus({Key? key}) : super(key: key);
+  const covidstatus({Key? key, required this.user}) : super(key: key);
+  final UserModel user;
 
   @override
   State<covidstatus> createState() => _covidstatusState();
@@ -34,8 +36,8 @@ class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin
       appBar: AppBar(
         backgroundColor: Colors.white,
         // toolbarHeight: 10,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 60),
+        title: const Padding(
+          padding: EdgeInsets.only(left: 60),
           child: Text(
             'Covid Status',
             style: TextStyle(color: Colors.black),
@@ -47,7 +49,7 @@ class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin
 
 
           controller: _tabController,
-          tabs: <Widget>[
+          tabs: const <Widget>[
             Tab( icon: Icon(Icons.update)),
 
 
@@ -58,8 +60,8 @@ class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin
       ),
       body: TabBarView(
         controller: _tabController,
-        children: <Widget>[
-          Center(child: CovidUpdate()),
+        children:  <Widget>[
+          Center(child: CovidUpdate(user: widget.user,)),
           Center(
             child: HealthAssesment(),
           ),

@@ -4,16 +4,18 @@ import 'package:pert/constants/colors.dart';
 import 'package:pert/models/usermodel.dart';
 
 class QuarantinePage extends StatefulWidget {
-  QuarantinePage({Key? key, this.quarantine, required this.user}) : super(key: key);
+  QuarantinePage({Key? key, required this.user}) : super(key: key);
   final UserModel user;
-
-  final Quarantine? quarantine;
-
   @override
   _QuarantinePageState createState() => _QuarantinePageState();
 }
 
 class _QuarantinePageState extends State<QuarantinePage> {
+  @override
+  void initState() {
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -55,7 +57,7 @@ class _QuarantinePageState extends State<QuarantinePage> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: widget.quarantine == null ? const Center(child :Text("No records found. You are not in Quarantine")) :Card(
+                  child: widget.user.quarantine == null ? const Center(child :Text("No records found. You are not in Quarantine")) :Card(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -76,7 +78,7 @@ class _QuarantinePageState extends State<QuarantinePage> {
                                           color: Colors.grey[600]),
                                       children: [
                                         TextSpan(
-                                          text: widget.quarantine!.location.place,
+                                          text: widget.user.quarantine!.location.place,
                                           style: TextStyle(
                                               fontWeight: FontWeight.normal,
                                               color: Colors.grey[500]),
@@ -92,7 +94,7 @@ class _QuarantinePageState extends State<QuarantinePage> {
                                         color: Colors.grey[600]),
                                     children: [
                                       TextSpan(
-                                        text: widget.quarantine!.location.block,
+                                        text: widget.user.quarantine!.location.block,
                                         style: TextStyle(
                                             fontWeight: FontWeight.normal,
                                             color: Colors.grey[500]),

@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.digisailor.safecampus">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="pert"
         android:icon="@mipmap/ic_launcher">

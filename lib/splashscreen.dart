@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     super.initState();
 
     controller = AnimationController(duration: const Duration(seconds: 1), vsync: this);
-    animation = new CurvedAnimation(parent: controller, curve: Curves.linear);
+    animation =  CurvedAnimation(parent: controller, curve: Curves.linear);
     controller.forward();
     controller.addListener(() {
       setState(() {

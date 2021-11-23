@@ -6,6 +6,7 @@ import 'package:pert/models/admin.dart';
 import 'package:pert/models/announcements.dart';
 import 'package:pert/models/profile_model.dart';
 import 'package:pert/services/db.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AnnouncementWidget extends StatefulWidget {
   AnnouncementWidget({Key? key, this.title}) : super(key: key);
@@ -89,64 +90,7 @@ class _AnnouncementWidgetState extends State<AnnouncementWidget> {
         padding: const EdgeInsets.only(top: 8.0),
         child: Column(
           children: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //     children: [
-            //       SizedBox(
-            //         height: MediaQuery.of(context).size.height * 0.055,
-            //         child: ElevatedButton(
-            //           onPressed: () {
-            //
-            //           },
-            //           child: Icon(Icons.person_add),
-            //           style: ButtonStyle(shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)))),
-            //         ),
-            //       ),
-            //       SizedBox(
-            //         width: MediaQuery.of(context).size.width * 0.7,
-            //
-            //         // elevation: 5,
-            //         //
-            //         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-            //         child: Card(
-            //           elevation: 4,
-            //           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-            //           child: TextFormField(
-            //             controller: null,
-            //             decoration: InputDecoration(
-            //               hintText: 'Search',
-            //               suffixIcon: IconButton(
-            //                 icon: Icon(Icons.search),
-            //                 onPressed: () {},
-            //               ),
-            //               enabledBorder: UnderlineInputBorder(
-            //                 borderSide: BorderSide(
-            //                   color: Color(0x00000000),
-            //                   width: 20,
-            //                 ),
-            //                 borderRadius: BorderRadius.circular(20),
-            //               ),
-            //               focusedBorder: UnderlineInputBorder(
-            //                 borderSide: BorderSide(
-            //                   color: Color(0x00000000),
-            //                   width: 20,
-            //                 ),
-            //                 borderRadius: BorderRadius.circular(20),
-            //               ),
-            //               filled: true,
-            //               fillColor: Color(0xFFF7F7F7),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // Divider(
-            //   thickness: 1,
-            // ),
+
             Expanded(
               child: NotificationListener<ScrollNotification>(
                 onNotification: (ScrollNotification scrollInfo) {
@@ -308,14 +252,17 @@ class CustomCard extends StatelessWidget {
               style: TextStyle(color: Colors.black.withOpacity(0.6)),
             ),
           ),
+          // Image.network("https://www.shriramgi.com/news-events/wp-content/uploads/2020/10/SGI-corona-blog-image.png"),
           Image.network("https://www.shriramgi.com/news-events/wp-content/uploads/2020/10/SGI-corona-blog-image.png"),
           ButtonBar(
             alignment: MainAxisAlignment.start,
             children: [
               ElevatedButton(
 
-                onPressed: () {
-                  // Perform some action
+                onPressed:  () async {
+                  var url ="https://www.shriramgi.com/news-events/wp-content/uploads/2020/10/SGI-corona-blog-image.png";
+                  await launch(Uri.encodeFull(url),enableDomStorage: true);
+                  print(url);
                 },
                 child: const Text('Download'),
               ),

@@ -250,8 +250,9 @@ class _HealthAssesmentState extends State<HealthAssesment> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: ElevatedButton(
-                onPressed: () {
-                  userController.user.updateUser();
+                onPressed: () async {
+                 await userController.user.updateUser();
+
                 },
                 child: Text(
                   'Send Report',

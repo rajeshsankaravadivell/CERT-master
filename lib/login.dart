@@ -16,6 +16,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _passwordVisible = false;
+  @override
+  void initState() {
+    _passwordVisible = true;
+  }
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
   @override
@@ -66,8 +71,24 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-                textfield('Email', name),
-                textfield('Password', password),
+                textfield('Email', name,Icon(Icons.email),false),
+                textfield('Password', password,
+                    IconButton(icon:Icon(
+                  // Based on passwordVisible state choose the icon
+                  _passwordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                  color: Theme.of(context).primaryColorDark,
+                ),
+                  onPressed: () {
+                    // Update the state i.e. toogle the state of passwordVisible variable
+                    setState(() {
+                      _passwordVisible = !_passwordVisible;
+                    });
+                  },), _passwordVisible
+
+
+                ),
                 const SizedBox(
                   height: 15.0,
                 ),
@@ -237,7 +258,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Padding textfield(hinttext, controller,) {
+  Padding textfield(hinttext, controller,icon,obscuretext) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
@@ -246,8 +267,12 @@ class _LoginPageState extends State<LoginPage> {
           borderRadius: BorderRadius.circular(18.0),
         ),
         child: TextFormField(
+          obscureText: obscuretext,
+
           controller: controller,
           decoration: InputDecoration(
+
+            suffixIcon: icon,
             labelText: hinttext,
             labelStyle: const TextStyle(
               fontWeight: FontWeight.bold,

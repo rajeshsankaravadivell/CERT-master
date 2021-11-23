@@ -4,12 +4,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pert/constants/constants.dart';
 import 'package:pert/models/complaint.dart';
+import 'package:pert/models/usermodel.dart';
 import 'package:pert/widgets/customtextbox.dart';
 import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 
 class WhistleBlower extends StatefulWidget {
-  WhistleBlower({Key? key}) : super(key: key);
+  WhistleBlower({Key? key, required this.userModel}) : super(key: key);
+  final UserModel userModel;
 
   @override
   _WhistleBlowerState createState() => _WhistleBlowerState();
@@ -124,8 +126,8 @@ class _WhistleBlowerState extends State<WhistleBlower> {
                           ),
                         ),
                         CustomTextBox(controller: textController1!, labelText: 'Title', hintText: 'Sample SOP', keyboardType: TextInputType.text),
-                        CustomTextBox(
-                            controller: textController2!, labelText: 'Description', hintText: '-------------', keyboardType: TextInputType.text),
+                        // CustomTextBox(
+                        //     controller: textController2!, labelText: 'Description', hintText: '-------------', keyboardType: TextInputType.text),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
                           child: TextFormField(
@@ -134,28 +136,28 @@ class _WhistleBlowerState extends State<WhistleBlower> {
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'Content',
-                              labelStyle: TextStyle(
+                              labelStyle: const TextStyle(
                                 fontFamily: 'Lexend Deca',
                                 color: Color(0xFFEF4C43),
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal,
                               ),
                               hintText: '------------------',
-                              hintStyle: TextStyle(
+                              hintStyle: const TextStyle(
                                 fontFamily: 'Lexend Deca',
                                 color: Color(0xFF95A1AC),
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal,
                               ),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0xFFDBE2E7),
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0xFFDBE2E7),
                                   width: 2,
                                 ),
@@ -165,7 +167,7 @@ class _WhistleBlowerState extends State<WhistleBlower> {
                               fillColor: Colors.white,
                               contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                             ),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: 'Lexend Deca',
                               color: Colors.black,
                               fontSize: 14,
@@ -184,12 +186,12 @@ class _WhistleBlowerState extends State<WhistleBlower> {
                       if (_path != null)
                        {
                          future = Complaint.createComplaintWithAttachment(null, textController1!.text, textController2!.text, textController3!.text, File(_path!),
-                             userController.user.uid);
+                             widget.userModel.uid);
                        }
                       else
                         {
                           future = Complaint.createComplaint(null, textController1!.text, textController2!.text, textController3!.text, null,
-                              userController.user.uid);
+                            widget.userModel.uid);
                         }
                       showDialog(
                         context: context,
@@ -198,10 +200,10 @@ class _WhistleBlowerState extends State<WhistleBlower> {
                             future: future,
                             builder: (context, snapshot) {
                               Widget title, content;
-                              var textStyle = TextStyle(color: Colors.black);
+                              var textStyle = const TextStyle(color: Colors.black);
                               if (snapshot.hasData) {
-                                title = Text("Complaint Registered");
-                                content = Text("Complaint has been added successfully");
+                                title = const Text("Complaint Registered");
+                                content = const Text("Complaint has been added successfully");
                                 return AlertDialog(title: title, titleTextStyle: textStyle, content: content, actions: [
                                   TextButton(
                                     onPressed: () {
@@ -215,7 +217,7 @@ class _WhistleBlowerState extends State<WhistleBlower> {
                                   ),
                                 ]);
                               } else {
-                                return Center(
+                                return const Center(
                                     child: SizedBox(
                                   child: CircularProgressIndicator(),
                                 ));

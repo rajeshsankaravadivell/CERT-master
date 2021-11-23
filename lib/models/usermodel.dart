@@ -5,9 +5,11 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:pert/constants/constants.dart';
 import 'package:pert/models/assesment.dart';
 import 'profile_model.dart';
+final databaseRef = FirebaseDatabase.instance.reference();
 
 FirebaseFunctions functions = FirebaseFunctions.instance;
 FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -24,6 +26,7 @@ class UserModel {
     this.isStaff = false,
     this.device,
     this.quarantine,
+    this.quarantineHistory,
     this.covidInfo,
     this.contactHistory,
     this.fcm,
@@ -35,7 +38,8 @@ class UserModel {
   String uid;
   bool isStaff;
   Device? device;
-  List<Quarantine>? quarantine;
+  Quarantine? quarantine;
+  List<Quarantine>? quarantineHistory;
   CovidInfo? covidInfo;
   List<ContactHistory>? contactHistory;
   List<Assessment>? assessments;
@@ -114,13 +118,35 @@ class UserModel {
       return users.orderBy("bioData.id").limit(15).get();
     }
   }
+  loadContacts() async {
+    List<ContactHistory>? returns = [];
+    var contacts = await databaseRef.child("contacts").child(uid).get().then((result) {
+      return result.value ?? null;
+    });
+    if (contacts != null) {
+      contacts.forEach((k, json) {
+        print(json);
+        returns.add(ContactHistory(
+          contact: json["contact"],
+          fcm: json["fcm"] ?? '',
+          totalTimeinContact: json["totalTimeinContact"],
+          groupId: json["groupId"],
+          deviceId: json["deviceId"],
+          gateWay: json["gateWay"],
+          lastContact: DateTime.fromMillisecondsSinceEpoch(json["lastContact"] * 1000),
+        ));
+      });
+    }
+    this.contactHistory = returns;
+    return returns;
+  }
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         bioData: Profile.fromJson(json["bioData"]),
         uid: json["uid"],
         isStaff: json["isStaff"],
         device: json["device"] != null ? Device.fromJson(json["device"]) : null,
-        // quarantine: json["quarantine"] != null ? Quarantine.fromJson(json["quarantine"]) : null,
+        quarantine: json["quarantine"] != null ? Quarantine.fromJson(json["quarantine"]) : null,
         covidInfo: json["covidInfo"] != null ? CovidInfo.fromJson(json["covidInfo"]) : null,
         contactHistory:
             json["contactHistory"] != null ? List<ContactHistory>.from(json["contactHistory"].map((x) => ContactHistory.fromJson(x))) : null,
@@ -275,7 +301,7 @@ class ContactHistory {
       this.groupId,
       this.gateWay,
       this.lastContact,
-      this.covidStatus = false});
+      this.covidStatus = false, deviceId});
 
   String contact;
   bool covidStatus;

@@ -97,18 +97,40 @@ class _SignUpState extends State<SignUp> {
                 ),
                 InkWell(
                   onTap: () async {
-                    await authController.auth.signUpWithEmailAndPassword(email: email.text, password: password.text).then((value) {
-                      if(value!=null){
-                        if(value.startsWith("uid")){
-                          Get.to(()=>const LandingPage(),duration: const Duration(seconds: 1));
+                    if (email.text!=null&&confirmpassword.text
+                        ==password.text){
+                      await authController.auth.signUpWithEmailAndPassword(email: email.text, password: password.text).then((value) {
+                        if(value!=null){
+                          if(value.startsWith("uid")){
+                            Get.to(()=>const LandingPage(),duration: const Duration(seconds: 1));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+                          }
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
-                        }
-                      } else {
-                        Get.to(()=>const LandingPage());
+                          Get.to(()=>const LandingPage());
 
-                      }
-                    });
+                        }
+                      });
+                    }else{
+                      final snackBar = SnackBar(
+                        content: const Text('Check Your Fields',style: TextStyle(fontWeight:
+                        FontWeight.bold,fontSize: 18,color: Colors.red),),
+                        action: SnackBarAction(
+                          label: '',
+
+                          onPressed: () {
+                            // Some code to undo the change.
+                          },
+                        ),
+                      );
+
+                      // Find the ScaffoldMessenger in the widget tree
+                      // and use it to show a SnackBar.
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+
+                    }
+
                     // Get.to(()=>const LandingPage(),duration: const Duration(seconds: 2));
                   },
                   child: ClipRRect(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:pert/constants/colors.dart';
-import 'package:pert/screens/home.dart';
+
 import 'package:pert/screens/signup.dart';
 
 import 'constants/constants.dart';
@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     _passwordVisible = true;
+    super.initState();
   }
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -31,12 +32,12 @@ class _LoginPageState extends State<LoginPage> {
         body: Stack(
           children: [
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.01,
-              right: 0,
+              top: MediaQuery.of(context).size.height * 0.1,
+              left: 0,
+              right: 10,
               child: Image.asset(
-                'assets/loginpage/Group768.png',
-                // height: MediaQuery.of(context).size.height * 0.15,
-                fit: BoxFit.cover,
+                'assets/studentloginpage/iukl_logo.png',
+                height: MediaQuery.of(context).size.height * 0.15,
               ),
             ),
 
@@ -61,17 +62,9 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.1,
-                  left: 0,
-                  right: 10,
-                  child: Image.asset(
-                    'assets/studentloginpage/iukl_logo.png',
-                    height: MediaQuery.of(context).size.height * 0.15,
-                  ),
-                ),
 
-                textfield('Email', name,Icon(Icons.email),false),
+
+                textfield('Email', name,const Icon(Icons.email),false),
                 textfield('Password', password,
                     IconButton(icon:Icon(
                   // Based on passwordVisible state choose the icon

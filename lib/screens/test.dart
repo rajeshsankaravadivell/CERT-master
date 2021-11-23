@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pert/constants/colors.dart';
 import 'package:pert/constants/constants.dart';
+import 'package:pert/models/usermodel.dart';
 
 class HealthAssesment extends StatefulWidget {
-  const HealthAssesment({Key? key}) : super(key: key);
-
+  const HealthAssesment({Key? key, required this.user}) : super(key: key);
+  final UserModel user;
   @override
   _HealthAssesmentState createState() => _HealthAssesmentState();
 }
@@ -154,19 +156,19 @@ class _HealthAssesmentState extends State<HealthAssesment> {
             RadioListTile<bool>(
                 title: const Text('Yes'),
                 value: true,
-                groupValue: userController.user.covidInfo!.question1,
+                groupValue: widget.user.covidInfo!.question1,
                 onChanged: (bool? val) {
                   setState(() {
-                    userController.user.covidInfo!.question1 = val!;
+                    widget.user.covidInfo!.question1 = val!;
                   });
                 }),
             RadioListTile<bool>(
                 title: const Text('No'),
                 value: false,
-                groupValue: userController.user.covidInfo!.question1,
+                groupValue: widget.user.covidInfo!.question1,
                 onChanged: (bool? val) {
                   setState(() {
-                    userController.user.covidInfo!.question1 = val!;
+                    widget.user.covidInfo!.question1 = val!;
                   });
                 }),
             Padding(
@@ -181,19 +183,19 @@ class _HealthAssesmentState extends State<HealthAssesment> {
             RadioListTile<bool>(
                 title: const Text('Yes'),
                 value: true,
-                groupValue: userController.user.covidInfo!.question2,
+                groupValue: widget.user.covidInfo!.question2,
                 onChanged: (val) {
                   setState(() {
-                    userController.user.covidInfo!.question2 = val!;
+                    widget.user.covidInfo!.question2 = val!;
                   });
                 }),
             RadioListTile<bool>(
                 title: const Text('No'),
                 value: false,
-                groupValue: userController.user.covidInfo!.question2,
+                groupValue: widget.user.covidInfo!.question2,
                 onChanged: (val) {
                   setState(() {
-                    userController.user.covidInfo!.question2 = val!;
+                    widget.user.covidInfo!.question2 = val!;
                   });
                 }),
             Padding(
@@ -206,19 +208,19 @@ class _HealthAssesmentState extends State<HealthAssesment> {
             RadioListTile<bool>(
                 title: const Text('Yes'),
                 value: true,
-                groupValue: userController.user.covidInfo!.question3,
+                groupValue: widget.user.covidInfo!.question3,
                 onChanged: (val) {
                   setState(() {
-                    userController.user.covidInfo!.question3 = val!;
+                    widget.user.covidInfo!.question3 = val!;
                   });
                 }),
             RadioListTile<bool>(
                 title: const Text('No'),
                 value: false,
-                groupValue: userController.user.covidInfo!.question3,
+                groupValue: widget.user.covidInfo!.question3,
                 onChanged: (val) {
                   setState(() {
-                    userController.user.covidInfo!.question3 = val!;
+                    widget.user.covidInfo!.question3 = val!;
                   });
                 }),
             Padding(
@@ -232,40 +234,22 @@ class _HealthAssesmentState extends State<HealthAssesment> {
             RadioListTile<bool>(
                 title: const Text('Yes'),
                 value: true,
-                groupValue: userController.user.covidInfo!.question4,
+                groupValue: widget.user.covidInfo!.question4,
                 onChanged: (val) {
                   setState(() {
-                    userController.user.covidInfo!.question4 = val!;
+                    widget.user.covidInfo!.question4 = val!;
                   });
                 }),
             RadioListTile<bool>(
                 title: const Text('No'),
                 value: false,
-                groupValue: userController.user.covidInfo!.question4,
+                groupValue: widget.user.covidInfo!.question4,
                 onChanged: (val) {
                   setState(() {
-                    userController.user.covidInfo!.question4 = val!;
+                    widget.user.covidInfo!.question4 = val!;
                   });
                 }),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: ElevatedButton(
-                onPressed: () async {
-                 await userController.user.updateUser();
 
-                },
-                child: Text(
-                  'Send Report',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.8),
-                  ),
-                ),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                  kprimaryColor,
-                )),
-              ),
-            )
           ],
         ),
       ),

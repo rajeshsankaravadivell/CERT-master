@@ -43,7 +43,12 @@ class _GetProfilepageState extends State<GetProfilepage> {
     passportcontroller.text = '';
     postcodecontroller.text = '';
   }
-  String dropdownValue = 'csc';
+  String dropdownValue = 'Computer Science';
+  bool isLocal=false;
+  bool isStaff=false;
+  // String?  IcNumber='';
+  // String?  PassportNumber='';
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +80,71 @@ class _GetProfilepageState extends State<GetProfilepage> {
             ),
             const SizedBox(
               height: 15.0,
+            ),
+
+            Text('Are you an international student ?'),
+
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 10, top: 4),
+            //   child: SizedBox(
+            //     height: 40,
+            //     child: Row(
+            //       children: [
+            //         const Text("Yes"),
+            //         Radio<bool>(
+            //           value: true,
+            //           groupValue: isLocal,
+            //           onChanged: (bool? value) {
+            //             setState(() {
+            //               isLocal = value!;
+            //             });
+            //           },
+            //         ),
+            //         const Text("No"),
+            //         Radio<bool>(
+            //           value: false,
+            //           groupValue:isLocal,
+            //           onChanged: (bool? value) {
+            //             setState(() {
+            //               isLocal = value!;
+            //             });
+            //           },
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // Text('Are you an staff ?'),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 10, top: 4),
+              child: SizedBox(
+                height: 40,
+                child: Row(
+                  children: [
+                    const Text("Yes"),
+                    Radio<bool>(
+                      value: true,
+                      groupValue: isLocal,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isLocal = value!;
+                        });
+                      },
+                    ),
+                    const Text("No"),
+                    Radio<bool>(
+                      value: false,
+                      groupValue:isLocal,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isLocal = value!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
             Profile_field(
 
@@ -157,7 +227,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
 
                             });
                           },
-                          items: <String>['csc', 'mech', 'EEE', 'BIO']
+                          items: <String>['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Information Technology']
                               .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               alignment: Alignment.center,
@@ -172,16 +242,46 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 ),
               ),
             ),
-            Profile_field(
-
+            // Profile_field(
+            //
+            //   maxline: 1,
+            //   controller: passportcontroller,
+            //   textFieldName: '',
+            //   headingName: 'Passport Number ',
+            //   icon: const Icon(
+            //     Icons.book,
+            //     color: Colors.red,
+            //   ),
+            // ),
+            isLocal==false
+                ? Profile_field(
+              textCapitalization: TextCapitalization.characters,
               maxline: 1,
-              controller: passportcontroller,
+              controller: icnocontroller,
               textFieldName: '',
-              headingName: 'Passport Number ',
+              headingName: 'IC No',
+              icon: const Icon(
+                Icons.people,
+                color: Colors.red,
+              ),
+              onChanged: (value) {
+               icnocontroller.text = value;
+              },
+            )
+                : Profile_field(
+
+
+              textCapitalization: TextCapitalization.characters,
+              maxline: 1,
+              textFieldName: '',
+              headingName: 'Passport Number',
               icon: const Icon(
                 Icons.book,
                 color: Colors.red,
               ),
+              onChanged: (value) {
+                passportcontroller.text = value;
+              },
             ),
             Profile_field(
 
@@ -194,65 +294,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            // SizedBox(
-            //   height: 110,
-            //   child: Row(
-            //     children: [
-            //       Expanded(
-            //         flex: 3,
-            //         child: Profile_field(
-            //           textInputType: TextInputType.phone,
-            //           onTap: () {
-            //             showCountryPicker(
-            //               context: context,
-            //               showPhoneCode: true, // optional. Shows phone code before the country name.
-            //               onSelect: (Country country) {
-            //                 print('Select country: ${country.displayName}');
-            //                 countrycode = "+" + country.phoneCode;
-            //                 countryCodeController.text = "+" + country.phoneCode;
-            //               },
-            //             );
-            //           },
-            //           maxline: 1,
-            //           controller: countryCodeController,
-            //           textFieldName: '+60',
-            //           headingName: 'Code',
-            //           icon: Icon(
-            //             Icons.flag,
-            //             color: Colors.red,
-            //           ),
-            //           onChanged: (value) {
-            //             widget.profile.phoneNumber = value;
-            //
-            //           },
-            //         ),
-            //       ),
-            //       Expanded(
-            //         flex: 7,
-            //         child: Profile_field(
-            //
-            //           textInputType: TextInputType.phone,
-            //           maxlength: 12,
-            //           onsaved: (String? val) {
-            //             _phone = val;
-            //           },
-            //
-            //           maxline: 1,
-            //           controller: phonenocontroller,
-            //           textFieldName: '+65 0895 4562',
-            //           headingName: 'Phone No',
-            //           icon: Icon(
-            //             Icons.phone,
-            //             color: Colors.red,
-            //           ),
-            //           onChanged: (value) {
-            //             widget.profile.phoneNumber = value;
-            //           },
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
+
             Profile_field(
 
               maxline: 4,
@@ -275,29 +317,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 color: Colors.red,
               ),
             ),
-            // Profile_field(
-            //
-            //   maxline: 1,
-            //   controller: agecontroller,
-            //   textFieldName: '',
-            //   headingName: 'Age',
-            //   icon: const Icon(
-            //     Icons.data_usage,
-            //     color: Colors.red,
-            //   ),
-            // ),
 
-            // Profile_field(
-            //
-            //   maxline: 1,
-            //   controller: postcodecontroller,
-            //   textFieldName: '',
-            //   headingName: 'Post Code',
-            //   icon: const Icon(
-            //     Icons.location_city,
-            //     color: Colors.red,
-            //   ),
-            // ),
             const SizedBox(
               height: 20,
             ),
@@ -305,7 +325,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
               child: InkWell(
                 onTap: () {
                   var profile = Profile(
-
+                     isLocal: isLocal,
                     email: authController.auth.currentUser!.email!,
                     icNumber: icnocontroller.text,
                     name: usernamecontroller.text,
@@ -318,7 +338,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                     passportNumber: passportcontroller.text,
                   );
                   print("hello");
-                  UserModel(bioData: profile, uid: authController.auth.currentUser!.uid).addCurrentUserDocument();
+                  UserModel(bioData: profile, uid: authController.auth.currentUser!.uid, isStaff:isStaff ).addCurrentUserDocument();
                 },
                 child: const Card(
                   color: Colors.red,

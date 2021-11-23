@@ -9,6 +9,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:pert/constants/constants.dart';
 import 'package:pert/models/assesment.dart';
 import 'profile_model.dart';
+
 final databaseRef = FirebaseDatabase.instance.reference();
 
 FirebaseFunctions functions = FirebaseFunctions.instance;
@@ -32,6 +33,7 @@ class UserModel {
     this.fcm,
     this.createdDate,
     this.assessments,
+    this.covidHistory,
   });
 
   Profile bioData;
@@ -41,6 +43,7 @@ class UserModel {
   Quarantine? quarantine;
   List<Quarantine>? quarantineHistory;
   CovidInfo? covidInfo;
+  List<CovidInfo>? covidHistory;
   List<ContactHistory>? contactHistory;
   List<Assessment>? assessments;
   String? fcm;
@@ -69,17 +72,39 @@ class UserModel {
     }
   }
 
+  Map<String, dynamic> toRTDBJson() => {
+        "bioData": bioData.name,
+        "uid": uid,
+        "isStaff": isStaff,
+        "deviceID": device != null ? device!.deviceId : null,
+        "groupID": device != null ? device!.groupId : null,
+        "quarantine": quarantine != null ? quarantine!.location.place.toString() : null,
+        "isCovid": covidInfo != null ? covidInfo!.result : false,
+        "fcm": fcm,
+        "createdDate": createdDate != null ? createdDate!.toIso8601String() : null,
+      };
+
   addCurrentUserDocument() {
     return users.doc(uid).set(toJson()).then((value) => print("value added"));
   }
 
-  updateUser() async {
-    try {
-      await users.doc(uid).update(toJson());
-      return {"code": "Success", "message": "User Successfully Updated"};
-    } catch (exception) {
-      return exception;
-    }
+ updateToken(String fcm) async {
+    return await users.doc(uid).update({'fcm' : fcm});
+ }
+
+  Future<dynamic> updateUser() async {
+    print("Hrllo");
+    return await users.doc(uid).update(toJson()).then((value) {
+      var json = toRTDBJson();
+      return databaseRef.child("users").child(uid).set(json).then((value) {
+        print(json["fcm"]);
+        return databaseRef.child("users/$uid/fcm").set(json["fcm"]).then((value) {
+          return {"code": "Success", "message": "User update successful"};
+        });
+      }).catchError((onError) {
+        return {"code": "Failure", "message": "Unknown Error. Please try again"};
+      });
+    });
   }
 
   quarantineUser(Quarantine quarantine) async {
@@ -118,6 +143,7 @@ class UserModel {
       return users.orderBy("bioData.id").limit(15).get();
     }
   }
+
   loadContacts() async {
     List<ContactHistory>? returns = [];
     var contacts = await databaseRef.child("contacts").child(uid).get().then((result) {
@@ -150,6 +176,7 @@ class UserModel {
         covidInfo: json["covidInfo"] != null ? CovidInfo.fromJson(json["covidInfo"]) : null,
         contactHistory:
             json["contactHistory"] != null ? List<ContactHistory>.from(json["contactHistory"].map((x) => ContactHistory.fromJson(x))) : null,
+        covidHistory: json["covidHistory"] != null ? List<CovidInfo>.from(json["covidHistory"].map((x) => CovidInfo.fromJson(x))) : null,
         fcm: json["fcm"],
         createdDate: json["createdDate"] != null ? json["createdDate"].toDate() : null,
       );
@@ -162,6 +189,7 @@ class UserModel {
         // "quarantine": quarantine != null ? quarantine!.toJson() : null,
         "covidInfo": covidInfo != null ? covidInfo!.toJson() : null,
         "contactHistory": contactHistory != null ? List<dynamic>.from(contactHistory!.map((x) => x.toJson())) : null,
+        "covidHistory": covidHistory != null ? List<dynamic>.from(covidHistory!.map((x) => x.toJson())) : null,
         "fcm": fcm,
         "createdDate": createdDate,
         "search": searchString,
@@ -301,7 +329,8 @@ class ContactHistory {
       this.groupId,
       this.gateWay,
       this.lastContact,
-      this.covidStatus = false, deviceId});
+      this.covidStatus = false,
+      deviceId});
 
   String contact;
   bool covidStatus;

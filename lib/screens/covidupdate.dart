@@ -18,7 +18,9 @@ class _CovidUpdateState extends State<CovidUpdate> {
   @override
   void initState() {
     // TODO: implement initState
+
     widget.user.covidInfo ??= CovidInfo(
+      method: 'swab',
       question1: null,
       question2: null,
       question3: null,
@@ -26,6 +28,7 @@ class _CovidUpdateState extends State<CovidUpdate> {
       result: false,
       vaccinated: false,
     );
+    widget.user.covidInfo !=null ? widget.user.covidInfo!.method = 'swab' : widget.user.covidInfo!.method = widget.user.covidInfo!.method;
     super.initState();
   }
 

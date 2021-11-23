@@ -45,31 +45,39 @@ class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin
         ),
 
         bottom: TabBar(
-
-
-
           controller: _tabController,
           tabs: const <Widget>[
-            Tab( icon: Icon(Icons.update)),
-
-
-            Tab( icon: Icon(Icons.health_and_safety_rounded)),
+            Tab(icon: Icon(Icons.update)),
+            Tab(icon: Icon(Icons.health_and_safety_rounded)),
             Tab(icon: Icon(Icons.list_alt)),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
-        children:  <Widget>[
-          Center(child: CovidUpdate(user: widget.user,)),
-          Center(
-            child: HealthAssesment(),
-          ),
-          Center(
-            child: CovidStatusTab(),
-          ),
+        children: <Widget>[
+          Center(child: CovidUpdate(user: widget.user)),
+          Center(child: HealthAssesment(user: widget.user)),
+          Center(child: CovidStatusTab(user: widget.user)),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            widget.user.covidInfo!.date = DateTime.now();
+            widget.user.covidHistory ??= [];
+            if(widget.user.covidHistory!.isEmpty){
+              widget.user.covidHistory!.add(widget.user.covidInfo!);
+            } else {
+              var days = widget.user.covidHistory!.last.date!.difference(widget.user.covidInfo!.date!).inDays;
+              if(days >= -1 && days <=1) {
+                // widget.user.covidHistory!.add(widget.user.covidInfo!);
+              } else {
+                widget.user.covidHistory!.add(widget.user.covidInfo!);
+              }
+            }
+            widget.user.updateUser();
+          },
+          child: const Icon(Icons.save)),
     );
   }
 }

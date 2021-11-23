@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   _getToken() {
     _firebaseMessaging.getToken().then((deviceToken) {
       userController.user.fcm = deviceToken;
-      userController.user.updateUser();
+      userController.user.updateToken(deviceToken!);
       print("Device Token: $deviceToken");
     });
   }
@@ -141,6 +141,7 @@ class _HomePageState extends State<HomePage> {
         .toList();
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
@@ -148,10 +149,10 @@ class _HomePageState extends State<HomePage> {
               context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text(
-                  'Signout',
+                  'Logout',
                   style: TextStyle(color: Colors.black),
                 ),
-                content: const Text('Are you sure want to Logout'),
+                content: const Text('Are you sure you wish to logout?'),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -173,25 +174,29 @@ class _HomePageState extends State<HomePage> {
             color: Color(0xFFED392D),
           ),
         ),
-        actions: [
+        actions: const [
           Padding(
             padding: EdgeInsets.all(8.0),
-            child: IconButton(
-              icon: const Icon(Icons.notifications),
-              color: const Color(0xFFED392D),
-              onPressed: () {
-                Get.to(() => AnnouncementWidget());
-              },
-            ),
+            // child: IconButton(
+            //
+            //   color: const Color(0xFFED392D),
+            //   onPressed: () {
+            //     Get.to(() => AnnouncementWidget());
+            //   },
+            // ),
           )
         ],
         title: Center(
           child: Container(
+
             // padding: EdgeInsets.only(left: 30),
             height: 50,
-            child: Image.asset(
-              'assets/studentloginpage/iukl_logo.png',
-              fit: BoxFit.fitHeight,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 30.0),
+              child: Image.asset(
+                'assets/studentloginpage/iukl_logo.png',
+                fit: BoxFit.fitHeight,
+              ),
             ),
           ),
         ),

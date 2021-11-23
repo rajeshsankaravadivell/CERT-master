@@ -24,7 +24,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
 
   int? age;
   int? postalcode;
-  String dropdownValue = 'csc';
+  String dropdownValue = 'Computer Science';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController idcontroller = TextEditingController();
@@ -252,7 +252,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                             widget.profile.department=newValue;
                           });
                         },
-                        items: <String>['csc', 'mech', 'EEE', 'BIO']
+                        items: <String>['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Information Technology']
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             alignment: Alignment.center,

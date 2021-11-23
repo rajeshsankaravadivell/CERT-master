@@ -41,14 +41,13 @@ class _AnnouncementWidgetState extends State<AnnouncementWidget> {
     print("load more");
     // update data and loading status
     setState(() {
+      isLoading = false;
       for (var snap in snaplist.docs) {
         if (snap.exists) {
           items.add(Announcement.fromJson(snap.data()));
-
         }
       }
       print('items: ' + items.toString());
-      isLoading = false;
     });
   }
 
@@ -62,13 +61,13 @@ class _AnnouncementWidgetState extends State<AnnouncementWidget> {
           onTap: () async {
             Navigator.pop(context);
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_rounded,
             color: Colors.black,
             size: 24,
           ),
         ),
-        title: Text(
+        title: const Text(
           'Announcements',
           style: TextStyle(
             color: Colors.white,
@@ -101,10 +100,10 @@ class _AnnouncementWidgetState extends State<AnnouncementWidget> {
                       isLoading = true;
                     });
                   }
-                  return true;
+                return true;
                 },
                 child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemCount: items.length,
                   itemBuilder: (context, index) {
                     return CustomCard(
@@ -114,13 +113,13 @@ class _AnnouncementWidgetState extends State<AnnouncementWidget> {
                 ),
               ),
             ),
-            Container(
+            isLoading? Container(
               height: isLoading ? 50.0 : 0,
               color: Colors.transparent,
-              child: Center(
-                child: new CircularProgressIndicator(),
+              child: const Center(
+                child: CircularProgressIndicator(),
               ),
-            ),
+            ):Container(),
           ],
         ),
       ),
@@ -136,7 +135,7 @@ class CustomListTile extends StatelessWidget {
   final Announcement announcement;
   @override
   Widget build(BuildContext context) {
-    var textStyle = TextStyle(
+    var textStyle = const TextStyle(
       fontFamily: 'Poppins',
       color: Colors.white,
       fontSize: 15,
@@ -157,7 +156,7 @@ class CustomListTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+          padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -171,7 +170,7 @@ class CustomListTile extends StatelessWidget {
               // ),
               Expanded(
                 flex: 4,
-                child: Container(
+                child: SizedBox(
                   // color: Colors.yellow,
                     height: double.maxFinite,
                     child: Column(
@@ -180,7 +179,7 @@ class CustomListTile extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Name : ${announcement.createdDate}",
+                              "Name : ${announcement.createdDate!.day}",
                               textAlign: TextAlign.left,
                               style: textStyle,
                             ),
@@ -206,11 +205,11 @@ class CustomListTile extends StatelessWidget {
                   height: double.maxFinite,
                   child: Column(
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: Text('For MoreDetails'),
                       ),
                       Expanded(
-                        child: ElevatedButton(child:Icon(Icons.download),onPressed: (){},)
+                        child: ElevatedButton(child:const Icon(Icons.download),onPressed: (){},)
                       )
                     ],
                   ),
@@ -238,37 +237,37 @@ class CustomCard extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            leading: CircleAvatar(child: Icon(Icons.person),),
-            title: Text('${announcement.title}'),
+            leading: CircleAvatar(child: const Icon(Icons.person),),
+            title: Text(announcement.title),
             subtitle: Text(
-              '${announcement.createdDate}',
+              '${announcement.createdDate!.toString().substring(0,10)}',
               style: TextStyle(color: Colors.black.withOpacity(0.6)),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8),
             child: Text(
-              '${announcement.description}',
+              '${announcement.content}',
               style: TextStyle(color: Colors.black.withOpacity(0.6)),
             ),
           ),
           // Image.network("https://www.shriramgi.com/news-events/wp-content/uploads/2020/10/SGI-corona-blog-image.png"),
-          Image.network("https://www.shriramgi.com/news-events/wp-content/uploads/2020/10/SGI-corona-blog-image.png"),
-          ButtonBar(
-            alignment: MainAxisAlignment.start,
-            children: [
-              ElevatedButton(
-
-                onPressed:  () async {
-                  var url ="https://www.shriramgi.com/news-events/wp-content/uploads/2020/10/SGI-corona-blog-image.png";
-                  await launch(Uri.encodeFull(url),enableDomStorage: true);
-                  print(url);
-                },
-                child: const Text('Download'),
-              ),
-
-            ],
-          ),
+          Image.network("${announcement.attachementUrl}"),
+          // ButtonBar(
+          //   alignment: MainAxisAlignment.start,
+          //   children: [
+          //     ElevatedButton(
+          //
+          //       onPressed:  () async {
+          //         var url ="${announcement.attachementUrl}";
+          //         await launch(Uri.encodeFull(url),enableDomStorage: true);
+          //         print(url);
+          //       },
+          //       child: const Text('Download'),
+          //     ),
+          //
+          //   ],
+          // ),
 
         ],
       ),

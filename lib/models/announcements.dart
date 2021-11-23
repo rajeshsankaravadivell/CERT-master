@@ -40,7 +40,7 @@ class Announcement {
       );
   static Future<QuerySnapshot<Map<String, dynamic>>> getAnnouncement(DocumentSnapshot? AnnouncmentSnapshot) {
     if (AnnouncmentSnapshot != null) {
-      return announcements.orderBy("createdDate").startAfterDocument(AnnouncmentSnapshot).limit(15).orderBy("createdDate", descending: true).get();
+      return announcements.orderBy("createdDate", descending: true).startAfterDocument(AnnouncmentSnapshot).limit(15).get();
     } else {
       return announcements.limit(15).orderBy("createdDate", descending: true).get();
     }

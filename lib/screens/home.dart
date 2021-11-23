@@ -50,7 +50,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
+    // firestore.doc("dashboard/carousel").get().then((snapshot) {
+    //   var json = snapshot.data();
+    //   if(json!=null){
+    //     imgList = json!["imageUrl"];
+    //   }
+    // });
     imgList = [
       'https://img.freepik.com/free-vector/coronavirus-safety-advice-social-distancing_145666-653.jpg?size=626&ext=jpg',
       'https://image.freepik.com/free-vector/stay-home-stop-coronavirus-design-with-falling-covid-19-virus-cell-light-background-vector-2019-ncov-corona-virus-outbreak-illustration-stay-safe-wash-hand-distancing_1314-2713.jpg',

@@ -72,7 +72,7 @@ class _QuarantinePageState extends State<QuarantinePage> {
                                 child: RichText(
                                   maxLines: 5,
                                   text: TextSpan(
-                                      text: 'Address : ',
+                                      text: 'Address       : ',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.grey[600]),
@@ -88,7 +88,7 @@ class _QuarantinePageState extends State<QuarantinePage> {
                               ),
                               RichText(
                                 text: TextSpan(
-                                    text: "Block :",
+                                    text: "Block            :",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.grey[600]),

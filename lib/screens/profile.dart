@@ -18,123 +18,307 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String url = 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Profile'),
-      centerTitle: true,),
-      body: Stack(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.25,
-            color: Colors.red,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ListView(
+      // appBar: AppBar(title: Text('Profile'),
+      // centerTitle: true,),
+        body: // Generated code for this Column Widget...
+        SingleChildScrollView(
+          child: Align(
+            alignment: AlignmentDirectional(0, 0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
               children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: CircleAvatar(
-                    backgroundImage: widget.profile.imageUrl != null ? NetworkImage(widget.profile.imageUrl!) : NetworkImage(url),
-                    radius: 45,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Card(
-                  elevation: 10,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8.0),
-                    ),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        ListTile(
-                          // title: Text('Your Profile'),
-                          trailing: TextButton.icon(
-                              onPressed: (){
-                              Get.to(()=>ProfileUpdate( profile: widget.userModel.bioData,
-                                userModel: widget.userModel,));
-
-                              },
-                              icon: const Icon(
-                                Icons.edit,
-                                color: Colors.red,
+                Align(
+                  alignment: AlignmentDirectional(0, 0),
+                  child: Material(
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                    child: Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.40
+                        ,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFED392D),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: Image
+                                .asset(
+                              'assets/addcert/blurred-abstract-background.jpg',
+                            )
+                                .image,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(16),
+                            bottomRight: Radius.circular(16),
+                            topLeft: Radius.circular(0),
+                            topRight: Radius.circular(0),
+                          ),
+                        ),
+                        child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Material(
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+                                child: Container(
+                                  margin: EdgeInsets.all(2),
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width * 0.3,
+                                  height: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width * 0.3,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: widget.profile.imageUrl != null ? Image.network(widget.profile.imageUrl!, fit: BoxFit.fitHeight,) : Icon(
+                                    Icons
+                                        .person, color: Colors.black,),
+                                ),
                               ),
-                              label: const Text(
-                                'Edit Profile',
-                                style: TextStyle(color: Colors.red),
-                              )),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        ResultWidget(
-                          heading: 'Name',
-                          text: widget.profile.name,
-                        ),
-                        Divider(),
-                        ResultWidget(heading: 'ID', text: widget.profile.id),
-                        Divider(),
-                        !widget.profile.isLocal ?
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 30),
+                              child: Text(widget.profile.name, style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold
 
-                        ResultWidget(
-                          heading: 'IC No',
-                          text: widget.profile.icNumber,
-                        ) :ResultWidget(text: widget.profile.passportNumber, heading: 'Passpor Number'),
-
-                        // ResultWidget(
-                        //   heading: 'Age',
-                        //   text: widget.profile.age.toString(),
-                        // ),
-                        Divider(),
-                       ResultWidget(
-                          heading: 'Department',
-                          text: widget.profile.department,
-                        ),
-                        Divider(),
-                        ResultWidget(
-                          heading: 'Phone No',
-                          text: widget.profile.countryCode.toString() +" "+ '${widget.profile.phoneNumber}',
-                        ),
-                        Divider(),
-                        ResultWidget(
-                          height: 120,
-                          heading: 'house address',
-                          text: '${widget.profile.houseAddress}',
-                        ),
-                        Divider(),
-                        ResultWidget(
-                          height: 120,
-                          heading: 'resident address ',
-                          text: '${widget.profile.residenceAddress}',
-                        ),
-                        // Divider(),
-                        // ResultWidget(
-                        //   heading: 'State',
-                        //   text: '${widget.profile.state}',
-                        // ),
-                        // Divider(),
-                        // ResultWidget(
-                        //   heading: 'Postal/Zip Code',
-                        //   text: '${widget.profile.pincode}',
-                        // ),
-                        // Divider(),
-                      ],
+                              ),),
+                            )
+                          ],)
                     ),
                   ),
-                )
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  child: ListTile(
+
+
+                    trailing: SizedBox(width: 150, height: 40,
+                      child: ElevatedButton(onPressed: () {
+                        Get.to(() => ProfileUpdate(profile: widget.profile, userModel: widget.userModel));
+                      }, child: Row(mainAxisAlignment: MainAxisAlignment.start,
+                        children: [Icon(Icons.edit), SizedBox(width: 5,), Text('Edit Profile')],
+                      ),),
+                    ),
+
+                    dense: false,
+                  ),
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text(
+                    'Name',
+                    style: TextStyle(
+                      fontFamily: 'Lexend Deca',
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      widget.profile.name,
+                      style: TextStyle(
+                        fontFamily: 'Lexend Deca',
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+
+
+                  dense: true,
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text(
+                    'ID',
+                    style: TextStyle(
+                      fontFamily: 'Lexend Deca',
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      widget.profile.id,
+                      style: TextStyle(
+                        fontFamily: 'Lexend Deca',
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+
+
+                  dense: true,
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text(
+                    'Passport Number',
+                    style: TextStyle(
+                      fontFamily: 'Lexend Deca',
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      widget.profile.passportNumber,
+                      style: TextStyle(
+                        fontFamily: 'Lexend Deca',
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+
+
+                  dense: true,
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text(
+                    'Department',
+                    style: TextStyle(
+                      fontFamily: 'Lexend Deca',
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      widget.profile.department,
+                      style: TextStyle(
+                        fontFamily: 'Lexend Deca',
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+
+
+                  dense: true,
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text(
+                    'Phone Number',
+                    style: TextStyle(
+                      fontFamily: 'Lexend Deca',
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      widget.profile.phoneNumber!,
+                      style: TextStyle(
+                        fontFamily: 'Lexend Deca',
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+
+
+                  dense: true,
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text(
+                    'House Address',
+                    style: TextStyle(
+                      fontFamily: 'Lexend Deca',
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      widget.profile.houseAddress!,
+                      style: TextStyle(
+                        fontFamily: 'Lexend Deca',
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+
+
+                  dense: true,
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text(
+                    'Residence Address',
+                    style: TextStyle(
+                      fontFamily: 'Lexend Deca',
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      widget.profile.residenceAddress!,
+                      style: TextStyle(
+                        fontFamily: 'Lexend Deca',
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+
+
+                  dense: true,
+                ),
+
               ],
             ),
           ),
-        ],
-      ),
+        )
     );
   }
 }

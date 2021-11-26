@@ -111,38 +111,93 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       ],
                     ),
                     Divider(),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 16, left: 10),
+                    //   child: Text("Are you an International student ?"),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 10, top: 4),
+                    //   child: SizedBox(
+                    //     height: 40,
+                    //     child: Row(
+                    //       children: [
+                    //         Text("Yes"),
+                    //         Radio<bool>(
+                    //           value: true,
+                    //           groupValue: widget.profile.isLocal,
+                    //           onChanged: (bool? value) {
+                    //             setState(() {
+                    //               widget.profile.isLocal = value!;
+                    //             });
+                    //           },
+                    //         ),
+                    //         Text("No"),
+                    //         Radio<bool>(
+                    //           value: false,
+                    //           groupValue: widget.profile.isLocal,
+                    //           onChanged: (bool? value) {
+                    //             setState(() {
+                    //               widget.profile.isLocal = value!;
+                    //             });
+                    //           },
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16, left: 10),
-                      child: Text("Are you an International student ?"),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 4),
-                      child: SizedBox(
-                        height: 40,
-                        child: Row(
-                          children: [
-                            Text("Yes"),
-                            Radio<bool>(
-                              value: true,
-                              groupValue: widget.profile.isLocal,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  widget.profile.isLocal = value!;
-                                });
-                              },
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownButtonFormField(
+                        style: const TextStyle(color: Color(0xFFEF4C43),fontWeight: FontWeight.normal),
+                        onChanged: (UserType? newValue) {
+                          setState(() {
+                            widget.profile.userType=newValue ?? UserType.localStudent;
+                          });
+                        },
+                        decoration: InputDecoration(
+                          constraints: BoxConstraints.expand(height: 65),
+                          prefixIcon: Icon(Icons.person),
+                          enabled: true,
+                          labelText: 'User Category',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFFEF4C43),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintText: '------------------',
+                          hintStyle: TextStyle(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF95A1AC),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
                             ),
-                            Text("No"),
-                            Radio<bool>(
-                              value: false,
-                              groupValue: widget.profile.isLocal,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  widget.profile.isLocal = value!;
-                                });
-                              },
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
                             ),
-                          ],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
+                        items: [UserType.internationalStudent, UserType.localStudent, UserType.staff]
+                            .map<DropdownMenuItem<UserType>>((UserType value) {
+                          return DropdownMenuItem<UserType>(
+                            alignment: Alignment.center,
+                            value: value,
+                            child: getText(value),
+                          );
+                        }).toList(),
                       ),
                     ),
 
@@ -186,87 +241,146 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                     //     color: Colors.red,
                     //   ),
                     // ),
-                    !widget.profile.isLocal
-                        ? Profile_field(
-                            textCapitalization: TextCapitalization.characters,
-                            maxline: 1,
-                            controller: icnocontroller,
-                            textFieldName: '',
-                            headingName: 'IC No',
-                            icon: const Icon(
-                              Icons.people,
-                              color: Colors.red,
-                            ),
-                            onChanged: (value) {
-                              widget.profile.icNumber = value;
-                            },
-                          )
-                        : Profile_field(
+                    widget.profile.userType=='International Student'?
+                    Profile_field(
 
 
-                            textCapitalization: TextCapitalization.characters,
-                            maxline: 1,
-                            textFieldName: '',
-                            headingName: 'Passport Number',
-                            icon: const Icon(
-                              Icons.book,
-                              color: Colors.red,
-                            ),
-                            onChanged: (value) {
-                              widget.profile.passportNumber = value;
-                            },
-                          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0,bottom: 16,left: 6,right: 6),
-            child: Material(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18)
-              ),
-              child: Container(
-                
-                color: Colors.grey.shade100,
-                margin: EdgeInsets.all(2),
-                child: Card(
-                  elevation: 2,
+                      textCapitalization: TextCapitalization.characters,
+                      maxline: 1,
+                      textFieldName: '',
+                      headingName: 'Passport Number',
+                      icon: const Icon(
+                        Icons.book,
+                        color: Colors.red,
+                      ),
+                      onChanged: (value) {
+                        widget.profile.passportNumber = value;
+                      },
+                    ) :
+               Profile_field(
+               textCapitalization: TextCapitalization.characters,
+               maxline: 1,
+             controller: icnocontroller,
+             textFieldName: '',
+             headingName: 'IC No',
+             icon: const Icon(
+             Icons.people,
+             color: Colors.red,
+             ),
+        onChanged: (value) {
+          widget.profile.icNumber = value;
+        },
+      ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 16.0,bottom: 16,left: 6,right: 6),
+          //   child: Material(
+          //     shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.circular(18)
+          //     ),
+          //     child: Container(
+          //
+          //       color: Colors.grey.shade100,
+          //       margin: EdgeInsets.all(2),
+          //       child: Card(
+          //         elevation: 2,
+          //
+          //
+          //         child: Padding(
+          //           padding: const EdgeInsets.all(2),
+          //           child: DropdownButtonHideUnderline(
+          //             child: DropdownButton<String>(
+          //
+          //               alignment: Alignment.center,
+          //               value: dropdownValue,
+          //               icon: const Icon(Icons.arrow_downward),
+          //               iconSize: 24,
+          //               elevation: 16,
+          //               style: const TextStyle(color: Color(0xFFEF4C43),fontWeight: FontWeight.bold),
+          //               underline: Container(
+          //                 height: 1,
+          //                 width: MediaQuery.of(context).size.width*0.05,
+          //                 color: Colors.redAccent,
+          //               ),
+          //               onChanged: (String? newValue) {
+          //                 setState(() {
+          //                   dropdownValue = newValue!;
+          //                   widget.profile.department=newValue;
+          //                 });
+          //               },
+          //               items: <String>['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Information Technology']
+          //                   .map<DropdownMenuItem<String>>((String value) {
+          //                 return DropdownMenuItem<String>(
+          //                   alignment: Alignment.center,
+          //                   value: value,
+          //                   child: Text(value),
+          //                 );
+          //               }).toList(),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
-
-                  child: Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-
-                        alignment: Alignment.center,
-                        value: dropdownValue,
-                        icon: const Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: const TextStyle(color: Color(0xFFEF4C43),fontWeight: FontWeight.bold),
-                        underline: Container(
-                          height: 1,
-                          width: MediaQuery.of(context).size.width*0.05,
-                          color: Colors.redAccent,
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownButtonFormField(
+                        style: const TextStyle(color: Color(0xFFEF4C43),fontWeight: FontWeight.normal),
                         onChanged: (String? newValue) {
                           setState(() {
                             dropdownValue = newValue!;
                             widget.profile.department=newValue;
                           });
                         },
+                        decoration: InputDecoration(
+                          constraints: BoxConstraints.expand(height: 65),
+                          prefixIcon: Icon(Icons.person),
+                          enabled: true,
+                          labelText: 'Department',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFFEF4C43),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintText: '------------------',
+                          hintStyle: TextStyle(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF95A1AC),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                        ),
                         items: <String>['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Information Technology']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                              .map<DropdownMenuItem<String>>((String value) {
+             return DropdownMenuItem<String>(
+             alignment: Alignment.center,
+             value: value,
+             child: Text(value),
+             );
+             }).toList(),
                       ),
                     ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+
+
 
                     SizedBox(
                       height: 110,
@@ -383,6 +497,15 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
 
       ),
     );
+  }
+
+  getText(UserType value) {
+    switch(value.index) {
+      case 0: return Text("Local Student");
+      case 1 : return Text("International Student");
+      case 2 : return Text("Staff");
+      default : return Text("");
+    }
   }
 }
 

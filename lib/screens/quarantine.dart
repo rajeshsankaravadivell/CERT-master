@@ -13,9 +13,10 @@ class QuarantinePage extends StatefulWidget {
 class _QuarantinePageState extends State<QuarantinePage> {
   @override
   void initState() {
-
+    daysLeft = widget.user.quarantine!.endDate.difference(DateTime.now()).inDays;
     super.initState();
   }
+  int daysLeft = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,6 +40,28 @@ class _QuarantinePageState extends State<QuarantinePage> {
                     'assets/studenthomepage/quarantinehistroy.png',
                     height: MediaQuery.of(context).size.height * 0.35,
                     fit: BoxFit.contain,
+                  ),
+                ),
+
+
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFEC4338),
+
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text("$daysLeft", style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold, color: Colors.white)),
+                        Text("days left", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -107,24 +130,24 @@ class _QuarantinePageState extends State<QuarantinePage> {
                           Column(
                             children: [
                               const Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: EdgeInsets.only(bottom: 16),
                                 child: Icon(
                                   Icons.calendar_today,
                                   size: 30,
                                 ),
                               ),
                               Text(
-                                '20/10/2021',
+                                widget.user.quarantine!.startDate.toString().substring(0,10),
                                 style: TextStyle(
                                     color: kprimaryColor, fontSize: 16),
                               ),
                               Text(
-                                '28/10/2021',
+                                widget.user.quarantine!.endDate.toString().substring(0,10),
                                 style: TextStyle(
                                     color: kprimaryColor, fontSize: 16),
                               ),
                               Text(
-                                'Duration : 5 days',
+                                'Duration : ${widget.user.quarantine!.endDate.difference(widget.user.quarantine!.startDate).inDays.toString()}' ,
                                 style: TextStyle(
                                     color: kprimaryColor, fontSize: 16),
                               ),

@@ -238,7 +238,7 @@ class _HomePageState extends State<HomePage> {
               CarouselSlider(
                   options: CarouselOptions(
                     height: 150,
-                    autoPlay: false,
+                    autoPlay: true,
                     aspectRatio: 2,
                     enlargeCenterPage: true,
                     enlargeStrategy: CenterPageEnlargeStrategy.height,
@@ -285,7 +285,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Tile(
                       title: 'Contact History',
-                      image: 'assets/studenthomepage/covidhistory.png',
+                      image: 'assets/ContactHistory.png',
                     ),
                   ),
                   InkWell(

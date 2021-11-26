@@ -32,7 +32,7 @@ class Profile {
     this.imageUrl,
     required this.department,
     required this.passportNumber,
-    this.isLocal = true, this.countryCode,
+    required this.userType , this.countryCode,
   });
 
   String id;
@@ -46,7 +46,7 @@ class Profile {
   String? imageUrl;
   String? countryCode;
   String? phoneNumber;
-  bool isLocal;
+  UserType userType;
 
   static Future<dynamic> uploadPhoto() async {
     String? url;
@@ -76,10 +76,8 @@ class Profile {
         imageUrl: json["imageUrl"],
         passportNumber: json["passportNumber"],
         department: json["department"],
-        isLocal: json["isLocal"] ?? true,
+        userType: json["userType"]!=null ?  UserType.values.elementAt(json["userType"]) : UserType.localStudent,
       countryCode: json["countryCode"] ?? '',
-
-
       );
 
   Map<String, dynamic> toJson() => {
@@ -93,7 +91,7 @@ class Profile {
         "imageUrl": imageUrl,
         "department" : department,
         "passportNumber" :passportNumber,
-        "local" : isLocal,
+        "userType" : userType.index,
         "countryCode" : countryCode,
       };
 }
@@ -174,3 +172,5 @@ class SuperUser {
 
   Map<String, dynamic> toJson() => {"bioData": bioData.toJson(), "uid": uid, "isAdmin": isAdmin, "fcm": fcm};
 }
+
+enum UserType {localStudent, internationalStudent, staff}

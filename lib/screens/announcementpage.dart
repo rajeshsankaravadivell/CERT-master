@@ -252,7 +252,7 @@ class CustomCard extends StatelessWidget {
             ),
           ),
           // Image.network("https://www.shriramgi.com/news-events/wp-content/uploads/2020/10/SGI-corona-blog-image.png"),
-          Image.network("${announcement.attachementUrl}"),
+          GestureDetector(child: Image.network("${announcement.attachementUrl}")),
           // ButtonBar(
           //   alignment: MainAxisAlignment.start,
           //   children: [

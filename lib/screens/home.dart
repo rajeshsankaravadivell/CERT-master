@@ -16,7 +16,9 @@ import 'package:pert/screens/quarantine.dart';
 import 'package:pert/screens/tabbar.dart';
 import 'package:pert/screens/whistleblower.dart';
 import 'package:pert/widgets/carouseltile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../main.dart';
 import 'contact_list.dart';
 
 //
@@ -75,17 +77,31 @@ class _HomePageState extends State<HomePage> {
     });
 
     ///forground messages
-    FirebaseMessaging.onMessage.listen((message) {
+    FirebaseMessaging.onMessage.listen((message)async {
+      if (message.notification != null) {
+        var preferences = await prefs;
+        preferences.setStringList(DateTime.now().toIso8601String(), [message.notification!.body.toString(), message.notification!.title.toString()]);
+        print(message.notification!.body);
+        print(message.notification!.title);
+        print(message);
+      }
+    });
+
+    FirebaseMessaging.onBackgroundMessage((message) async {
       if (message.notification != null) {
         print(message.notification!.body);
         print(message.notification!.title);
+        print(message);
       }
+      return null;
     });
 
     ///background msg
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       final routeFromMessage = message.data["route"];
       print(routeFromMessage);
+      print(message.notification!.title);
+      print(message.notification!.body);
     });
     _firebaseMessaging.setForegroundNotificationPresentationOptions(alert: true);
     _firebaseMessaging.subscribeToTopic('Announcement');
@@ -145,6 +161,17 @@ class _HomePageState extends State<HomePage> {
             ))
         .toList();
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          var preferences = await prefs;
+          var keys = preferences.getKeys();
+          keys.forEach((key) {
+            var value = preferences.getStringList(key);
+            print("$key :  $value");
+          });
+          // print(keys);
+        },
+      ),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -179,21 +206,21 @@ class _HomePageState extends State<HomePage> {
             color: Color(0xFFED392D),
           ),
         ),
-        actions: const [
+        actions: [
           Padding(
             padding: EdgeInsets.all(8.0),
-            // child: IconButton(
-            //
-            //   color: const Color(0xFFED392D),
-            //   onPressed: () {
-            //     Get.to(() => AnnouncementWidget());
-            //   },
-            // ),
+            child: IconButton(
+              icon: Icon(
+                Icons.circle_notifications_outlined,
+                size: 30,
+              ),
+              color: const Color(0xFFED392D),
+              onPressed: () {},
+            ),
           )
         ],
         title: Center(
           child: Container(
-
             // padding: EdgeInsets.only(left: 30),
             height: 50,
             child: Padding(
@@ -213,55 +240,16 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.all(8),
           child: Column(
             children: [
-              // Container(
-              //   color: bgcolor,
-              //   height: MediaQuery.of(context).size.height * 0.10,
-              //   child: Row(
-              //     children: [
-              //       Image.asset(
-              //         'assets/studentloginpage/iukl_logo.png',
-              //         fit: BoxFit.cover,
-              //       ),
-              //       const Spacer(),
-              //       IconButton(
-              //         onPressed: () {},
-              //         icon: Icon(
-              //           Icons.notifications,
-              //           color: kprimaryColor,
-              //           size: 35,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-
               CarouselSlider(
-                  options: CarouselOptions(
-                    height: 150,
-                    autoPlay: true,
-                    aspectRatio: 2,
-                    enlargeCenterPage: true,
-                    enlargeStrategy: CenterPageEnlargeStrategy.height,
-                  ),
-                  items: imageSliders
-
-                  // imgList
-                  //     .map((item) => Material(
-                  //       elevation: 5,
-                  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                  //       child: Container(
-                  //         color: kprimaryColor,
-                  //
-                  //         height:MediaQuery.of(context).size.height * 0.18 ,
-                  //         width: MediaQuery.of(context).size.width*0.956,
-                  //
-                  //         child: Center(child: Image.network(item, fit: BoxFit.cover, width: 1000)),
-                  //
-                  //
-                  //       ),
-                  //     ))
-                  //     .toList(),
-                  ),
+                options: CarouselOptions(
+                  height: 150,
+                  autoPlay: true,
+                  aspectRatio: 2,
+                  enlargeCenterPage: true,
+                  enlargeStrategy: CenterPageEnlargeStrategy.height,
+                ),
+                items: imageSliders.toList(),
+              ),
               GridView(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -273,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                         )),
                     child: Tile(
                       title: 'Covid Status',
-                      image: 'assets/studenthomepage/covidstatus.png',
+                      image: 'assets/high-fever-512x512-1833393.png',
                     ),
                   ),
                   InkWell(
@@ -294,15 +282,9 @@ class _HomePageState extends State<HomePage> {
                             user: widget.user,
                           ));
                     },
-                    // onTap: () => Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) =>  QuarantinePage(quarantine: userController.user.quarantine,),
-                    //   ),
-                    // ),
                     child: Tile(
                       title: 'Quarantine',
-                      image: 'assets/studenthomepage/quarantine.png',
+                      image: 'assets/virus-protection-512x512-1833388.png',
                     ),
                   ),
                   InkWell(

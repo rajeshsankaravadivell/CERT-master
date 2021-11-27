@@ -8,6 +8,8 @@ import 'package:pert/models/usermodel.dart';
 import 'package:pert/widgets/customtextbox.dart';
 import 'package:path/path.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttericon/modern_pictograms_icons.dart';
+
 
 class WhistleBlower extends StatefulWidget {
   WhistleBlower({Key? key, required this.userModel}) : super(key: key);
@@ -84,12 +86,13 @@ class _WhistleBlowerState extends State<WhistleBlower> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Image.network(
-                      'https://static.thenounproject.com/png/89125-200.png',
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.contain,
-                    ),
+                    child: Icon(ModernPictograms.bullhorn,size: 100,)
+                    // Image.network(
+                    //   'https://static.thenounproject.com/png/89125-200.png',
+                    //   width: 100,
+                    //   height: 100,
+                    //   fit: BoxFit.contain,
+                    // ),
                   ),
                   Divider(),
                   Padding(

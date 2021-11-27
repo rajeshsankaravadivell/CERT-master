@@ -100,6 +100,8 @@ class UserModel {
         print(json["fcm"]);
         return databaseRef.child("users/$uid/fcm").set(json["fcm"]).then((value) {
           return {"code": "Success", "message": "User update successful"};
+        }).catchError((error){
+          return {"code": "Failure", "message": "Unknown Error. Please try again"};
         });
       }).catchError((onError) {
         return {"code": "Failure", "message": "Unknown Error. Please try again"};

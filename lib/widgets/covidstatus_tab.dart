@@ -23,7 +23,7 @@ class _CovidStatusTabState extends State<CovidStatusTab> {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
-      itemCount: widget.user.covidHistory!.length,
+      itemCount: widget.user.covidHistory!.length!=null?widget.user.covidHistory!.length: 0,
       itemBuilder: (context, index) {
         CovidInfo covidInfo = widget.user.covidHistory!.elementAt(index);
         return CovidTileHistory(covidInfo : covidInfo);
@@ -33,6 +33,7 @@ class _CovidStatusTabState extends State<CovidStatusTab> {
 }
 
 class CovidTileHistory extends StatelessWidget {
+
   const CovidTileHistory({
     Key? key,
     required this.covidInfo,

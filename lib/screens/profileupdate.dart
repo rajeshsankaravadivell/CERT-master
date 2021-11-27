@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 
 import 'package:pert/models/profile_model.dart';
 import 'package:pert/models/usermodel.dart';
@@ -211,8 +212,8 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       textFieldName: 'Test User',
                       headingName: 'User Name',
                       icon: Icon(
-                        Icons.person,
-                        color: Colors.red,
+                        Icons.person_outline_outlined ,
+
                       ),
                       onChanged: (value) {
                         widget.profile.name = value;
@@ -223,10 +224,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       controller: idcontroller,
                       textFieldName: '5001',
                       headingName: 'Student ID',
-                      icon: const Icon(
-                        Icons.person_pin ,
-                        color: Colors.red,
-                      ),
+                      icon: const Icon(FontAwesome5.id_badge),
                       onChanged: (value) {
                         widget.profile.id = value;
                       },
@@ -238,10 +236,10 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                     //   headingName: 'Group ID',
                     //   icon: const Icon(
                     //     Icons.people,
-                    //     color: Colors.red,
+                    //
                     //   ),
                     // ),
-                    widget.profile.userType=='International Student'?
+                    widget.profile.userType==UserType.internationalStudent?
                     Profile_field(
 
 
@@ -249,10 +247,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       maxline: 1,
                       textFieldName: '',
                       headingName: 'Passport Number',
-                      icon: const Icon(
-                        Icons.book,
-                        color: Colors.red,
-                      ),
+                      icon: const Icon(FontAwesome5.passport),
                       onChanged: (value) {
                         widget.profile.passportNumber = value;
                       },
@@ -263,10 +258,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
              controller: icnocontroller,
              textFieldName: '',
              headingName: 'IC No',
-             icon: const Icon(
-             Icons.people,
-             color: Colors.red,
-             ),
+             icon: const Icon(FontAwesome5.passport),
         onChanged: (value) {
           widget.profile.icNumber = value;
         },
@@ -335,7 +327,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                         },
                         decoration: InputDecoration(
                           constraints: BoxConstraints.expand(height: 65),
-                          prefixIcon: Icon(Icons.person),
+                          prefixIcon: Icon(Icons.supervised_user_circle_outlined),
                           enabled: true,
                           labelText: 'Department',
                           labelStyle: TextStyle(
@@ -407,7 +399,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                               headingName: 'Code',
                               icon: Icon(
                                 Icons.flag,
-                                color: Colors.red,
+
                               ),
                               onChanged: (value) {
                                 widget.profile.phoneNumber = value;
@@ -431,7 +423,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                               headingName: 'Phone No',
                               icon: Icon(
                                 Icons.phone,
-                                color: Colors.red,
+
                               ),
                               onChanged: (value) {
                                 widget.profile.phoneNumber = value;
@@ -448,7 +440,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       headingName: 'House Address',
                       icon: Icon(
                         Icons.home,
-                        color: Colors.red,
+
                       ),
                       onChanged: (value) {
                         widget.profile.houseAddress = value;
@@ -461,7 +453,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       headingName: 'Residence Adddress',
                       icon: Icon(
                         Icons.location_city,
-                        color: Colors.red,
+
                       ),
                       onChanged: (value) {
                         widget.profile.residenceAddress = value;
@@ -648,7 +640,7 @@ class ResultWidget extends StatelessWidget {
             heading,
             style: TextStyle(
 
-              color: Colors.red,
+
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),

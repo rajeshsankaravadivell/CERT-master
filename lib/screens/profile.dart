@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:pert/models/usermodel.dart';
 import 'package:pert/screens/profileupdate.dart';
 import 'package:pert/models/profile_model.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/elusive_icons.dart';
 
 
 
@@ -47,15 +50,24 @@ class _ProfilePageState extends State<ProfilePage> {
                             .height * 0.40
                         ,
                         decoration: BoxDecoration(
-                          color: Color(0xFFED392D),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: Image
-                                .asset(
-                              'assets/addcert/blurred-abstract-background.jpg',
-                            )
-                                .image,
+                          // color: Color(0xFFED392D),
+                          gradient: LinearGradient(
+                            tileMode: TileMode.clamp,
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                              Colors.white,
+                              Colors.red,
+                            ],
                           ),
+                          // image: DecorationImage(
+                          //   fit: BoxFit.cover,
+                          //   image: Image
+                          //       .asset(
+                          //     'assets/addcert/blurred-abstract-background.jpg',
+                          //   )
+                          //       .image,
+                          // ),
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(16),
                             bottomRight: Radius.circular(16),
@@ -120,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Icon(Icons.person),
+                  leading: Icon(Icons.person_outline_outlined ),
                   title: Text(
                     'Name',
                     style: TextStyle(
@@ -148,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Icon(Icons.person),
+                  leading: Icon(FontAwesome5.id_badge),
                   title: Text(
                     'ID',
                     style: TextStyle(
@@ -176,7 +188,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Icon(Icons.person),
+                  leading: Icon(FontAwesome5.passport),
                   title: Text(
                     'Passport Number',
                     style: TextStyle(
@@ -204,7 +216,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Icon(Icons.person),
+                  leading: Icon(Icons.supervised_user_circle_outlined),
                   title: Text(
                     'Department',
                     style: TextStyle(
@@ -232,7 +244,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Icon(Icons.person),
+                  leading: Icon(Icons.phone),
                   title: Text(
                     'Phone Number',
                     style: TextStyle(
@@ -260,7 +272,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Icon(Icons.person),
+                  leading: Icon(Icons.house),
                   title: Text(
                     'House Address',
                     style: TextStyle(
@@ -287,32 +299,35 @@ class _ProfilePageState extends State<ProfilePage> {
                   dense: true,
                 ),
                 Divider(),
-                ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text(
-                    'Residence Address',
-                    style: TextStyle(
-                      fontFamily: 'Lexend Deca',
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Text(
-                      widget.profile.residenceAddress!,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: ListTile(
+                    leading: Icon(Icons.location_city_outlined),
+                    title: Text(
+                      'Residence Address',
                       style: TextStyle(
                         fontFamily: 'Lexend Deca',
                         color: Colors.black,
                         fontSize: 14,
-                        fontWeight: FontWeight.normal,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Text(
+                        widget.profile.residenceAddress!,
+                        style: TextStyle(
+                          fontFamily: 'Lexend Deca',
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+
+
+                    dense: true,
                   ),
-
-
-                  dense: true,
                 ),
 
               ],

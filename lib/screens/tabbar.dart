@@ -65,17 +65,35 @@ class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin
           onPressed: () {
             widget.user.covidInfo!.date = DateTime.now();
             widget.user.covidHistory ??= [];
-            if(widget.user.covidHistory!.isEmpty){
+            if (widget.user.covidHistory!.isEmpty) {
               widget.user.covidHistory!.add(widget.user.covidInfo!);
             } else {
               var days = widget.user.covidHistory!.last.date!.difference(widget.user.covidInfo!.date!).inDays;
-              if(days >= -1 && days <=1) {
+              if (days >= -1 && days <= 1) {
                 // widget.user.covidHistory!.add(widget.user.covidInfo!);
               } else {
                 widget.user.covidHistory!.add(widget.user.covidInfo!);
               }
             }
-            widget.user.updateUser();
+            widget.user.updateUser().then((value) {
+              print(value.toString());
+              try {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(
+                          value["code"].toString(),
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        content: Text(value["message"].toString()),
+                        actions: [ElevatedButton(onPressed: (){
+                          Navigator.of(context).pop();
+                        }, child: Text("Okay"))],
+                      );
+                    });
+              } catch (ex) {}
+            });
           },
           child: const Icon(Icons.save)),
     );

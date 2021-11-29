@@ -9,14 +9,21 @@ import 'package:pert/widgets/carouseltile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'controllers/auth_controller.dart';
 import 'login.dart';
+
+
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print(message.notification!.body);
   print(message.notification!.title);
   print("Handling a background message: ${message.messageId}");
   var preferences = await prefs;
-  preferences.setStringList(DateTime.now().toIso8601String(), [message.notification!.body.toString(), message.notification!.title.toString()]);
+  print(DateTime.now().toIso8601String().substring(0,19)+".000000");
+  preferences.setStringList(DateTime.now().toIso8601String().substring(0,19)+".000000", [message.notification!.body.toString(), message.notification!
+      .title.toString()]);
   // sharedPreferenbcece
 }
+
+
+
 final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
 
@@ -29,6 +36,7 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
   ]);
+
   runApp(const MyApp());
 }
 

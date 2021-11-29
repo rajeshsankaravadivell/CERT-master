@@ -11,12 +11,12 @@ import 'package:pert/screens/announcementpage.dart';
 import 'package:pert/screens/notificationpage.dart';
 import 'package:pert/screens/profile.dart';
 
-import 'package:pert/screens/profileupdate.dart';
+// import 'package:pert/screens/profileupdate.dart';
 import 'package:pert/screens/quarantine.dart';
 import 'package:pert/screens/tabbar.dart';
 import 'package:pert/screens/whistleblower.dart';
-import 'package:pert/widgets/carouseltile.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:pert/widgets/carouseltile.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import 'contact_list.dart';
@@ -80,28 +80,33 @@ class _HomePageState extends State<HomePage> {
     FirebaseMessaging.onMessage.listen((message)async {
       if (message.notification != null) {
         var preferences = await prefs;
-        preferences.setStringList(DateTime.now().toIso8601String(), [message.notification!.body.toString(), message.notification!.title.toString()]);
+        preferences.setStringList(DateTime.now().toIso8601String().substring(0,19)+".000000", [message.notification!.body.toString(), message.notification!.title.toString()]);
         print(message.notification!.body);
         print(message.notification!.title);
-        print(message);
+        print("message");
       }
     });
 
     FirebaseMessaging.onBackgroundMessage((message) async {
       if (message.notification != null) {
+        var preferences = await prefs;
+        preferences.setStringList(DateTime.now().toIso8601String().substring(0,19)+".000000", [message.notification!.body.toString(), message.notification!.title.toString()]);
         print(message.notification!.body);
         print(message.notification!.title);
-        print(message);
+        print("message");
       }
       return null;
     });
 
     ///background msg
-    FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      final routeFromMessage = message.data["route"];
-      print(routeFromMessage);
-      print(message.notification!.title);
-      print(message.notification!.body);
+    FirebaseMessaging.onMessageOpenedApp.listen((message) async{
+      if (message.notification != null) {
+        var preferences = await prefs;
+        preferences.setStringList(DateTime.now().toIso8601String(), [message.notification!.body.toString(), message.notification!.title.toString()]);
+        print(message.notification!.body);
+        print(message.notification!.title);
+        print("message");
+      }
     });
     _firebaseMessaging.setForegroundNotificationPresentationOptions(alert: true);
     _firebaseMessaging.subscribeToTopic('Announcement');
@@ -215,7 +220,11 @@ class _HomePageState extends State<HomePage> {
                 size: 30,
               ),
               color: const Color(0xFFED392D),
-              onPressed: () {},
+              onPressed: () {
+
+
+                Get.to(()=>NotificationPage());
+              },
             ),
           )
         ],

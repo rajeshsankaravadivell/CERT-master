@@ -464,7 +464,7 @@ class FileImage extends StatelessWidget {
       padding: EdgeInsetsDirectional.all(12),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.42,
-        decoration: BoxDecoration(
+        decoration: BoxDecoration (
           color: Color(0xFFEEEEEE),
           borderRadius: BorderRadius.circular(20),
         ),

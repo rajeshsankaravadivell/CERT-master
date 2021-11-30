@@ -200,7 +200,6 @@ class _HomePageState extends State<HomePage> {
       ),
       // backgroundColor: kprimaryColor,
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.all(8),
           child: Column(
@@ -407,7 +406,7 @@ class NetworkImage extends StatelessWidget {
         child: GestureDetector(
           onTap: () async {
 
-            await launch(Uri.encodeFull(url), enableDomStorage: true);
+            await launch(url, enableDomStorage: true);
           },
           child: Material(
 

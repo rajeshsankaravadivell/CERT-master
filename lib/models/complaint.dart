@@ -32,7 +32,7 @@ class Complaint {
         return complaints.add({
           "attachementUrl": attachementUrl,
           "title": title,
-          "description": "description",
+          "description": content,
           "content": content,
           "createdDate": DateTime.now(),
           "raisedBy": raisedBy
@@ -57,7 +57,7 @@ class Complaint {
         return complaints.add({
           "attachementUrl": url,
           "title": title,
-          "description": "description",
+          "description": content,
           "content": content,
           "createdDate": DateTime.now(),
           "raisedBy": raisedBy
@@ -81,7 +81,7 @@ class Complaint {
   Map<String, dynamic> toJson() => {
     "attachementUrl": attachementUrl,
     "title": title,
-    "description": description,
+    "description": content,
     "content": content,
     "documentID": documentId,
     "createdDate": createdDate

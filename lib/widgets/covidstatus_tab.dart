@@ -16,6 +16,7 @@ class _CovidStatusTabState extends State<CovidStatusTab> {
   @override
   void initState(){
     super.initState();
+    if(widget.user.covidHistory == null) widget.user.covidHistory = [];
   }
 
   late List<CovidInfo>? items;

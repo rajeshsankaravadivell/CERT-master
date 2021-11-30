@@ -15,11 +15,20 @@ import 'package:pert/screens/profile.dart';
 import 'package:pert/screens/quarantine.dart';
 import 'package:pert/screens/tabbar.dart';
 import 'package:pert/screens/whistleblower.dart';
+import 'package:pert/widgets/test.dart';
 // import 'package:pert/widgets/carouseltile.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import 'contact_list.dart';
+import 'dart:io';
+
+import 'package:carousel_slider/carousel_slider.dart';
+// ignore: unused_import
+import 'package:path/path.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:pert/models/announcements.dart';
 
 //
 
@@ -58,14 +67,7 @@ class _HomePageState extends State<HomePage> {
     //     imgList = json!["imageUrl"];
     //   }
     // });
-    imgList = [
-      'https://img.freepik.com/free-vector/coronavirus-safety-advice-social-distancing_145666-653.jpg?size=626&ext=jpg',
-      'https://image.freepik.com/free-vector/stay-home-stop-coronavirus-design-with-falling-covid-19-virus-cell-light-background-vector-2019-ncov-corona-virus-outbreak-illustration-stay-safe-wash-hand-distancing_1314-2713.jpg',
-      'https://img.freepik.com/free-vector/prevent-epidemic-rebound-concept-illustration_114360-3008.jpg?size=626&ext=jpg',
-      'http://nshsdenebola.com/wp-content/uploads/2020/05/design-community-concept-illustration_114360-1244.jpg',
-      'https://img.freepik.com/free-vector/avoid-coronavirus-transmission-by-touching-face-using-your-hands_152995-117.jpg?size=626&ext=jpg',
-      'https://images.squarespace-cdn.com/content/v1/5af8964350a54f8953f49f76/1588352346769-Z4N3FAA22UX9Q0462V8K/ke17ZwdGBToddI8pDm48kEqe6umt3wNhpcc8nDuTgdEUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKc52XC1b42ktSkbHvwZ0rp0W2XZrrZ2NpBu95h_1yZFG_XF6_c-av07vbVOl7yUMXu/Covid+safety+protocols+at+BOCO+Dental?format=1500w'
-    ];
+
 
     widget.user.loadContacts();
     Get.put(UserController(widget.user));
@@ -117,66 +119,20 @@ class _HomePageState extends State<HomePage> {
   // List<int> list = [1, 2, 3, 4, 5];
   @override
   Widget build(BuildContext context) {
-    final List<Widget> imageSliders = imgList
-        .map((item) => Padding(
-              padding: const EdgeInsets.all(4),
-              child: GestureDetector(
-                onTap: () async {
-                  var url = item;
-                  await launch(Uri.encodeFull(url), enableDomStorage: true);
-                },
-                child: Material(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                  elevation: 5,
-                  child: Container(
-                    margin: const EdgeInsets.all(4),
-                    child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(18)),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                            Positioned(
-                              bottom: 0.0,
-                              left: 0.0,
-                              right: 0.0,
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [Color.fromARGB(200, 0, 0, 0), Color.fromARGB(0, 0, 0, 0)],
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
-                                  ),
-                                ),
-                                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                                child: Text(
-                                  'No. ${imgList.indexOf(item)} image',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
-                  ),
-                ),
-              ),
-            ))
-        .toList();
+
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          var preferences = await prefs;
-          var keys = preferences.getKeys();
-          keys.forEach((key) {
-            var value = preferences.getStringList(key);
-            print("$key :  $value");
-          });
-          // print(keys);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: ()
+      //   async{
+      //     var preferences = await prefs;
+      //     var keys = preferences.getKeys();
+      //     keys.forEach((key) {
+      //       var value = preferences.getStringList(key);
+      //       print("$key :  $value");
+      //     });
+      //     // print(keys);
+      //   },
+      // ),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -249,16 +205,52 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.all(8),
           child: Column(
             children: [
-              CarouselSlider(
-                options: CarouselOptions(
-                  height: 150,
-                  autoPlay: true,
-                  aspectRatio: 2,
-                  enlargeCenterPage: true,
-                  enlargeStrategy: CenterPageEnlargeStrategy.height,
-                ),
-                items: imageSliders.toList(),
+
+              FutureBuilder(
+                future: getCaruosel(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data != null) {
+                      snapshot.data["imageUrl"].forEach((elemnt) {
+                        _paths.add(Paths(type: PathType.url, path: elemnt.toString()));
+                      });
+                      print(_paths);
+                    }
+                    return
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          height: 150,
+                          autoPlay: true,
+                          aspectRatio: 2,
+                          enlargeCenterPage: true,
+                          enlargeStrategy: CenterPageEnlargeStrategy.height,
+                        ),
+                        items: getItems(),
+                      );
+                  } else {
+                    return const Scaffold(body: Center(child: CircularProgressIndicator()));
+                  }
+                },
               ),
+
+
+
+
+
+
+
+
+
+              // CarouselSlider(
+              //   options: CarouselOptions(
+              //     height: 150,
+              //     autoPlay: true,
+              //     aspectRatio: 2,
+              //     enlargeCenterPage: true,
+              //     enlargeStrategy: CenterPageEnlargeStrategy.height,
+              //   ),
+              //   items: imageSliders.toList(),
+              // ),
               GridView(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -330,6 +322,32 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+  Paths? _path;
+  late List<Paths?> _paths = [];
+  List<Widget> getItems() {
+    List<Widget> widgets = [];
+    _paths.forEach((element) {
+      widgets.add(getTile(element!));
+    });
+    return widgets;
+  }
+
+  Widget getTile(Paths path) {
+    switch (path.type) {
+      case PathType.url:
+        return NetworkImage(url: path.path!);
+
+      case PathType.file:
+        return FileImage(path: path.path!);
+
+      case PathType.noPath:
+        return NullImage();
+    }
+  }
+
+
+
+
 }
 
 class Tile extends StatelessWidget {
@@ -365,6 +383,97 @@ class Tile extends StatelessWidget {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class NetworkImage extends StatelessWidget {
+  const NetworkImage({
+    Key? key,
+    required this.url,
+  }) : super(key: key);
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    File file = File(url);
+    return
+      Padding(
+        padding: const EdgeInsets.all(10),
+        child: GestureDetector(
+          onTap: () async {
+
+            await launch(Uri.encodeFull(url), enableDomStorage: true);
+          },
+          child: Material(
+
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+            elevation: 5,
+            child: Container(
+              height: 10,
+              margin: const EdgeInsets.all(4),
+              child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(18)),
+                  child: Stack(
+                    children: <Widget>[
+                      Stack(
+                        children: [
+                          Image.network(url, fit: BoxFit.cover, width: 1000.0),
+                          Positioned(
+                            bottom: 0.0,
+                            left: 0.0,
+                            right: 0.0,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [Color.fromARGB(200, 0, 0, 0), Color.fromARGB(0, 0, 0, 0)],
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                ),
+                              ),
+
+                            ),
+                          ),
+                        ],
+                      )
+
+
+                    ],
+                  )
+              ),
+            ),
+          ),
+        ),
+      );
+  }
+}
+class FileImage extends StatelessWidget {
+  const FileImage({
+    Key? key,
+    required this.path,
+  }) : super(key: key);
+  final String path;
+
+  @override
+  Widget build(BuildContext context) {
+    File file = File(path);
+    return Padding(
+      padding: EdgeInsetsDirectional.all(12),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.42,
+        decoration: BoxDecoration(
+          color: Color(0xFFEEEEEE),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Stack(
+          children: [
+            Image.file(File(path)),
+            Positioned(top: 15, right: 15, child: Icon(Icons.close_rounded))
+          ],
         ),
       ),
     );

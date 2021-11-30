@@ -98,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   child: widget.profile.imageUrl != null ? Image.network(widget.profile.imageUrl!, fit: BoxFit.fitHeight,) : Icon(
                                     Icons
-                                        .person, color: Colors.black,),
+                                        .person, color: Colors.black,size: 100,),
                                 ),
                               ),
                             ),

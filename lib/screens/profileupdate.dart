@@ -100,7 +100,11 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                         TextButton(
                           onPressed: () async {
                             widget.profile.imageUrl = await Profile.uploadPhoto();
-                            setState(() {});
+                            setState(() {
+
+
+
+                            });
                           },
                           child: const Text(
                             'Change Profile Picture',
@@ -230,15 +234,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       },
                     ),
                     // Profile_field(
-                    //   maxline: 1,
-                    //   controller: groupidcontroller,
-                    //   textFieldName: '6841',
-                    //   headingName: 'Group ID',
-                    //   icon: const Icon(
-                    //     Icons.people,
-                    //
-                    //   ),
-                    // ),
+
                     widget.profile.userType==UserType.internationalStudent?
                     Profile_field(
 
@@ -263,57 +259,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
           widget.profile.icNumber = value;
         },
       ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 16.0,bottom: 16,left: 6,right: 6),
-          //   child: Material(
-          //     shape: RoundedRectangleBorder(
-          //       borderRadius: BorderRadius.circular(18)
-          //     ),
-          //     child: Container(
-          //
-          //       color: Colors.grey.shade100,
-          //       margin: EdgeInsets.all(2),
-          //       child: Card(
-          //         elevation: 2,
-          //
-          //
-          //         child: Padding(
-          //           padding: const EdgeInsets.all(2),
-          //           child: DropdownButtonHideUnderline(
-          //             child: DropdownButton<String>(
-          //
-          //               alignment: Alignment.center,
-          //               value: dropdownValue,
-          //               icon: const Icon(Icons.arrow_downward),
-          //               iconSize: 24,
-          //               elevation: 16,
-          //               style: const TextStyle(color: Color(0xFFEF4C43),fontWeight: FontWeight.bold),
-          //               underline: Container(
-          //                 height: 1,
-          //                 width: MediaQuery.of(context).size.width*0.05,
-          //                 color: Colors.redAccent,
-          //               ),
-          //               onChanged: (String? newValue) {
-          //                 setState(() {
-          //                   dropdownValue = newValue!;
-          //                   widget.profile.department=newValue;
-          //                 });
-          //               },
-          //               items: <String>['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Information Technology']
-          //                   .map<DropdownMenuItem<String>>((String value) {
-          //                 return DropdownMenuItem<String>(
-          //                   alignment: Alignment.center,
-          //                   value: value,
-          //                   child: Text(value),
-          //                 );
-          //               }).toList(),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
+
 
                     Padding(
                       padding: const EdgeInsets.all(8.0),

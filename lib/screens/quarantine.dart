@@ -13,7 +13,8 @@ class QuarantinePage extends StatefulWidget {
 class _QuarantinePageState extends State<QuarantinePage> {
   @override
   void initState() {
-    daysLeft = widget.user.quarantine!.endDate.difference(DateTime.now()).inDays;
+    daysLeft = widget.user.quarantine!=null?
+    widget.user.quarantine!.endDate.difference(DateTime.now()).inDays:0;
     super.initState();
   }
   int daysLeft = 0;
@@ -46,7 +47,7 @@ class _QuarantinePageState extends State<QuarantinePage> {
 
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                  child: Container(
+                  child:widget.user.quarantine!=null?Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: MediaQuery.of(context).size.height * 0.15,
                     decoration: BoxDecoration(
@@ -62,6 +63,8 @@ class _QuarantinePageState extends State<QuarantinePage> {
                         Text("days left", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
                       ],
                     ),
+                  ):Container(
+
                   ),
                 ),
                 const SizedBox(

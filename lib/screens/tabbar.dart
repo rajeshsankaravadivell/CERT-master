@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pert/models/usermodel.dart';
 import 'package:pert/screens/covidupdate.dart';
-import 'package:pert/screens/test.dart';
+import 'package:pert/screens/assesmentpage.dart';
 import 'package:pert/widgets/covidstatus_tab.dart';
 
 import 'covidstatus.dart';

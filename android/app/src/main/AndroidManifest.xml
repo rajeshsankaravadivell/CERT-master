@@ -2,7 +2,7 @@
     package="com.digisailor.safecampus">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="pert"
+        android:label="Safe Campus-User"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

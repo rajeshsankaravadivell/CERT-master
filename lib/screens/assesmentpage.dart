@@ -21,81 +21,7 @@ class _HealthAssesmentState extends State<HealthAssesment> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Container(
-            //   // height: 100,
-            //   child: Stack(
-            //     children: [
-            //       Image.asset(
-            //         'assets/studenthomepage/MaskGroup1.png',
-            //         fit: BoxFit.cover,
-            //       ),
-            //       Padding(
-            //         padding: const EdgeInsets.all(12.0),
-            //         child: Column(
-            //           crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: [
-            //             Row(
-            //               children: [
-            //                 RichText(
-            //                   text: TextSpan(
-            //                     children: [
-            //                       TextSpan(
-            //                         text: 'Symptomatic',
-            //                         style: TextStyle(fontWeight: FontWeight.normal, color: cardcolor, fontSize: 16.0),
-            //                       ),
-            //                     ],
-            //                     text: 'Type : ',
-            //                     style: TextStyle(fontWeight: FontWeight.bold, color: cardcolor, fontSize: 18.0),
-            //                   ),
-            //                 ),
-            //                 const Spacer(),
-            //                 Container(
-            //                   child: Padding(
-            //                     padding: const EdgeInsets.all(12.0),
-            //                     child: Text(
-            //                       'Negative',
-            //                       style: TextStyle(fontWeight: FontWeight.bold, color: cardcolor),
-            //                     ),
-            //                   ),
-            //                   decoration: BoxDecoration(
-            //                     color: Colors.green[800],
-            //                     borderRadius: BorderRadius.circular(14),
-            //                   ),
-            //                 )
-            //               ],
-            //             ),
-            //             const SizedBox(
-            //               height: 8.0,
-            //             ),
-            //             RichText(
-            //               text: TextSpan(
-            //                 children: [
-            //                   TextSpan(
-            //                     text: 'Swab',
-            //                     style: TextStyle(fontWeight: FontWeight.normal, color: cardcolor, fontSize: 16.0),
-            //                   ),
-            //                 ],
-            //                 text: 'Test Method : ',
-            //                 style: TextStyle(fontWeight: FontWeight.bold, color: cardcolor, fontSize: 18.0),
-            //               ),
-            //             ),
-            //             const SizedBox(
-            //               height: 8.0,
-            //             ),
-            //             Text(
-            //               'Not vaccinated',
-            //               style: TextStyle(color: cardcolor, fontSize: 17.0),
-            //             ),
-            //           ],
-            //         ),
-            //       )
-            //     ],
-            //   ),
-            //   decoration: BoxDecoration(
-            //     color: kprimaryColor.withOpacity(0.9),
-            //     borderRadius: BorderRadius.circular(20),
-            //   ),
-            // ),
+
 
             Padding(
               padding: const EdgeInsets.all(16),
@@ -104,43 +30,7 @@ class _HealthAssesmentState extends State<HealthAssesment> {
                 style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey.shade700, fontSize: 18.0),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(12.0),
-            //   child: SizedBox(
-            //     width: double.infinity,
-            //     child: Card(
-            //       elevation: 5,
-            //       shadowColor: Colors.grey,
-            //       child: Padding(
-            //         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-            //         child: DropdownButtonHideUnderline(
-            //           child: DropdownButton<String>(
-            //             onChanged: (String? v) {
-            //               setState(() {
-            //                 testmethod = v!;
-            //               });
-            //             },
-            //             value: testmethod,
-            //             items: const [
-            //               DropdownMenuItem<String>(
-            //                 value: 'swab',
-            //                 child: Text('Swab Test'),
-            //               ),
-            //               DropdownMenuItem(
-            //                 value: 'nasal',
-            //                 child: Text('Nasal aspirate'),
-            //               ),
-            //               DropdownMenuItem(
-            //                 value: 'rapid',
-            //                 child: Text('Rapid Test'),
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
               child: Text(

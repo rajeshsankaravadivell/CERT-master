@@ -102,12 +102,12 @@ class _SignUpState extends State<SignUp> {
                       await authController.auth.signUpWithEmailAndPassword(email: email.text, password: password.text).then((value) {
                         if(value!=null){
                           if(value.startsWith("uid")){
-                            Get.to(()=>const LandingPage(),duration: const Duration(seconds: 1));
+                            Get.offAll(()=>const LandingPage(),duration: const Duration(seconds: 1));
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
                           }
                         } else {
-                          Get.to(()=>const LandingPage());
+                          Get.offAll(()=>const LandingPage());
 
                         }
                       });

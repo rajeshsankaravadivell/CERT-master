@@ -102,32 +102,7 @@ class _WhistleBlowerState extends State<WhistleBlower> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GestureDetector(
-                          onTap: () async {
-                            await chooseFile();
-                          },
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.all(12),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.22,
-                                  height: MediaQuery.of(context).size.height * 0.1,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: const Icon(
-                                    Icons.attach_file,
-                                    color: Colors.blueAccent,
-                                    size: 24,
-                                  ),
-                                ),
-                              ),
-                              _path != null ? Text(basename(_path.toString())) : Text(''),
-                            ],
-                          ),
-                        ),
+
                         CustomTextBox(controller: textController1!, labelText: 'Title', hintText: 'Sample SOP', keyboardType: TextInputType.text),
                         // CustomTextBox(
                         //     controller: textController2!, labelText: 'Description', hintText: '-------------', keyboardType: TextInputType.text),
@@ -177,7 +152,33 @@ class _WhistleBlowerState extends State<WhistleBlower> {
                               fontWeight: FontWeight.normal,
                             ),
                           ),
-                        )
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            await chooseFile();
+                          },
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.all(12),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * 0.22,
+                                  height: MediaQuery.of(context).size.height * 0.1,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFEEEEEE),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: const Icon(
+                                    Icons.attach_file,
+                                    color: Colors.blueAccent,
+                                    size: 24,
+                                  ),
+                                ),
+                              ),
+                              _path != null ? Text(basename(_path.toString())) : Text(''),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),

@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                     return
                       CarouselSlider(
                         options: CarouselOptions(
-                          height: 150,
+                          height: 180,
                           autoPlay: true,
                           aspectRatio: 2,
                           enlargeCenterPage: true,
@@ -306,7 +306,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   InkWell(
                     onTap: () => Get.to(() => ProfilePage(
-                          profile: widget.user.bioData,
+
                           userModel: widget.user,
                         )),
                     child: Tile(

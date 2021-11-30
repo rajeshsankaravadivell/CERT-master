@@ -116,40 +116,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       ],
                     ),
                     Divider(),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 16, left: 10),
-                    //   child: Text("Are you an International student ?"),
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 10, top: 4),
-                    //   child: SizedBox(
-                    //     height: 40,
-                    //     child: Row(
-                    //       children: [
-                    //         Text("Yes"),
-                    //         Radio<bool>(
-                    //           value: true,
-                    //           groupValue: widget.profile.isLocal,
-                    //           onChanged: (bool? value) {
-                    //             setState(() {
-                    //               widget.profile.isLocal = value!;
-                    //             });
-                    //           },
-                    //         ),
-                    //         Text("No"),
-                    //         Radio<bool>(
-                    //           value: false,
-                    //           groupValue: widget.profile.isLocal,
-                    //           onChanged: (bool? value) {
-                    //             setState(() {
-                    //               widget.profile.isLocal = value!;
-                    //             });
-                    //           },
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
+
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: DropdownButtonFormField(

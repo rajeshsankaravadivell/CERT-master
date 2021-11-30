@@ -363,6 +363,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:pert/constants/constants.dart';
 
 import 'package:pert/models/profile_model.dart';
@@ -564,8 +565,8 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 textFieldName: 'Test User',
                 headingName: 'User Name',
                 icon: Icon(
-                  Icons.person,
-                  color: Colors.red,
+                  Icons.person_outline_outlined ,
+
                 ),
 
               ),
@@ -574,10 +575,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 controller: idcontroller,
                 textFieldName: '5001',
                 headingName: 'Student ID',
-                icon: const Icon(
-                  Icons.person_pin ,
-                  color: Colors.red,
-                ),
+                icon:const Icon(FontAwesome5.id_badge),
 
               ),
               // Profile_field(
@@ -598,10 +596,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 maxline: 1,
                 textFieldName: '',
                 headingName: 'Passport Number',
-                icon: const Icon(
-                  Icons.book,
-                  color: Colors.red,
-                ),
+                icon: const Icon(FontAwesome5.passport),
               ) :
               Profile_field(
                 textCapitalization: TextCapitalization.characters,
@@ -609,10 +604,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 controller: icnocontroller,
                 textFieldName: '',
                 headingName: 'IC No',
-                icon: const Icon(
-                  Icons.people,
-                  color: Colors.red,
-                ),
+                icon: const Icon(FontAwesome5.passport),
               ),
               // Padding(
               //   padding: const EdgeInsets.only(top: 16.0,bottom: 16,left: 6,right: 6),
@@ -678,7 +670,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                   },
                   decoration: InputDecoration(
                     constraints: BoxConstraints.expand(height: 65),
-                    prefixIcon: Icon(Icons.person),
+                    prefixIcon: Icon(Icons.supervised_user_circle_outlined),
                     enabled: true,
                     labelText: 'Department',
                     labelStyle: TextStyle(
@@ -750,7 +742,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                         headingName: 'Code',
                         icon: Icon(
                           Icons.flag,
-                          color: Colors.red,
+
                         ),
                       ),
                     ),
@@ -770,7 +762,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                         headingName: 'Phone No',
                         icon: Icon(
                           Icons.phone,
-                          color: Colors.red,
+
                         ),
                       ),
                     ),
@@ -784,7 +776,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 headingName: 'House Address',
                 icon: Icon(
                   Icons.home,
-                  color: Colors.red,
+
                 ),
 
               ),
@@ -795,7 +787,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                 headingName: 'Residence Adddress',
                 icon: Icon(
                   Icons.location_city,
-                  color: Colors.red,
+
                 ),
               ),
 

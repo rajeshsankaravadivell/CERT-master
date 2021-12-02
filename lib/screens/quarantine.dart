@@ -177,7 +177,7 @@ class _QuarantinePageState extends State<QuarantinePage> {
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: Column(
                               children: [
-                                const Padding(
+                                const  Padding(
                                   padding: EdgeInsets.only(bottom: 16),
                                   child: Icon(
                                     Icons.calendar_today,

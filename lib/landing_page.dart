@@ -28,7 +28,7 @@ class LandingPage extends StatelessWidget {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.active && snapshot.hasData) {
                     if (snapshot.data.data() != null) {
-                      var user = UserModel.fromJson(snapshot.data.data());
+                       var user = UserModel.fromJson(snapshot.data.data());
 
                       // userController.user.bioData = user.bioData;
                       // userController.user.uid = user.uid;

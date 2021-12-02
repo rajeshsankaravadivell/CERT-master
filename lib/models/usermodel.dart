@@ -10,7 +10,7 @@ import 'package:pert/constants/constants.dart';
 import 'package:pert/models/assesment.dart';
 import 'profile_model.dart';
 
-final databaseRef = FirebaseDatabase.instance.reference();
+final databaseRef = FirebaseDatabase(databaseURL: "https://kkm-beacon.asia-southeast1.firebasedatabase.app").reference();
 
 FirebaseFunctions functions = FirebaseFunctions.instance;
 FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -92,6 +92,33 @@ class UserModel {
     return await users.doc(uid).update({'fcm' : fcm});
  }
 
+  loadContacts() async {
+    print("Initialization started $uid");
+    List<ContactHistory>? returns = [];
+    var contacts = await databaseRef.child("contacts").child(uid).get().then((result) {
+      return result.value ?? null;
+    });
+    print(contacts);
+    if (contacts != null) {
+      contacts.forEach((k, json) {
+        print(json);
+        returns.add(ContactHistory(
+          contact: json["contact"],
+          fcm: json["fcm"] ?? '',
+          totalTimeinContact: json["totalTimeinContact"],
+          groupId: json["groupId"],
+          deviceId: json["deviceId"],
+          gateWay: json["gateWay"],
+          lastContact: DateTime.fromMillisecondsSinceEpoch(json["lastContact"] * 1000),
+        ));
+      });
+    }
+    this.contactHistory = returns;
+    print(this.contactHistory.toString());
+    print(returns);
+    return returns;
+  }
+
   Future<dynamic> updateUser() async {
     print("Hrllo");
     return await users.doc(uid).update(toJson()).then((value) {
@@ -144,29 +171,6 @@ class UserModel {
     } else {
       return users.orderBy("bioData.id").limit(15).get();
     }
-  }
-
-  loadContacts() async {
-    List<ContactHistory>? returns = [];
-    var contacts = await databaseRef.child("contacts").child(uid).get().then((result) {
-      return result.value ?? null;
-    });
-    if (contacts != null) {
-      contacts.forEach((k, json) {
-        print(json);
-        returns.add(ContactHistory(
-          contact: json["contact"],
-          fcm: json["fcm"] ?? '',
-          totalTimeinContact: json["totalTimeinContact"],
-          groupId: json["groupId"],
-          deviceId: json["deviceId"],
-          gateWay: json["gateWay"],
-          lastContact: DateTime.fromMillisecondsSinceEpoch(json["lastContact"] * 1000),
-        ));
-      });
-    }
-    this.contactHistory = returns;
-    return returns;
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -273,6 +277,8 @@ class Location {
     "roomNumbmer": roomNumbmer,
   };
 }
+
+
 
 class CovidInfo {
   CovidInfo({

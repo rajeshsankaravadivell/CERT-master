@@ -27,7 +27,7 @@ class _ContactHistoryDetailsState extends State<ContactHistoryDetails> {
       ),
       body: Column(
         children: <Widget>[
-          widget.contactHistory==null ? const Expanded(child: Center(child: Text("No Contact History Found"),),) : Expanded(
+          widget.contactHistory==null ? const Expanded(child: Center(child: Text("No Contact History Found"))) : Expanded(
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: widget.contactHistory != null ? widget.contactHistory!.length : 0,

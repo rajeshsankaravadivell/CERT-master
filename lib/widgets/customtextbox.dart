@@ -7,21 +7,31 @@ class CustomTextBox extends StatelessWidget {
     required this.labelText,
     required this.hintText,
     required this.keyboardType,
+    this.maxLines,
+    this.onTap,
+    this.onChanged
+
   }) : super(key: key);
 
   final TextEditingController controller;
   final String labelText;
   final String hintText;
   final TextInputType keyboardType;
+  final void Function()? onTap;
+  final void Function(String)? onChanged;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
       child: TextFormField(
+        onChanged: onChanged,
+        onTap: onTap,
         keyboardType: keyboardType,
         controller: controller,
         obscureText: false,
+        maxLines: maxLines,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: TextStyle(

@@ -60,7 +60,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    widget.user.loadContacts();
     super.initState();
+
     // firestore.doc("dashboard/carousel").get().then((snapshot) {
     //   var json = snapshot.data();
     //   if(json!=null){

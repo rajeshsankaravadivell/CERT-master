@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pert/models/usermodel.dart';
+import 'package:pert/screens/assesmentList.dart';
 import 'package:pert/screens/covidupdate.dart';
 import 'package:pert/screens/assesmentpage.dart';
 import 'package:pert/widgets/covidstatus_tab.dart';
@@ -27,7 +28,7 @@ class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -50,6 +51,7 @@ class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin
             Tab(icon: Icon(Icons.update)),
             Tab(icon: Icon(Icons.health_and_safety_rounded)),
             Tab(icon: Icon(Icons.list_alt)),
+            Tab(icon: Icon(Icons.list)),
           ],
         ),
       ),
@@ -59,6 +61,7 @@ class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin
           Center(child: CovidUpdate(user: widget.user)),
           Center(child: HealthAssesment(user: widget.user)),
           Center(child: CovidStatusTab(user: widget.user)),
+          Center(child: AssessmentList(user: widget.user)),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -87,9 +90,13 @@ class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin
                           style: TextStyle(color: Colors.black),
                         ),
                         content: Text(value["message"].toString()),
-                        actions: [ElevatedButton(onPressed: (){
-                          Navigator.of(context).pop();
-                        }, child: Text("Okay"))],
+                        actions: [
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text("Okay"))
+                        ],
                       );
                     });
               } catch (ex) {}

@@ -3,7 +3,8 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pert/models/usermodel.dart';
-
+import 'package:pert/services/db.dart';
+FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 
 Assessment assessmentFromJson(String str) => Assessment.fromJson(json.decode(str));
@@ -14,23 +15,28 @@ class Assessment {
     required this.id,
     required this.createdDate,
     this.status = false,
+    this.title = '',
   });
 
   List<Question> questions;
   String id;
   DateTime createdDate;
   bool status;
-
-  static CollectionReference<Map<String, dynamic>> assessments = firestore.collection('assessments');
+  String title;
 
   CollectionReference<Map<String, dynamic>> getAssesmentCollection(String uid) {
     return firestore.collection('Users/$uid/Assessments');
+  }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAssesments() {
+    return firestore.collection("Assessments").orderBy("createdDate", descending: true).snapshots();
   }
 
   factory Assessment.fromJson(Map<String, dynamic> json) => Assessment(
     questions: List<Question>.from(json["questions"].map((x) => Question.fromJson(x))),
     id: json["id"],
     createdDate: json["createdDate"].toDate(),
+    title: json["title"] ?? '',
   );
 
 
@@ -38,6 +44,7 @@ class Assessment {
     "questions": List<dynamic>.from(questions.map((x) => x.toJsonAssessment())),
     "id": id,
     "createdDate": createdDate,
+    "title" : title,
   };
 
   Map<String, dynamic> toJson() => {
@@ -60,7 +67,7 @@ class Assessment {
       id = (mutableData.value != null) ? mutableData.value++ : 0;
       return mutableData;
     }).then((value) async {
-      return assessments
+      return assesments
           .doc(id.toString())
           .set(Assessment(questions: questions, id: id.toString(), createdDate: DateTime.now()).toJsonAssessment())
           .then((value) => {"code": "Success", "message": "Assessment successfully added"})
@@ -101,14 +108,14 @@ class Question {
   String question;
   QuestionType type;
   List<String>? choices;
-  bool mandatory;
+  bool mandatory ;
   bool? questionBool;
   int? choice;
   String? answer;
 
   factory Question.fromJson(Map<String, dynamic> json) => Question(
     question: json["question"],
-    mandatory: json["mandatory"],
+    mandatory: json["mandatory"] ?? false,
     type: QuestionType.values.elementAt(json["type"]),
     choices: json["choices"] != null ? List<String>.from(json["choices"].map((x) => x)) : null,
     questionBool: json["bool"],

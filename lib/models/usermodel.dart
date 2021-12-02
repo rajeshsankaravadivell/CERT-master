@@ -256,7 +256,7 @@ class Location {
   bool inCampus;
   String? quarantineAddress;
 
-  factory Location.fromJson(Map<String, dynamic> json) => Location(
+  factory  Location.fromJson(Map<String, dynamic> json) => Location(
       place: json["place"],
       floor: json["floor"],
       block: json["block"],

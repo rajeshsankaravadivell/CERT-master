@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pert/models/usermodel.dart';
 import 'package:pert/screens/profileupdate.dart';
-import 'package:pert/models/profile_model.dart';
+// import 'package:pert/models/profile_model.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:fluttericon/entypo_icons.dart';
-import 'package:fluttericon/elusive_icons.dart';
+// import 'package:fluttericon/entypo_icons.dart';
+// import 'package:fluttericon/elusive_icons.dart';
 
 
 
@@ -19,6 +19,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
   String url = 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
   late UserModel userModel;
 
@@ -31,6 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _Size = MediaQuery.of(context).size;
     return Scaffold(
       // appBar: AppBar(title: Text('Profile'),
       // centerTitle: true,),
@@ -120,13 +122,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 30),
+                                  padding: const EdgeInsets.only(top: 15),
                                   child: Text(userModel.bioData.name, style: TextStyle(
+
+                                    // color: Colors.white,
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold
 
+                                  ),textAlign: TextAlign.center,),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5,bottom: 5),
+                                  child: Text(userModel.bioData.id, style: TextStyle(
+                                    color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold
+
                                   ),),
-                                )
+                                ),
+                                Center(child: Text(userModel.bioData.department,style: TextStyle(color: Colors.white,shadows: [Shadow
+                                  (blurRadius: 2)])
+                                  ,)),
+
                               ],)
                         ),
                       ),

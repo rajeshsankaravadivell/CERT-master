@@ -218,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                     return
                       CarouselSlider(
                         options: CarouselOptions(
-                          height: 180,
+                          height: 150,
                           autoPlay: true,
                           aspectRatio: 2,
                           enlargeCenterPage: true,

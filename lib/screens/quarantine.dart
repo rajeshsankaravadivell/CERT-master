@@ -20,6 +20,7 @@ class _QuarantinePageState extends State<QuarantinePage> {
   int daysLeft = 0;
   @override
   Widget build(BuildContext context) {
+    final date =widget.user.quarantine!;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -92,13 +93,14 @@ class _QuarantinePageState extends State<QuarantinePage> {
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                height: 70,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: RichText(
                                   maxLines: 5,
                                   text: TextSpan(
-                                      text: 'Address       : ',
+                                      text: 'Address       :  ',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.grey[600]),
@@ -112,49 +114,93 @@ class _QuarantinePageState extends State<QuarantinePage> {
                                       ]),
                                 ),
                               ),
-                              RichText(
-                                text: TextSpan(
-                                    text: "Block            :",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey[600]),
-                                    children: [
-                                      TextSpan(
-                                        text: widget.user.quarantine!.location.block,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            color: Colors.grey[500]),
-                                      )
-                                    ]),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: RichText(
+                                  text: TextSpan(
+                                      text: "Block            :  ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey[600]),
+                                      children: [
+                                        TextSpan(
+                                          text: widget.user.quarantine!.location.block,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.grey[500]),
+                                        )
+                                      ]),
+                                ),
                               ),
+
+                              // Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: RichText(
+                              //     text: TextSpan(
+                              //         text: "Floor             :  ",
+                              //         style: TextStyle(
+                              //             fontWeight: FontWeight.bold,
+                              //             color: Colors.grey[600]),
+                              //         children: [
+                              //           TextSpan(
+                              //             text: widget.user.quarantine!.location.floor.toString(),
+                              //             style: TextStyle(
+                              //                 fontWeight: FontWeight.normal,
+                              //                 color: Colors.grey[500]),
+                              //           )
+                              //         ]),
+                              //   ),
+                              // ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: RichText(
+                                  text: TextSpan(
+                                      text: "Room NO     :  ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey[600]),
+                                      children: [
+                                        TextSpan(
+                                          text: widget.user.quarantine!.location.roomNumbmer.toString(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.grey[500]),
+                                        )
+                                      ]),
+                                ),
+                              ),
+
                             ],
                           ),
                           const Spacer(),
-                          Column(
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(bottom: 16),
-                                child: Icon(
-                                  Icons.calendar_today,
-                                  size: 30,
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Column(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 16),
+                                  child: Icon(
+                                    Icons.calendar_today,
+                                    size: 30,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                widget.user.quarantine!.startDate.toString().substring(0,10),
-                                style: TextStyle(
-                                    color: kprimaryColor, fontSize: 16),
-                              ),
-                              Text(
-                                widget.user.quarantine!.endDate.toString().substring(0,10),
-                                style: TextStyle(
-                                    color: kprimaryColor, fontSize: 16),
-                              ),
-                              Text(
-                                'Duration : ${widget.user.quarantine!.endDate.difference(widget.user.quarantine!.startDate).inDays.toString()}' ,
-                                style: TextStyle(
-                                    color: kprimaryColor, fontSize: 16),
-                              ),
-                            ],
+                                Text(
+                                  "${date.startDate.day}/${date.startDate.month}/${date.startDate.year}",
+                                  style: TextStyle(
+                                      color: kprimaryColor, fontSize: 16),
+                                ),
+                                Text(
+                                  "${date.endDate.day}/${date.endDate.month}/${date.endDate.year}",
+                                  style: TextStyle(
+                                      color: kprimaryColor, fontSize: 16),
+                                ),
+                                Text(
+                                  'Duration : ${widget.user.quarantine!.endDate.difference(widget.user.quarantine!.startDate).inDays.toString()} days' ,
+                                  style: TextStyle(
+                                      color: kprimaryColor, fontSize: 16),
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),

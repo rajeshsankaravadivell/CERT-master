@@ -247,27 +247,31 @@ class Quarantine {
 }
 
 class Location {
-  Location({
-    required this.place,
-    this.floor,
-    this.block,
-  });
+  Location({required this.place, this.floor, this.block, this.inCampus = true, this.quarantineAddress, this.roomNumbmer});
 
-  String place;
+  String? place;
   int? floor;
   String? block;
+  String? roomNumbmer;
+  bool inCampus;
+  String? quarantineAddress;
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
-        place: json["place"],
-        floor: json["floor"],
-        block: json["block"],
-      );
+      place: json["place"],
+      floor: json["floor"],
+      block: json["block"],
+      inCampus: json["inCampus"] ?? false,
+      quarantineAddress: json["quarantineAddress"],
+      roomNumbmer: json["roomNumbmer"]);
 
   Map<String, dynamic> toJson() => {
-        "place": place,
-        "floor": floor,
-        "block": block,
-      };
+    "place": place,
+    "floor": floor,
+    "block": block,
+    "inCampus": inCampus,
+    "quarantineAddress": quarantineAddress,
+    "roomNumbmer": roomNumbmer,
+  };
 }
 
 class CovidInfo {

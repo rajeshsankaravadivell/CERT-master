@@ -9,7 +9,8 @@ class CustomTextBox extends StatelessWidget {
     required this.keyboardType,
     this.maxLines,
     this.onTap,
-    this.onChanged
+    this.onChanged,
+    this.leftPad = 20
 
   }) : super(key: key);
 
@@ -20,11 +21,12 @@ class CustomTextBox extends StatelessWidget {
   final void Function()? onTap;
   final void Function(String)? onChanged;
   final int? maxLines;
+  final double? leftPad;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+      padding: EdgeInsetsDirectional.fromSTEB(leftPad!, 0, 20, 16),
       child: TextFormField(
         onChanged: onChanged,
         onTap: onTap,

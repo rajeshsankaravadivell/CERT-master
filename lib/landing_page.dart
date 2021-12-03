@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:pert/constants/constants.dart';
 import 'package:pert/login.dart';
+import 'package:pert/models/assesment.dart';
 import 'package:pert/screens/getprofilepage.dart';
 import 'package:pert/screens/home.dart';
 
@@ -29,7 +30,7 @@ class LandingPage extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.active && snapshot.hasData) {
                     if (snapshot.data.data() != null) {
                        var user = UserModel.fromJson(snapshot.data.data());
-
+                        user.loadAssesments();
                       // userController.user.bioData = user.bioData;
                       // userController.user.uid = user.uid;
                       // userController.user.covidInfo = user.covidInfo;

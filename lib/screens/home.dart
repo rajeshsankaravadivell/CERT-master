@@ -229,30 +229,12 @@ class _HomePageState extends State<HomePage> {
                         items: getItems(),
                       );
                   } else {
-                    return const Scaffold(body: Center(child: CircularProgressIndicator()));
+                    return const Center(child: CircularProgressIndicator());
                   }
                 },
               ),
-
-
-
-
-
-
-
-
-
-              // CarouselSlider(
-              //   options: CarouselOptions(
-              //     height: 150,
-              //     autoPlay: true,
-              //     aspectRatio: 2,
-              //     enlargeCenterPage: true,
-              //     enlargeStrategy: CenterPageEnlargeStrategy.height,
-              //   ),
-              //   items: imageSliders.toList(),
-              // ),
               GridView(
+
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
@@ -352,8 +334,8 @@ class _HomePageState extends State<HomePage> {
 }
 
 class Tile extends StatelessWidget {
-  String? title;
-  String? image;
+  final String? title;
+  final String? image;
   Tile({Key? key, this.title, this.image}) : super(key: key);
 
   @override

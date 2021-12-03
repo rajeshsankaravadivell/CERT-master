@@ -172,7 +172,9 @@ class UserModel {
       return users.orderBy("bioData.id").limit(15).get();
     }
   }
-
+  loadAssesments() async {
+    assessments = await Assessment.getMyAssesments(uid);
+  }
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         bioData: Profile.fromJson(json["bioData"]),
         uid: json["uid"],

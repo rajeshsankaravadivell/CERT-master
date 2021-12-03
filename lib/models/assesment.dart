@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pert/models/usermodel.dart';
 import 'package:pert/services/db.dart';
 FirebaseFirestore firestore = FirebaseFirestore.instance;
+CollectionReference<Map<String, dynamic>> users = firestore.collection('Users');
 
 
 Assessment assessmentFromJson(String str) => Assessment.fromJson(json.decode(str));
@@ -41,7 +42,7 @@ class Assessment {
 
 
   Map<String, dynamic> toJsonAssessment() => {
-    "questions": List<dynamic>.from(questions.map((x) => x.toJsonAssessment())),
+    "questions": List<dynamic>.from(questions.map((x) => x.toJson())),
     "id": id,
     "createdDate": createdDate,
     "title" : title,
@@ -74,7 +75,20 @@ class Assessment {
           .catchError((error) => {"code": "Failed", "message": "Sorry, Please Try again"});
     }).catchError((error) => {"code": "Failed", "message": error.toString()});
   }
-
+  
+  static getMyAssesments(String uid) async {
+    return await users.doc(uid).collection("Assessments").get().then((snapshot){
+      List<Assessment> assessments= [];
+      snapshot.docs.forEach((docSnap) {
+        if(docSnap.exists) {
+          return assessments.add(Assessment.fromJson(docSnap.data()));
+        }
+      });
+      print(assessments.length);
+      return assessments;
+    });
+  }
+  
   bool get canSubmit {
     bool status = true;
     for (Question question in this.questions) {
@@ -86,19 +100,15 @@ class Assessment {
     return status;
   }
 
-  submit(String uid) {
-    if (canSubmit) {
-      var assesmentRef = getAssesmentCollection(uid);
-      assesmentRef.doc(id).set(this.toJsonAssessment()).then((value) {
-        return databaseRef.child("assesmentStatus/$uid").set({"$id": true}).then((value) {
-          return {"code": "Success", "message": "Assesment Submitted"};
-        }).catchError((error) {
-          return {"code": "Failed", "message": "Error Occured. PLease try again"};
-        });
+  Future<Map<String,dynamic>> submit(String uid) async {
+    var assessmentRef = getAssesmentCollection(uid);
+    return assessmentRef.doc(id).set(this.toJsonAssessment()).then((value) {
+      return databaseRef.child("assessmentStatus/$id").child(uid).set(true).then((value) {
+        return {"code": "Success", "message": "Assessment Submitted"};
+      }).catchError((error) {
+        return {"code": "Failed", "message": "Error Occurred. PLease try again"};
       });
-    } else {
-      return {"code": "Failed", "message": "Check all mandatory Fields"};
-    }
+    });
   }
 }
 
@@ -123,15 +133,50 @@ class Question {
     answer: json["answer"],
   );
 
-  Map<String, dynamic> toJson() => {
-    "question": question,
-    "mandatory": mandatory,
-    "type": QuestionType.values.indexOf(type),
-    "choices": choices != null ? List<dynamic>.from(choices!.map((x) => x)) : null,
-    "bool": questionBool,
-    "choice": choice,
-    "answer": answer,
-  };
+  Map<String, dynamic> toJson() {
+    switch (type) {
+      case QuestionType.mcq:
+        return {
+          "question": question,
+          "mandatory": mandatory,
+          "type": QuestionType.values.indexOf(type),
+          "choices": choices != null ? List<dynamic>.from(choices!.map((x) => x)) : null,
+          // "bool": questionBool,
+          "choice": choice,
+          // "answer": answer,
+        };
+      case QuestionType.boolean:
+        return {
+          "question": question,
+          "mandatory": mandatory,
+          "type": QuestionType.values.indexOf(type),
+          // "choices": choices != null ? List<dynamic>.from(choices!.map((x) => x)) : null,
+          "bool": questionBool,
+          // "choice": choice,
+          // "answer": answer,
+        };
+      case QuestionType.typed:
+        return {
+          "question": question,
+          "mandatory": mandatory,
+          "type": QuestionType.values.indexOf(type),
+          // "choices": choices != null ? List<dynamic>.from(choices!.map((x) => x)) : null,
+          // "bool": questionBool,
+          // "choice": choice,
+          "answer": answer,
+        };
+      default:
+        return {
+          "question": question,
+          "mandatory": mandatory,
+          "type": QuestionType.values.indexOf(type),
+          "choices": choices != null ? List<dynamic>.from(choices!.map((x) => x)) : null,
+          "bool": questionBool,
+          "choice": choice,
+          "answer": answer,
+        };
+    }
+  }
 
   Map<String, dynamic> toJsonAssessment() => {
     "question": question,

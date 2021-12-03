@@ -28,11 +28,14 @@ class _AssessmentListState extends State<AssessmentList> {
           return Text('Error!');
         }
         if (snapshot.hasData) {
+
           return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 var assessment = Assessment.fromJson(snapshot.data!.docs[index].data());
-                return Card(
+                var Ids = widget.user.assessments!.map((e) => e.id).toList();
+                return Ids.contains(assessment.id) ? Container() :
+                 Card(
                   child: ListTile(
                       title: Text(assessment.title),
                       onTap: () {

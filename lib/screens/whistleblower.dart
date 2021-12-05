@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:async';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pert/constants/constants.dart';
 import 'package:pert/models/complaint.dart';
 import 'package:pert/models/usermodel.dart';
 import 'package:pert/widgets/customtextbox.dart';
@@ -20,12 +18,12 @@ class WhistleBlower extends StatefulWidget {
 }
 
 class _WhistleBlowerState extends State<WhistleBlower> {
-  File? _image;
+  // File? _image;
   String? _path;
   TextEditingController? textController1;
   TextEditingController? textController2;
   TextEditingController? textController3;
-  bool _loadingButton = false;
+  // bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

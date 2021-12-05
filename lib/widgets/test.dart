@@ -212,7 +212,7 @@ class FileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    File file = File(path);
+    // File file = File(path);
     return Padding(
       padding: EdgeInsetsDirectional.all(12),
       child: Container(
@@ -244,7 +244,7 @@ class NetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    File file = File(url);
+    // File file = File(url);
     return Padding(
       padding: EdgeInsetsDirectional.all(12),
       child: Container(

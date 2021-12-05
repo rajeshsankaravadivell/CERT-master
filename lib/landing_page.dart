@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:pert/constants/constants.dart';
+import 'package:pert/controllers/user_controller.dart';
 import 'package:pert/login.dart';
-import 'package:pert/models/assesment.dart';
 import 'package:pert/screens/getprofilepage.dart';
 import 'package:pert/screens/home.dart';
+import 'package:pert/services/db.dart';
 
-import 'controllers/user_controller.dart';
 import 'models/usermodel.dart';
 
 class LandingPage extends StatelessWidget {
@@ -19,6 +19,7 @@ class LandingPage extends StatelessWidget {
     return StreamBuilder<User?>(
         stream: authController.auth.authStateChanges(),
         builder: (context, snapshot) {
+          getDepartments().then((departments) => Get.put(DepartmentController(departments)));
           if (snapshot.connectionState == ConnectionState.active) {
             final User? user = snapshot.data;
             if (user == null) {
@@ -39,6 +40,7 @@ class LandingPage extends StatelessWidget {
                       // userController.user.device = user.device;
                       // userController.user.createdDate = user.createdDate;
                       // userController.user.isStaff = user.isStaff;
+                      //  return GetProfilepage();
                       return  HomePage(user: user);
                     } else {
                       return GetProfilepage();

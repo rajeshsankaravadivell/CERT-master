@@ -384,13 +384,13 @@ class GetProfilepage extends StatefulWidget {
 }
 
 class _GetProfilepageState extends State<GetProfilepage> {
-  String? _phone;
+
 
   int? age;
   int? postalcode;
   String dropdownValue = 'Computer Science';
   UserType userType = UserType.localStudent;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController idcontroller = TextEditingController();
   final TextEditingController groupidcontroller = TextEditingController();
@@ -704,7 +704,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                     fillColor: Colors.white,
                     contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                   ),
-                  items: <String>['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Information Technology']
+                  items: departmentsController.departments
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       alignment: Alignment.center,
@@ -753,7 +753,7 @@ class _GetProfilepageState extends State<GetProfilepage> {
                         textInputType: TextInputType.phone,
                         maxlength: 12,
                         onsaved: (String? val) {
-                          _phone = val;
+
                         },
                         validator: validateMobile,
                         maxline: 1,

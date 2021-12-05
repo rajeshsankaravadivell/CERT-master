@@ -11,24 +11,22 @@ import 'package:pert/screens/announcementpage.dart';
 import 'package:pert/screens/notificationpage.dart';
 import 'package:pert/screens/profile.dart';
 
-// import 'package:pert/screens/profileupdate.dart';
+
 import 'package:pert/screens/quarantine.dart';
 import 'package:pert/screens/tabbar.dart';
 import 'package:pert/screens/whistleblower.dart';
+import 'package:pert/services/db.dart';
 import 'package:pert/widgets/test.dart';
-// import 'package:pert/widgets/carouseltile.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import 'contact_list.dart';
 import 'dart:io';
 
-import 'package:carousel_slider/carousel_slider.dart';
+
 // ignore: unused_import
 import 'package:path/path.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:pert/models/announcements.dart';
+
 
 //
 
@@ -220,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                     return
                       CarouselSlider(
                         options: CarouselOptions(
-                          height: 150,
+                          height: 200,
                           autoPlay: true,
                           aspectRatio: 2,
                           enlargeCenterPage: true,
@@ -305,7 +303,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  Paths? _path;
+  // Paths? _path;
   late List<Paths?> _paths = [];
   List<Widget> getItems() {
     List<Widget> widgets = [];
@@ -383,7 +381,7 @@ class NetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    File file = File(url);
+    // File file = File(url);
     return
       Padding(
         padding: const EdgeInsets.all(10),
@@ -443,7 +441,7 @@ class FileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    File file = File(path);
+    // File file = File(path);
     return Padding(
       padding: EdgeInsetsDirectional.all(12),
       child: Container(

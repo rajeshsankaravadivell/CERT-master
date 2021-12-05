@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:pert/models/usermodel.dart';
 import 'package:pert/screens/assesmentList.dart';
 import 'package:pert/screens/covidupdate.dart';
-import 'package:pert/screens/assesmentpage.dart';
+
 import 'package:pert/widgets/covidstatus_tab.dart';
 
-import 'covidstatus.dart';
+
 
 enum SingingCharacter { CovidUpdate, Healthassessment, CovidStatus }
 
@@ -22,13 +22,13 @@ class covidstatus extends StatefulWidget {
 /// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
 class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin {
   late TabController _tabController;
-  SingingCharacter? _character = SingingCharacter.CovidStatus;
-  String? _title = '';
+  // SingingCharacter? _character = SingingCharacter.CovidStatus;
+  // String? _title = '';
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -49,7 +49,6 @@ class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin
           controller: _tabController,
           tabs: const <Widget>[
             Tab(icon: Icon(Icons.update)),
-            Tab(icon: Icon(Icons.health_and_safety_rounded)),
             Tab(icon: Icon(Icons.list_alt)),
             Tab(icon: Icon(Icons.list)),
           ],
@@ -59,7 +58,6 @@ class _covidstatusState extends State<covidstatus> with TickerProviderStateMixin
         controller: _tabController,
         children: <Widget>[
           Center(child: CovidUpdate(user: widget.user)),
-          Center(child: HealthAssesment(user: widget.user)),
           Center(child: CovidStatusTab(user: widget.user)),
           Center(child: AssessmentList(user: widget.user)),
         ],

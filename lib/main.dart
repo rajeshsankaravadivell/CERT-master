@@ -3,12 +3,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pert/landing_page.dart';
+import 'package:pert/controllers/user_controller.dart';
 import 'package:pert/splashscreen.dart';
-import 'package:pert/widgets/carouseltile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'controllers/auth_controller.dart';
-import 'login.dart';
 
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -32,11 +30,12 @@ Future<void> main() async {
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   Get.put(AuthController());
+  var preferences = await prefs;
+  Get.put(PreferencesController(preferences));
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
   ]);
-
   runApp(const MyApp());
 }
 

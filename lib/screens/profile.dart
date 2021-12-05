@@ -32,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _Size = MediaQuery.of(context).size;
+    // final _Size = MediaQuery.of(context).size;
     return Scaffold(
       // appBar: AppBar(title: Text('Profile'),
       // centerTitle: true,),

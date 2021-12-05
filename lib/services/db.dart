@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pert/models/admin.dart';
-import 'package:pert/models/user.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 CollectionReference<Map<String, dynamic>> users = firestore.collection('Users');
@@ -38,4 +36,14 @@ Future<QuerySnapshot<Map<String, dynamic>>> getUsers(DocumentSnapshot? userSnaps
   } else {
     return await users.orderBy("id").limit(5).get();
   }
+}
+
+
+
+Future<List<String>> getDepartments() async{
+  return firestore.collection('dashboard').doc('department').get().then((value){
+    if(value.exists) {
+      return value.data()!.keys.map((e) => e.toString()).toList();
+    } else return [];
+  });
 }

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pert/constants/colors.dart';
 import 'package:pert/constants/constants.dart';
 import 'package:pert/landing_page.dart';
-import 'package:pert/screens/home.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);

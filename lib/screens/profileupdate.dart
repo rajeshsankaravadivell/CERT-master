@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:pert/constants/constants.dart';
 
 import 'package:pert/models/profile_model.dart';
 import 'package:pert/models/usermodel.dart';
@@ -21,12 +22,12 @@ class ProfileUpdate extends StatefulWidget {
 }
 
 class _ProfileUpdateState extends State<ProfileUpdate> {
-  String? _phone;
+  // String? _phone;
 
   int? age;
   int? postalcode;
   String dropdownValue = 'Computer Science';
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController idcontroller = TextEditingController();
   final TextEditingController groupidcontroller = TextEditingController();
@@ -274,8 +275,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                           fillColor: Colors.white,
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
-                        items: <String>['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Information Technology']
-                              .map<DropdownMenuItem<String>>((String value) {
+                        items: departmentsController.departments.map<DropdownMenuItem<String>>((String value) {
              return DropdownMenuItem<String>(
              alignment: Alignment.center,
              value: value,
@@ -327,7 +327,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                               textInputType: TextInputType.phone,
                               maxlength: 12,
                               onsaved: (String? val) {
-                                _phone = val;
+                                // _phone = val;
                               },
                               validator: validateMobile,
                               maxline: 1,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:pert/models/UserModel.dart';
 // import 'package:pert/screens/quarantinedetails.dart';
 class CustomTile extends StatelessWidget {
   const CustomTile({

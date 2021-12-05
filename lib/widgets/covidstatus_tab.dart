@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pert/constants/colors.dart';
-import 'package:pert/constants/constants.dart';
 import 'package:pert/models/usermodel.dart';
 
 class CovidStatusTab extends StatefulWidget {

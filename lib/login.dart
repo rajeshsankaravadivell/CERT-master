@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:pert/constants/colors.dart';
+import 'package:pert/controllers/user_controller.dart';
 
 import 'package:pert/screens/signup.dart';
+import 'package:pert/services/db.dart';
 
 import 'constants/constants.dart';
 import 'landing_page.dart';
@@ -87,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 InkWell(
                   onTap: () async {
+                    var departments = getDepartments();
                     await authController.auth.signInWithEmailAndPassword(email: name.text, password: password.text).then((value){
                       if(value!=null){
                         if(value.startsWith("uid")){
@@ -164,7 +167,9 @@ class _LoginPageState extends State<LoginPage> {
                                 height: 25.0,
                               ),
                               InkWell(
-                                onTap: () {
+                                onTap: () async {
+                                  var departments = await getDepartments();
+                                  Get.put(DepartmentController(departments));
                                   authController.auth.resetPassword(email: controller.text);
                                   Navigator.of(context).pop();
                                   showDialog(
